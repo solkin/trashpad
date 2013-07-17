@@ -12,7 +12,7 @@
 	$sql = "INSERT INTO threads (name, feedback, geo, ip, thread_id, message)
 		VALUES ('$name', '$feedback', '$geo', '$ip', '$thread_id', '$message')";
 		
-	mysqli_query($link, $sql) or die('Couldn\'t insert row.' . mysql_error());
+	mysqli_query($link, $sql) or die('Couldn\'t insert row.' . mysqli_error($link));
 
 	mysqli_close($link);
 	
