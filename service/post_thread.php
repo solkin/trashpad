@@ -7,7 +7,7 @@
 	$geo = $_POST['geo'];
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$message = $_POST['message'];
-	$thread_id = generateRandomString();
+	$thread_id = generate_random_string();
 	
 	$sql = "INSERT INTO threads (name, feedback, geo, ip, thread_id, message)
 		VALUES ('$name', '$feedback', '$geo', '$ip', '$thread_id', '$message')";
