@@ -1,6 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
-  <body>
+	<head>
+		<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+	</head>
+	<body>
 	<?php
 		include_once './service/connect_db.php';
 		include_once './service/utils.php';
@@ -25,38 +28,38 @@
 			$geo = $thread['geo'];
 			$thread_id = $thread['thread_id'];
 			$message = $thread['message'];
-			$reply_list = $thread['reply'];
+			$reply_list = array_reverse($thread['reply']);
 			echo '<tr>';
 			echo '	<td>';
 			echo $message;
 			echo '	</td>';
 			echo '</tr>';
-			if(sizeof($reply_list) > 0) {
 				echo '<tr>';
 				echo '	<td>';
-				foreach($reply_list as $reply) {
 					echo '<table width="100%" border="0" cellspacing="0" cellpadding="4">';
 					echo '<tr>';
 					echo '	<td width="5%">';
 					echo '	</td>';
-					echo '	<td  width="95%">';
-					echo $reply['message'];
+					echo '	<td width="95%">';
+					echo '		<form action="./service/post_reply.php" method="post">';
+					echo '			<input size=30 type="hidden" name="thread_id" value="'.$thread_id.'"/>';
+					echo '			<textarea rows=1 name="message" style="width:100%;"></textarea><br/>';
+					echo '			<input type="submit" value="Reply"/>';
+					echo '		</form>';
 					echo '	</td>';
 					echo '</tr>';
+					foreach($reply_list as $reply) {
+						echo '<tr>';
+						echo '	<td width="5%">';
+						echo '	</td>';
+						echo '	<td width="95%">';
+						echo $reply['message'];
+						echo '	</td>';
+						echo '</tr>';
+					}
 					echo "</table>";
-				}
 				echo '</tr>';
 				echo '<tr>';
-			}
-			echo '<tr>';
-			echo '	<td>';
-			echo '		<form action="./service/post_reply.php" method="post">';
-			echo '			<input size=30 type="hidden" name="thread_id" value="'.$thread_id.'"/>';
-			echo '			<textarea rows=2 name="message" style="width:100%;"></textarea><br/>';
-			echo '			<input type="submit" value="Reply"/>';
-			echo '		</form>';
-			echo '	</td>';
-			echo '</tr>';
 		}
 		echo "</table>";
 	?>
