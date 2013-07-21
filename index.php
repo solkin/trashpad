@@ -1,7 +1,22 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
 	<head>
-		<link href="./css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<meta charset="utf-8">
+		<title>hlamogram</title>
+		<link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+		<link href="./bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+		<style type="text/css">
+		  body {
+			padding-top: 20px;
+			padding-bottom: 40px;
+		  }
+
+		  /* Custom container */
+		  .container-narrow {
+			margin: 0 auto;
+			max-width: 1000px;
+		  }
+      </style>
 	</head>
 	<body>
 	<?php
@@ -20,8 +35,9 @@
 		// Obtain required threads.
 		$threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
 		
+		echo '<div class="container-narrow">';
+		
 		// Page generation.
-		echo '<table width="100%"  border="0" cellspacing="0" cellpadding="4">';
 		foreach($threads_list as $thread) {
 			$name = $thread['name'];
 			$feedback = $thread['feedback'];
@@ -29,39 +45,34 @@
 			$thread_id = $thread['thread_id'];
 			$message = $thread['message'];
 			$reply_list = array_reverse($thread['reply']);
-			echo '<tr>';
-			echo '	<td>';
-			echo $message;
-			echo '	</td>';
-			echo '</tr>';
-				echo '<tr>';
-				echo '	<td>';
-					echo '<table width="100%" border="0" cellspacing="0" cellpadding="4">';
-					echo '<tr>';
-					echo '	<td width="5%">';
-					echo '	</td>';
-					echo '	<td width="95%">';
-					echo '		<form action="./service/post_reply.php" method="post">';
-					echo '			<input size=30 type="hidden" name="thread_id" value="'.$thread_id.'"/>';
-					echo '			<textarea rows=1 name="message" style="width:100%;"></textarea><br/>';
-					echo '			<input type="submit" value="Reply"/>';
-					echo '		</form>';
-					echo '	</td>';
-					echo '</tr>';
-					foreach($reply_list as $reply) {
-						echo '<tr>';
-						echo '	<td width="5%">';
-						echo '	</td>';
-						echo '	<td width="95%">';
-						echo $reply['message'];
-						echo '	</td>';
-						echo '</tr>';
-					}
-					echo "</table>";
-				echo '</tr>';
-				echo '<tr>';
+			echo '<div class="row">';
+			echo '	<div class="span8">';
+			echo '	<p>'.$message.'</p>';
+			echo '	<div class="row">';
+			echo '		<div class="span7 offset1">';
+			echo '			<form class="form-inline" action="./service/post_reply.php" method="post">';
+			echo '				<input type="hidden" name="thread_id" value="'.$thread_id.'">';
+			echo '				<input type="text" name="message" placeholder="Your reply here">';
+			echo '				<button type="submit" class="btn">Reply</button>';
+			echo '			</form>';
+			echo '		</div>';
+			echo '	</div>';
+			foreach($reply_list as $reply) {
+				echo '<div class="row">';
+				echo '	<div class="span7 offset1">';
+				echo '	<p>'.$reply['message'].'</p>';
+				echo '	</div>';
+				echo '</div>';
+			}
+			echo '	</div>';
+			echo '</div>';
 		}
-		echo "</table>";
+		echo '<hr class="soften">';
+		echo '<div class="footer">';
+		echo '<p>&copy; TomClaw Software 2013</p>';
+		echo '</div>';
+      
+		echo '</div>';
 	?>
   </body>
 </html>
