@@ -41,8 +41,8 @@
 			<div class="container" style="width: auto; padding: 0 20px;">
 			  <a class="brand" href="#">hlamogram</a>
 			  <ul class="nav">
-				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#">About</a></li>
+				<li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+				<li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
 				<li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
 			  </ul>
 			</div>
@@ -148,7 +148,7 @@
 				echo '	<p></p>';
 				foreach($reply_list as $reply) {
 					echo '<div class="row">';
-					echo '	<div class="span7 offset1">';
+					echo '	<div class="span6 offset1">';
 					echo '	<p><i class="icon-comment"></i> '.$reply['message'].'</p>';
 					echo '	</div>';
 					echo '</div>';
