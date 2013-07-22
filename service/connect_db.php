@@ -25,18 +25,20 @@
 			name TEXT,
 			feedback TEXT,
 			ip TEXT,
+			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default '',
-			spam_count INT
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+			karma INT
+			)";
 		mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
 
 		$sql = "CREATE TABLE IF NOT EXISTS reply (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			ip TEXT,
+			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default ''
-			) ENGINE=MyISAM DEFAULT CHARSET=utf8";
+			)";
 		mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
 		
 		echo "Init completed.";

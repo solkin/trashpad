@@ -10,11 +10,27 @@
 				padding-top: 60px;
 				padding-bottom: 40px;
 			}
+			
+			form {
+				margin-bottom: 0px;
+			}
 
 			/* Custom container */
 			.container-narrow {
 				margin: 0 auto;
 				max-width: 1000px;
+			}
+			
+			.author-info {
+			  position: relative;
+			  margin: 14px 0;
+			  padding: 10px 15px 5px;
+			  *padding-top: 10px;
+			  background-color: #fff;
+			  border: 1px solid #ddd;
+			  -webkit-border-radius: 4px;
+				 -moz-border-radius: 4px;
+					  border-radius: 4px;
 			}
 		</style>
 	</head>
@@ -32,25 +48,31 @@
 			</div>
 		  </div>
 		</div>
-		 
+		
 		<!-- Modal -->
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 		  <div class="modal-header">
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel">Post thread</h3>
 		  </div>
-		  <form action="./service/post_thread.php" method="post" class="form-horizontal">
+		    <form action="./service/post_thread.php" method="post" class="form-horizontal">
 			  <div class="modal-body">
 					<div class="control-group">
 						<label class="control-label" for="inputName">Name</label>
 						<div class="controls">
-							<input type="text" id="inputName" name="name" placeholder="Name">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-user"></i></span>
+								<input type="text" id="inputName" name="name" placeholder="Name">
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputFeedback">Feedback</label>
 						<div class="controls">
-							<input type="text" id="inputFeedback" name="feedback" placeholder="Feedback">
+							<div class="input-prepend">
+								<span class="add-on"><i class="icon-envelope"></i></span>
+								<input type="text" id="inputFeedback" name="feedback" placeholder="Feedback">
+							</div>
 						</div>
 					</div>
 					<div class="control-group">
@@ -89,27 +111,35 @@
 			// Page generation.
 			foreach($threads_list as $thread) {
 				$name = $thread['name'];
+				$ip = $thread['ip'];
+				$user_agent = $thread['user_agent'];
 				$feedback = $thread['feedback'];
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
 				$reply_list = array_reverse($thread['reply']);
 				echo '<div class="row">';
-				echo '	<div class="span8">';
-				echo '	<p><button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button> '.$message.'</p>';
+				echo '	<div class="span8 offset1">';
+				echo '  <p>';
+				echo '	<br>';
 				if(!empty($name) || !empty($feedback)) {
-					echo '	<address>';
 					if(!empty($name)) { 
 						echo '		<strong><i class="icon-user"></i> '.$name.'</strong><br>';
 					}
 					if(!empty($feedback)) {
-						echo '		<a href="mailto:'.$feedback.'"><i class="icon-envelope"></i> '.$feedback.'</a>';
+						echo '		<a href="mailto:'.$feedback.'"><i class="icon-envelope"></i> '.$feedback.'</a><br>';
 					}
-					echo '	</address>';
 				}
+				echo '		<i class="icon-globe"></i> '.$user_agent;
+				echo '	<div class="btn-group">';
+				echo '		<button class="btn btn-mini btn-success" type="button"><i class="icon-heart icon-white"></i></button> ';
+				echo '		<button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button>';
+				echo '	</div> ';
+				echo $message;
+				echo '</p>';
 				echo '	<div class="row">';
 				echo '		<form class="form-inline" action="./service/post_reply.php" method="post">';
 				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
-				echo '			<div class="span4 offset1 input-append">';
+				echo '			<div class="span5 offset1 input-append">';
 				echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
 				echo '				<button type="submit" class="btn btn-primary">Reply</button>';
 				echo '			</div>';
