@@ -117,6 +117,7 @@
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
 				$reply_list = array_reverse($thread['reply']);
+				echo '<div id="msgs">';
 				echo '<div class="row">';
 				echo '	<div class="span8 offset1">';
 				echo '  <p>';
@@ -130,10 +131,7 @@
 					}
 				}
 				echo '		<i class="icon-globe"></i> '.$user_agent;
-				echo '	<div class="btn-group">';
-				echo '		<button class="btn btn-mini btn-success" type="button"><i class="icon-heart icon-white"></i></button> ';
-				echo '		<button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button>';
-				echo '	</div> ';
+				echo '	<br /> ';
 				echo $message;
 				echo '</p>';
 				echo '	<div class="row">';
@@ -155,6 +153,7 @@
 				}
 				echo '	</div>';
 				echo '</div>';
+				echo '</div>'; // #msgs
 			}
 			
 			echo '<ul class="pager">';
@@ -177,5 +176,25 @@
 		<script src="./bootstrap/js/jquery.js"></script>
 		<script src="./bootstrap/js/bootstrap-modal.js"></script>	
 		<script src="./bootstrap/js/bootstrap-transition.js"></script>	
+
+		<script>
+			function loadNewThread()
+			{
+				$.getJSON('_trash/test-ajax.php', function(data) {
+					$('#msgs').append('<div class="row" id="last" style="display:none;"><div class="span8 offset1"><p><br><strong><i class="icon-user"></i> '+data['name']+'</strong><br><a href="mailto:'+data['feedback']+'"><i class="icon-envelope"></i> '+data['feedback']+'</a><br><i class="icon-globe"></i> '+data['user_agent']+'<br />'+data['text']+'</p><div class="row"><form class="form-inline" action="./service/post_reply.php" method="post"><input type="hidden" name="thread_id" value="HALLOWED ME BY NAME"><div class="span5 offset1 input-append"><input class="input-block-level" type="text" name="message" placeholder="Your reply here"><button type="submit" class="btn btn-primary">Reply</button></div></form></div><p></p></div></div>');
+				});
+				setTimeout(displayNewThread,100);
+			}
+
+			function displayNewThread()
+			{
+				$('#last').show('slow', function(){
+					$('#last')[0].id = '';
+					setTimeout(loadNewThread, 5000);
+				});
+			}
+
+			loadNewThread();
+		</script>
 	</body>
 </html>
