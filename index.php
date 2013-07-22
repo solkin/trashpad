@@ -26,8 +26,8 @@
 			  <a class="brand" href="#">hlamogram</a>
 			  <ul class="nav">
 				<li class="active"><a href="#">Home</a></li>
-				<li><a href="#myModal" data-toggle="modal">Post</a></li>
 				<li><a href="#">About</a></li>
+				<li><a href="#myModal" data-toggle="modal"><i class="icon-comment icon-white"></i> Post</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -95,16 +95,17 @@
 				$reply_list = array_reverse($thread['reply']);
 				echo '<div class="row">';
 				echo '	<div class="span8">';
-				echo '	<p>'.$message.'</p>';
+				echo '	<p><button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button> '.$message.'</p>';
 				echo '	<div class="row">';
-				echo '		<div class="span7 offset1">';
-				echo '			<form class="form-inline" action="./service/post_reply.php" method="post">';
-				echo '				<input type="hidden" name="thread_id" value="'.$thread_id.'">';
-				echo '				<input type="text" name="message" placeholder="Your reply here">';
-				echo '				<button type="submit" class="btn">Reply</button>';
-				echo '			</form>';
-				echo '		</div>';
+				echo '		<form class="form-inline" action="./service/post_reply.php" method="post">';
+				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
+				echo '			<div class="span4 offset1 input-append">';
+				echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
+				echo '				<button type="submit" class="btn btn-primary">Reply</button>';
+				echo '			</div>';
+				echo '		</form>';
 				echo '	</div>';
+				echo '	<p></p>';
 				foreach($reply_list as $reply) {
 					echo '<div class="row">';
 					echo '	<div class="span7 offset1">';
