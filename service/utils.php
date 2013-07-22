@@ -8,14 +8,14 @@
 		}
 		
 		$threads_count = 0;
-		$threads = [];
+		$threads = array();
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		  if($include_reply) {
 			  $sql = "SELECT * FROM reply WHERE thread_id='" . $row['thread_id'] . "'";
 			  $reply_result = mysqli_query($link, $sql);
 			  
 			  $count = 0;
-			  $reply = [];
+			  $reply = array();
 			  while ($reply_row = mysqli_fetch_array($reply_result, MYSQLI_ASSOC)) {
 				$reply[$count++] = $reply_row;
 			  }
