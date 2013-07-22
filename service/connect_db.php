@@ -24,10 +24,10 @@
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			name TEXT,
 			feedback TEXT,
-			geo TEXT,
 			ip TEXT,
 			thread_id TEXT NOT NULL default '',
-			message TEXT NOT NULL default ''
+			message TEXT NOT NULL default '',
+			spam_count INT
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 		mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
 

@@ -27,7 +27,7 @@
 			  <ul class="nav">
 				<li class="active"><a href="#">Home</a></li>
 				<li><a href="#">About</a></li>
-				<li><a href="#myModal" data-toggle="modal"><i class="icon-comment icon-white"></i> Post</a></li>
+				<li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
 			  </ul>
 			</div>
 		  </div>
@@ -74,14 +74,18 @@
 			
 			// Thread to show calculation.
 			$page_id = $_GET['page_id'];
+			$pages_total = ceil(get_threads_count($link) / $threads_per_page);
 			
 			if($page_id == 0) {
 				$page_id = 1;
-			}
+			} 
 			$thread_from = ($page_id - 1) * $threads_per_page;
 			
+			
+			echo $page_id.'/'.$pages_total;
+			
 			// Obtain required threads.
-			$threads_list = array_reverse(get_thread_list($link, true, $threads_per_page, $thread_from));
+			$threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
 			
 			echo '<div class="container-narrow">';
 			
@@ -89,13 +93,22 @@
 			foreach($threads_list as $thread) {
 				$name = $thread['name'];
 				$feedback = $thread['feedback'];
-				$geo = $thread['geo'];
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
 				$reply_list = array_reverse($thread['reply']);
 				echo '<div class="row">';
 				echo '	<div class="span8">';
 				echo '	<p><button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button> '.$message.'</p>';
+				if(!empty($name) || !empty($feedback)) {
+					echo '	<address>';
+					if(!empty($name)) { 
+						echo '		<strong><i class="icon-user"></i> '.$name.'</strong><br>';
+					}
+					if(!empty($feedback)) {
+						echo '		<a href="mailto:'.$feedback.'"><i class="icon-envelope"></i> '.$feedback.'</a>';
+					}
+					echo '	</address>';
+				}
 				echo '	<div class="row">';
 				echo '		<form class="form-inline" action="./service/post_reply.php" method="post">';
 				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
@@ -109,13 +122,23 @@
 				foreach($reply_list as $reply) {
 					echo '<div class="row">';
 					echo '	<div class="span7 offset1">';
-					echo '	<p>'.$reply['message'].'</p>';
+					echo '	<p><i class="icon-comment"></i> '.$reply['message'].'</p>';
 					echo '	</div>';
 					echo '</div>';
 				}
 				echo '	</div>';
 				echo '</div>';
 			}
+			
+			echo '<ul class="pager">';
+			echo '<li class="previous'.(($page_id <= 1) ? " disabled" : " ").'">';
+			echo '<a'.(($page_id <= 1) ? "" : (' href="?page_id='.($page_id - 1).'"')).'>&larr; Newer</a>';
+			echo '</li>';
+			echo '<li class="next'.(($page_id >= $pages_total) ? " disabled" : " ").'">';
+			echo '<a'.(($page_id >= $pages_total) ? "" : (' href="?page_id='.($page_id + 1).'"')).'>Older &rarr;</a>';
+			echo '</li>';
+			echo '</ul>';
+			
 			echo '<hr class="soften">';
 			echo '<div class="footer">';
 			echo '<p>&copy; TomClaw Software 2013</p>';

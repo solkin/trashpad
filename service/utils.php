@@ -1,6 +1,6 @@
 <?php
 	function get_thread_list($link, $include_reply, $threads_count = 0, $thread_from = 0) {
-		$limit = $threads_count > 0 ? " LIMIT " . $thread_from . ", " . $threads_count : "";
+		$limit = $threads_count > 0 ? " ORDER BY id DESC LIMIT " . $thread_from . ", " . $threads_count : "";
 		$sql = "SELECT * FROM threads" . $limit;
 		$result = mysqli_query($link, $sql);
 		if (!$result) {
@@ -28,6 +28,21 @@
 		mysqli_free_result($result);
 		
 		return $threads;
+	}
+	
+	function get_threads_count($link) {
+		$sql = "SELECT * FROM threads";
+		$result = mysqli_query($link, $sql);
+		
+		if (!$result) {
+			die('Incorrect query: ' . mysqli_error($link));
+		}
+		
+		$rows_count = mysqli_affected_rows($link);
+		
+		mysqli_free_result($result);
+		
+		return $rows_count;
 	}
 
 	function generate_random_string($length = 24) {

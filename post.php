@@ -7,7 +7,6 @@
 				<form action="./service/post_thread.php" method="post">
 				  Name: <br/><input size=30 type="text" name="name"/><br/>
 				  Feedback: <br/><input size=30 type="text" name="feedback"/><br/>
-				  Geo: <br/><input size=30 type="text" name="geo"/><br/>
 				  Message: <br/><textarea rows=3 cols=24 name="message"></textarea><br/>
 				  <input type="submit" value="Send"/>
 				</form>
