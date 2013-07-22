@@ -8,6 +8,18 @@
 	}
 
 	if($init) {
+		echo "Init mode. ";
+		
+		$sql = "DROP TABLE threads";
+		if(!mysqli_query($link, $sql)){
+			echo "Coudn\'t drop table " . mysqli_error($link);
+		}
+		
+		$sql = "DROP TABLE reply";
+		if(!mysqli_query($link, $sql)){
+			echo "Coudn\'t drop table " . mysqli_error($link);
+		}
+		
 		$sql = "CREATE TABLE IF NOT EXISTS threads (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			name TEXT,
@@ -17,7 +29,7 @@
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default ''
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8";
-			mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
+		mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
 
 		$sql = "CREATE TABLE IF NOT EXISTS reply (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
@@ -26,5 +38,7 @@
 			message TEXT NOT NULL default ''
 			) ENGINE=MyISAM DEFAULT CHARSET=utf8";
 		mysqli_query($link, $sql) or die('Couldn\'t create table.' . mysqli_error($link));
+		
+		echo "Init completed.";
 	}
 ?>
