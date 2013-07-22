@@ -180,8 +180,15 @@
 		<script>
 			function loadNewThread()
 			{
-				$.getJSON('_trash/test-ajax.php', function(data) {
-					$('#msgs').append('<div class="row" id="last" style="display:none;"><div class="span8 offset1"><p><br><strong><i class="icon-user"></i> '+data['name']+'</strong><br><a href="mailto:'+data['feedback']+'"><i class="icon-envelope"></i> '+data['feedback']+'</a><br><i class="icon-globe"></i> '+data['user_agent']+'<br />'+data['text']+'</p><div class="row"><form class="form-inline" action="./service/post_reply.php" method="post"><input type="hidden" name="thread_id" value="HALLOWED ME BY NAME"><div class="span5 offset1 input-append"><input class="input-block-level" type="text" name="message" placeholder="Your reply here"><button type="submit" class="btn btn-primary">Reply</button></div></form></div><p></p></div></div>');
+				$.ajax({
+					dataType: "json",
+					url: '_trash/test-ajax.php',
+					success: function(data) {
+						$('#msgs').append('<div class="row" id="last" style="display:none;"><div class="span8 offset1"><p><br><strong><i class="icon-user"></i> '+data['name']+'</strong><br><a href="mailto:'+data['feedback']+'"><i class="icon-envelope"></i> '+data['feedback']+'</a><br><i class="icon-globe"></i> '+data['user_agent']+'<br>'+data['text']+'</p><div class="row"><form class="form-inline" action="./service/post_reply.php" method="post"><input type="hidden" name="thread_id" value="HALLOWED ME BY NAME"><div class="span5 offset1 input-append"><input class="input-block-level" type="text" name="message" placeholder="Your reply here"><button type="submit" class="btn btn-primary">Reply</button></div></form></div><p></p></div></div>');
+					},
+					error: function(){
+						setTimeout(loadNewThread, 5000);
+					}
 				});
 				setTimeout(displayNewThread,100);
 			}
