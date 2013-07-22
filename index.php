@@ -81,9 +81,6 @@
 			} 
 			$thread_from = ($page_id - 1) * $threads_per_page;
 			
-			
-			echo $page_id.'/'.$pages_total;
-			
 			// Obtain required threads.
 			$threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
 			
