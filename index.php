@@ -108,6 +108,7 @@
 			
 			echo '<div class="container-narrow">';
 			
+			$threads_iterator = 0;
 			// Page generation.
 			foreach($threads_list as $thread) {
 				$name = $thread['name'];
@@ -117,6 +118,8 @@
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
 				$reply_list = array_reverse($thread['reply']);
+				
+				$threads_array[$threads_iterator++] = $thread_id;
 				echo '<div class="row">';
 				echo '	<div class="span8 offset1">';
 				echo '  <p>';
@@ -137,7 +140,7 @@
 				echo $message;
 				echo '</p>';
 				echo '	<div class="row">';
-				echo '		<form class="form-inline" action="./service/post_reply.php" method="post">';
+				echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message); return false;" method="post">';
 				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
 				echo '			<div class="span5 offset1 input-append">';
 				echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
@@ -146,13 +149,15 @@
 				echo '		</form>';
 				echo '	</div>';
 				echo '	<p></p>';
+				echo '	<div id="'.$thread_id.'">';
 				foreach($reply_list as $reply) {
-					echo '<div class="row">';
+					echo '<div class="row" id="'.$thread_id.'_'.$reply['id'].'">';
 					echo '	<div class="span6 offset1">';
 					echo '	<p><i class="icon-comment"></i> '.$reply['message'].'</p>';
 					echo '	</div>';
 					echo '</div>';
 				}
+				echo '	</div>';
 				echo '	</div>';
 				echo '</div>';
 			}
@@ -175,7 +180,81 @@
 		?>
 		
 		<script src="./bootstrap/js/jquery.js"></script>
-		<script src="./bootstrap/js/bootstrap-modal.js"></script>	
-		<script src="./bootstrap/js/bootstrap-transition.js"></script>	
+		<script src="./bootstrap/js/bootstrap-modal.js"></script>
+		<script src="./bootstrap/js/bootstrap-transition.js"></script>
+		<script>
+			function post_reply(thread_id, message) {
+				// alert(thread_id.value + "\n" + message.value);
+				if(message.value) {
+					$.ajax( {
+						type: 'POST',
+						dataType: "json",
+						url: './service/post_reply.php',
+						data: {'thread_id': thread_id.value, "message": message.value},
+						success: function(data) {
+							message.value = "";
+							setTimeout(load_reply(true), 100);
+						},
+						error: function(data) {
+							alert('Error in AJAX!' + data);
+						}
+					});
+				}
+			}
+			
+			function load_reply(one_time) {
+				var fetch_array = {};
+				var threads_array = <?
+					echo json_encode($threads_array);
+				?>;
+				threads_array.forEach(function(element, index, array) {
+					var thread_div = document.getElementById(element);
+					var reply_id = -1;
+					if(typeof thread_div.childNodes[0].getAttribute == 'function') {
+						var reply_id = thread_div.childNodes[0].getAttribute('id');
+						if(reply_id != null) {
+							reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
+						}
+					}
+					fetch_array[element] = reply_id;
+				});
+				console.log(JSON.stringify(fetch_array));
+				$.ajax( {
+					type: 'POST',
+					dataType: "json",
+					url: './service/fetch_reply.php',
+					data: {'threads': JSON.stringify(fetch_array)},
+					success: function(data) {
+						var reply_array = data['reply_array'];
+						for(var i=0; i<reply_array.length; i++) {
+							reply = reply_array[i];
+							var reply_id = reply['thread_id'] + '_' + reply['id'];
+							console.log(reply_id);
+							$('#' + reply['thread_id']).prepend (
+								'<div class="row" id="' + reply_id + '" style="display:none;">'+
+								'	<div class="span6 offset1">'+
+								'	<p><i class="icon-comment"></i> '+reply['message']+'</p>'+
+								'	</div>'+
+								'</div>'
+							);
+							setTimeout(display_reply(reply_id),100);
+						}
+						if(!one_time) {
+							setTimeout(load_reply, 5000);
+						}
+					},
+					error: function(data) {
+						console.log(data);
+						alert('Error in AJAX!');
+					}
+				});
+			}
+
+			function display_reply(reply_id) {
+				$('#' + reply_id).show('fast', function() {});
+			}
+
+			// load_reply();
+		</script>
 	</body>
 </html>
