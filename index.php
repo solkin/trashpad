@@ -108,6 +108,7 @@
 			
 			echo '<div class="container-narrow">';
 			
+			$threads_iterator = 0;
 			// Page generation.
 			foreach($threads_list as $thread) {
 				$name = $thread['name'];
@@ -117,7 +118,8 @@
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
 				$reply_list = array_reverse($thread['reply']);
-				echo '<div id="msgs">';
+				
+				$threads_array[$threads_iterator++] = $thread_id;
 				echo '<div class="row">';
 				echo '	<div class="span8 offset1">';
 				echo '  <p>';
@@ -131,11 +133,14 @@
 					}
 				}
 				echo '		<i class="icon-globe"></i> '.$user_agent;
-				echo '	<br /> ';
+				echo '	<div class="btn-group">';
+				echo '		<button class="btn btn-mini btn-success" type="button"><i class="icon-heart icon-white"></i></button> ';
+				echo '		<button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button>';
+				echo '	</div> ';
 				echo $message;
 				echo '</p>';
 				echo '	<div class="row">';
-				echo '		<form class="form-inline" action="./service/post_reply.php" method="post">';
+				echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message); return false;" method="post">';
 				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
 				echo '			<div class="span5 offset1 input-append">';
 				echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
@@ -144,16 +149,17 @@
 				echo '		</form>';
 				echo '	</div>';
 				echo '	<p></p>';
+				echo '	<div id="'.$thread_id.'">';
 				foreach($reply_list as $reply) {
-					echo '<div class="row">';
+					echo '<div class="row" id="'.$thread_id.'_'.$reply['id'].'">';
 					echo '	<div class="span6 offset1">';
 					echo '	<p><i class="icon-comment"></i> '.$reply['message'].'</p>';
 					echo '	</div>';
 					echo '</div>';
 				}
 				echo '	</div>';
+				echo '	</div>';
 				echo '</div>';
-				echo '</div>'; // #msgs
 			}
 			
 			echo '<ul class="pager">';
@@ -174,34 +180,81 @@
 		?>
 		
 		<script src="./bootstrap/js/jquery.js"></script>
-		<script src="./bootstrap/js/bootstrap-modal.js"></script>	
-		<script src="./bootstrap/js/bootstrap-transition.js"></script>	
-
+		<script src="./bootstrap/js/bootstrap-modal.js"></script>
+		<script src="./bootstrap/js/bootstrap-transition.js"></script>
 		<script>
-			function loadNewThread()
-			{
-				$.ajax({
+			function post_reply(thread_id, message) {
+				// alert(thread_id.value + "\n" + message.value);
+				if(message.value) {
+					$.ajax( {
+						type: 'POST',
+						dataType: "json",
+						url: './service/post_reply.php',
+						data: {'thread_id': thread_id.value, "message": message.value},
+						success: function(data) {
+							message.value = "";
+							setTimeout(load_reply(true), 100);
+						},
+						error: function(data) {
+							alert('Error in AJAX!' + data);
+						}
+					});
+				}
+			}
+			
+			function load_reply(one_time) {
+				var fetch_array = {};
+				var threads_array = <?
+					echo json_encode($threads_array);
+				?>;
+				threads_array.forEach(function(element, index, array) {
+					var thread_div = document.getElementById(element);
+					var reply_id = -1;
+					if(typeof thread_div.childNodes[0].getAttribute == 'function') {
+						var reply_id = thread_div.childNodes[0].getAttribute('id');
+						if(reply_id != null) {
+							reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
+						}
+					}
+					fetch_array[element] = reply_id;
+				});
+				console.log(JSON.stringify(fetch_array));
+				$.ajax( {
+					type: 'POST',
 					dataType: "json",
-					url: '_trash/test-ajax.php',
+					url: './service/fetch_reply.php',
+					data: {'threads': JSON.stringify(fetch_array)},
 					success: function(data) {
-						$('#msgs').append('<div class="row" id="last" style="display:none;"><div class="span8 offset1"><p><br><strong><i class="icon-user"></i> '+data['name']+'</strong><br><a href="mailto:'+data['feedback']+'"><i class="icon-envelope"></i> '+data['feedback']+'</a><br><i class="icon-globe"></i> '+data['user_agent']+'<br>'+data['text']+'</p><div class="row"><form class="form-inline" action="./service/post_reply.php" method="post"><input type="hidden" name="thread_id" value="HALLOWED ME BY NAME"><div class="span5 offset1 input-append"><input class="input-block-level" type="text" name="message" placeholder="Your reply here"><button type="submit" class="btn btn-primary">Reply</button></div></form></div><p></p></div></div>');
+						var reply_array = data['reply_array'];
+						for(var i=0; i<reply_array.length; i++) {
+							reply = reply_array[i];
+							var reply_id = reply['thread_id'] + '_' + reply['id'];
+							console.log(reply_id);
+							$('#' + reply['thread_id']).prepend (
+								'<div class="row" id="' + reply_id + '" style="display:none;">'+
+								'	<div class="span6 offset1">'+
+								'	<p><i class="icon-comment"></i> '+reply['message']+'</p>'+
+								'	</div>'+
+								'</div>'
+							);
+							setTimeout(display_reply(reply_id),100);
+						}
+						if(!one_time) {
+							setTimeout(load_reply, 5000);
+						}
 					},
-					error: function(){
-						setTimeout(loadNewThread, 5000);
+					error: function(data) {
+						console.log(data);
+						alert('Error in AJAX!');
 					}
 				});
-				setTimeout(displayNewThread,100);
 			}
 
-			function displayNewThread()
-			{
-				$('#last').show('slow', function(){
-					$('#last')[0].id = '';
-					setTimeout(loadNewThread, 5000);
-				});
+			function display_reply(reply_id) {
+				$('#' + reply_id).show('fast', function() {});
 			}
 
-			loadNewThread();
+			load_reply();
 		</script>
 	</body>
 </html>

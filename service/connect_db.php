@@ -22,6 +22,7 @@
 		
 		$sql = "CREATE TABLE IF NOT EXISTS threads (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			time INT,
 			name TEXT,
 			feedback TEXT,
 			ip TEXT,
@@ -34,6 +35,7 @@
 
 		$sql = "CREATE TABLE IF NOT EXISTS reply (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			time INT,
 			ip TEXT,
 			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
