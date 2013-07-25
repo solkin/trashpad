@@ -242,7 +242,7 @@
 								'	</div>'+
 								'</div>'
 							);
-							setTimeout(display_reply(reply_id),100);
+							display_reply(reply_id);
 						}
 						if(!one_time) {
 							setTimeout(load_reply, 5000);
