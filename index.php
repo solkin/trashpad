@@ -245,14 +245,14 @@
 							display_reply(reply_id);
 						}
 						if(!one_time) {
-							setTimeout(load_reply, 5000);
+							setTimeout(load_reply(false), 5000);
 						}
 					},
 					error: function(data) {
 						console.log(data);
 						alert('Error in AJAX!');
 						if(!one_time) {
-							setTimeout(load_reply, 5000);
+							setTimeout(load_reply(false), 5000);
 						}
 					}
 				});
@@ -262,7 +262,7 @@
 				$('#' + reply_id).show('fast', function() {});
 			}
 
-			load_reply();
+			load_reply(false);
 		</script>
 	</body>
 </html>
