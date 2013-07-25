@@ -140,11 +140,11 @@
 				echo $message;
 				echo '</p>';
 				echo '	<div class="row">';
-				echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message); return false;" method="post">';
+				echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
 				echo '			<input type="hidden" name="thread_id" value="'.$thread_id.'">';
 				echo '			<div class="span5 offset1 input-append">';
 				echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
-				echo '				<button type="submit" class="btn btn-primary">Reply</button>';
+				echo '				<button type="submit" class="btn btn-primary" name="reply_button">Reply</button>';
 				echo '			</div>';
 				echo '		</form>';
 				echo '	</div>';
@@ -183,9 +183,10 @@
 		<script src="./bootstrap/js/bootstrap-modal.js"></script>
 		<script src="./bootstrap/js/bootstrap-transition.js"></script>
 		<script>
-			function post_reply(thread_id, message) {
-				// alert(thread_id.value + "\n" + message.value);
+			function post_reply(thread_id, message, reply_button) {
 				if(message.value) {
+					message.setAttribute('readOnly', true);
+					reply_button.setAttribute('disabled', true);
 					$.ajax( {
 						type: 'POST',
 						dataType: "json",
@@ -193,10 +194,14 @@
 						data: {'thread_id': thread_id.value, "message": message.value},
 						success: function(data) {
 							message.value = "";
-							setTimeout(load_reply(true), 100);
+							message.removeAttribute('readOnly');
+							reply_button.removeAttribute('disabled');
+							load_reply(true);
 						},
 						error: function(data) {
 							alert('Error in AJAX!' + data);
+							message.removeAttribute('readOnly');
+							reply_button.removeAttribute('disabled');
 						}
 					});
 				}
@@ -246,6 +251,9 @@
 					error: function(data) {
 						console.log(data);
 						alert('Error in AJAX!');
+						if(!one_time) {
+							setTimeout(load_reply, 5000);
+						}
 					}
 				});
 			}
