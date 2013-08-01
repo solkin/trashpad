@@ -55,8 +55,14 @@
 			<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
 			<h3 id="myModalLabel">Post thread</h3>
 		  </div>
-		    <form action="./service/post_thread.php" method="post" class="form-horizontal">
+		    <form onsubmit="post_thread(name, feedback, message, post_button, success_alert, error_alert); return false;" method="post" class="form-horizontal">
 			  <div class="modal-body">
+					<div class="alert alert-success hide" id="success_alert">
+					  <strong>Congratulations!</strong> New thread successfully posted!
+					</div>
+					<div class="alert alert-error hide" id="error_alert">
+					  <strong>Heads up!</strong> You must fill at least message field.
+					</div>
 					<div class="control-group">
 						<label class="control-label" for="inputName">Name</label>
 						<div class="controls">
@@ -84,7 +90,7 @@
 			  </div>
 			  <div class="modal-footer">
 				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-				<button class="btn btn-primary" type="submit">Post thread</button>
+				<button class="btn btn-primary" type="submit" name="post_button">Post thread</button>
 			  </div>
 		  </form>
 		</div>
@@ -183,6 +189,35 @@
 		<script src="./bootstrap/js/bootstrap-modal.js"></script>
 		<script src="./bootstrap/js/bootstrap-transition.js"></script>
 		<script>
+			function post_thread(name, feedback, message, post_button, success_alert, error_alert) {
+				error_alert.style.display = 'none';
+				success_alert.style.display = 'none';
+				if(message.value) {
+					name.setAttribute('readOnly', true);
+					feedback.setAttribute('readOnly', true);
+					message.setAttribute('readOnly', true);
+					post_button.setAttribute('disabled', true);
+					$.ajax( {
+						type: 'POST',
+						dataType: "json",
+						url: './service/post_thread.php',
+						data: {'name': name.value, 'feedback': feedback.value, 'message': message.value},
+						success: function(data) {
+							success_alert.style.display = 'block';
+							setTimeout("location.reload(true);",3000);
+						},
+						error: function(data) {
+							name.removeAttribute('readOnly');
+							feedback.removeAttribute('readOnly');
+							message.removeAttribute('readOnly');
+							post_button.removeAttribute('disabled');
+						}
+					});
+				} else {
+					error_alert.style.display = 'block';
+				}
+			}
+			
 			function post_reply(thread_id, message, reply_button) {
 				if(message.value) {
 					message.setAttribute('readOnly', true);
@@ -191,7 +226,7 @@
 						type: 'POST',
 						dataType: "json",
 						url: './service/post_reply.php',
-						data: {'thread_id': thread_id.value, "message": message.value},
+						data: {'thread_id': thread_id.value, 'message': message.value},
 						success: function(data) {
 							message.value = "";
 							message.removeAttribute('readOnly');
@@ -199,7 +234,6 @@
 							load_reply(true);
 						},
 						error: function(data) {
-							alert('Error in AJAX!' + data);
 							message.removeAttribute('readOnly');
 							reply_button.removeAttribute('disabled');
 						}
@@ -223,7 +257,6 @@
 					}
 					fetch_array[element] = reply_id;
 				});
-				console.log(JSON.stringify(fetch_array));
 				$.ajax( {
 					type: 'POST',
 					dataType: "json",
@@ -234,7 +267,6 @@
 						for(var i=0; i<reply_array.length; i++) {
 							reply = reply_array[i];
 							var reply_id = reply['thread_id'] + '_' + reply['id'];
-							console.log(reply_id);
 							$('#' + reply['thread_id']).prepend (
 								'<div class="row" id="' + reply_id + '" style="display:none;">'+
 								'	<div class="span6 offset1">'+
@@ -249,8 +281,6 @@
 						}
 					},
 					error: function(data) {
-						console.log(data);
-						alert('Error in AJAX!');
 						if(!one_time) {
 							setTimeout(load_reply(false), 5000);
 						}
