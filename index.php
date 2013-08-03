@@ -39,15 +39,22 @@
 		<div class="navbar navbar-fixed-top navbar-inverse" style="margin: -1px -1px 0;">
 		  <div class="navbar-inner">
 			<div class="container" style="width: auto; padding: 0 20px;">
-			  <a class="brand" href="#">hlamogram</a>
+			  <a class="brand" href="#">TrashPad</a>
 			  <ul class="nav">
 				<li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
 				<li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
 				<li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
 			  </ul>
+			  <form class="navbar-search pull-right form-search">
+				<div class="input-append">
+				  <input type="text" class="span2 search-query" placeholder="Search">
+				  <button type="submit" class="btn btn-inverse">Search</button>
+				</div>
+			  </form>
 			</div>
 		  </div>
 		</div>
+		
 		
 		<!-- Modal -->
 		<div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
