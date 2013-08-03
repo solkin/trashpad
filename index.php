@@ -157,7 +157,7 @@
 				echo '	<p></p>';
 				echo '	<div id="'.$thread_id.'">';
 				foreach($reply_list as $reply) {
-					echo '<div class="row" id="'.$thread_id.'_'.$reply['id'].'">';
+					echo '<div class="row" id="'.$thread_id.'_'.$reply['reply_id'].'">';
 					echo '	<div class="span6 offset1">';
 					echo '	<p><i class="icon-comment"></i> '.$reply['message'].'</p>';
 					echo '	</div>';
@@ -204,7 +204,7 @@
 						data: {'name': name.value, 'feedback': feedback.value, 'message': message.value},
 						success: function(data) {
 							success_alert.style.display = 'block';
-							setTimeout("location.reload(true);",3000);
+							setTimeout("location.reload(true);",2500);
 						},
 						error: function(data) {
 							name.removeAttribute('readOnly');
@@ -228,10 +228,10 @@
 						url: './service/post_reply.php',
 						data: {'thread_id': thread_id.value, 'message': message.value},
 						success: function(data) {
+							display_reply(prepare_reply(data['thread_id'], data['reply_id'], message.value));
 							message.value = "";
 							message.removeAttribute('readOnly');
 							reply_button.removeAttribute('disabled');
-							load_reply(true);
 						},
 						error: function(data) {
 							message.removeAttribute('readOnly');
@@ -248,7 +248,7 @@
 				?>;
 				threads_array.forEach(function(element, index, array) {
 					var thread_div = document.getElementById(element);
-					var reply_id = -1;
+					var reply_id = "";
 					if(typeof thread_div.childNodes[0].getAttribute == 'function') {
 						var reply_id = thread_div.childNodes[0].getAttribute('id');
 						if(reply_id != null) {
@@ -257,6 +257,7 @@
 					}
 					fetch_array[element] = reply_id;
 				});
+				console.log("request: " + JSON.stringify(fetch_array));
 				$.ajax( {
 					type: 'POST',
 					dataType: "json",
@@ -264,32 +265,42 @@
 					data: {'threads': JSON.stringify(fetch_array)},
 					success: function(data) {
 						var reply_array = data['reply_array'];
+						console.log("reply: " + JSON.stringify(reply_array));
 						for(var i=0; i<reply_array.length; i++) {
 							reply = reply_array[i];
-							var reply_id = reply['thread_id'] + '_' + reply['id'];
-							$('#' + reply['thread_id']).prepend (
-								'<div class="row" id="' + reply_id + '" style="display:none;">'+
-								'	<div class="span6 offset1">'+
-								'	<p><i class="icon-comment"></i> '+reply['message']+'</p>'+
-								'	</div>'+
-								'</div>'
-							);
-							display_reply(reply_id);
+							display_reply(prepare_reply(reply['thread_id'], reply['reply_id'], reply['message']));
 						}
 						if(!one_time) {
-							setTimeout(load_reply(false), 5000);
+							setTimeout("load_reply(false)", 5000);
 						}
 					},
 					error: function(data) {
 						if(!one_time) {
-							setTimeout(load_reply(false), 5000);
+							setTimeout("load_reply(false)", 5000);
 						}
 					}
 				});
 			}
+			
+			function prepare_reply(thread_id, reply_id, message) {
+				var reply_id = thread_id + '_' + reply_id;
+				if(!document.getElementById(reply_id)) {
+					$('#' + thread_id).prepend (
+						'<div class="row" id="' + reply_id + '" style="display:none;">'+
+						'	<div class="span6 offset1">'+
+						'	<p><i class="icon-comment"></i> '+message+'</p>'+
+						'	</div>'+
+						'</div>'
+					);
+					return reply_id;
+				}
+				return "";
+			}
 
 			function display_reply(reply_id) {
-				$('#' + reply_id).show('fast', function() {});
+				if(reply_id) {
+					$('#' + reply_id).show('fast', function() {});
+				}
 			}
 
 			load_reply(false);

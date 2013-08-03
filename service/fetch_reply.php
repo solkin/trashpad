@@ -7,7 +7,19 @@
 	$fetch_result = array();
 	$threads = json_decode($_POST['threads']);
 	foreach($threads as $key => $value) {
-		$sql = "SELECT * FROM reply WHERE thread_id='" . $key . "' AND id>" . $value;
+		if($value) {
+			// Request id fro reply_id (value)
+			$sql = "SELECT * FROM reply WHERE reply_id='" . $value . "'";
+			$reply_result = mysqli_query($link, $sql);
+			$reply_reply = mysqli_fetch_array($reply_result, MYSQLI_ASSOC);
+			$id = $reply_reply['id'];
+			mysqli_free_result($reply_result);
+		} else {
+			// No one reply.
+			$id = -1;
+		}
+		
+		$sql = "SELECT * FROM reply WHERE thread_id='" . $key . "' AND id>" . $id;
 		$reply_result = mysqli_query($link, $sql);
 		
 		$thread_reply = mysqli_fetch_array($reply_result, MYSQLI_ASSOC);

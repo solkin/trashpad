@@ -35,6 +35,7 @@
 
 		$sql = "CREATE TABLE IF NOT EXISTS reply (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+			reply_id TEXT NOT NULL default '',
 			time INT,
 			ip TEXT,
 			user_agent TEXT,
