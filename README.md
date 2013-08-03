@@ -1,4 +1,4 @@
-hlamogram
-=========
+TrashPad
+========
 
-Hlamogram is the best source of debris
+TrashPad - best resource for your instant thoughts.
