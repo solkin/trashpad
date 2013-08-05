@@ -45,9 +45,9 @@
 				<li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
 				<li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
 			  </ul>
-			  <form class="navbar-search pull-right form-search">
+			  <form class="navbar-search pull-right form-search" action="./">
 				<div class="input-append">
-				  <input type="text" class="span2 search-query" placeholder="Search">
+				  <input type="text" class="span2 search-query" placeholder="Search" name="query">
 				  <button type="submit" class="btn btn-inverse">Search</button>
 				</div>
 			  </form>
@@ -65,7 +65,7 @@
 		    <form onsubmit="post_thread(name, feedback, message, post_button, success_alert, error_alert); return false;" method="post" class="form-horizontal">
 			  <div class="modal-body">
 					<div class="alert alert-success hide" id="success_alert">
-					  <strong>Congratulations!</strong> New thread successfully posted!
+					  <strong>Congratulations!</strong> New thread successfully posted! Redirecting...
 					</div>
 					<div class="alert alert-error hide" id="error_alert">
 					  <strong>Heads up!</strong> You must fill at least message field.
@@ -107,17 +107,28 @@
 			include_once './service/connect_db.php';
 			include_once './service/utils.php';
 			
+			
 			// Thread to show calculation.
 			$page_id = $_GET['page_id'];
-			$pages_total = ceil(get_threads_count($link) / $threads_per_page);
 			
-			if($page_id == 0) {
+			if(!$page_id || $page_id == 0) {
 				$page_id = 1;
 			} 
 			$thread_from = ($page_id - 1) * $threads_per_page;
 			
-			// Obtain required threads.
-			$threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
+			$thread_id = $_GET['thread_id'];
+			$query = $_GET['query'];
+			
+			if ($thread_id) {
+				$threads_list = get_thread($link, true, $thread_id);
+			} else if ($query) {
+				$threads_list = get_threads_by_query($link, true, $query, $threads_per_page, $thread_from);
+				$pages_total = ceil(get_query_threads_count($link, $query) / $threads_per_page);
+			} else {
+				// Obtain required threads.
+				$threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
+				$pages_total = ceil(get_threads_count($link) / $threads_per_page);
+			}
 			
 			echo '<div class="container-narrow">';
 			
@@ -174,13 +185,15 @@
 				echo '	</div>';
 				echo '</div>';
 			}
+			$href_page_prev = '"?page_id='.($page_id - 1).($query ? "&query=".$query : "").'"';
+			$href_page_next = '"?page_id='.($page_id + 1).($query ? "&query=".$query : "").'"';
 			
 			echo '<ul class="pager">';
 			echo '<li class="previous'.(($page_id <= 1) ? " disabled" : " ").'">';
-			echo '<a'.(($page_id <= 1) ? "" : (' href="?page_id='.($page_id - 1).'"')).'>&larr; Newer</a>';
+			echo '<a'.(($page_id <= 1) ? "" : (' href='.$href_page_prev)).'>&larr; Newer</a>';
 			echo '</li>';
 			echo '<li class="next'.(($page_id >= $pages_total) ? " disabled" : " ").'">';
-			echo '<a'.(($page_id >= $pages_total) ? "" : (' href="?page_id='.($page_id + 1).'"')).'>Older &rarr;</a>';
+			echo '<a'.(($page_id >= $pages_total) ? "" : (' href='.$href_page_next)).'>Older &rarr;</a>';
 			echo '</li>';
 			echo '</ul>';
 			
@@ -210,8 +223,9 @@
 						url: './service/post_thread.php',
 						data: {'name': name.value, 'feedback': feedback.value, 'message': message.value},
 						success: function(data) {
+							var thread_id = data['thread_id'];
 							success_alert.style.display = 'block';
-							setTimeout("location.reload(true);",2500);
+							location.href = location.protocol + '//' + location.host + '?thread_id=' + thread_id;
 						},
 						error: function(data) {
 							name.removeAttribute('readOnly');

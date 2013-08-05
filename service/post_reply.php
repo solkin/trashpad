@@ -2,7 +2,7 @@
 	include_once './connect_db.php';
 	include_once './utils.php';
 	
-	$reply_id = generate_random_string ();
+	$reply_id = generate_random_string (true);
 	$time = round (microtime (true) * 1000);
 	$ip = $_SERVER['REMOTE_ADDR'];
 	$user_agent = $_SERVER['HTTP_USER_AGENT'];
