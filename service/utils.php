@@ -2,17 +2,14 @@
 	function get_thread_list($link, $include_reply, $threads_count = 0, $thread_from = 0) {
 		$limit = $threads_count > 0 ? " ORDER BY id DESC LIMIT " . $thread_from . ", " . $threads_count : "";
 		$sql = "SELECT * FROM threads" . $limit;
-		$result = mysqli_query($link, $sql);
-		if (!$result) {
-			die('Incorrect query: ' . mysqli_error($link));
-		}
+		$result = mysqli_query($link, $sql) or die ( '{"status": "failed", "reason": ' . json_encode (mysqli_error ($link)) . '}');
 		
 		$threads_count = 0;
 		$threads = array();
 		while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
 		  if($include_reply) {
 			  $sql = "SELECT * FROM reply WHERE thread_id='" . $row['thread_id'] . "'";
-			  $reply_result = mysqli_query($link, $sql);
+			  $reply_result = mysqli_query($link, $sql) or die ( '{"status": "failed", "reason": ' . json_encode (mysqli_error ($link)) . '}');
 			  
 			  $count = 0;
 			  $reply = array();
@@ -32,11 +29,7 @@
 	
 	function get_threads_count($link) {
 		$sql = "SELECT * FROM threads";
-		$result = mysqli_query($link, $sql);
-		
-		if (!$result) {
-			die('Incorrect query: ' . mysqli_error($link));
-		}
+		$result = mysqli_query($link, $sql) or die ( '{"status": "failed", "reason": ' . json_encode (mysqli_error ($link)) . '}');
 		
 		$rows_count = mysqli_affected_rows($link);
 		

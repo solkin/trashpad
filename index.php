@@ -96,16 +96,16 @@
 					</div>
 			  </div>
 			  <div class="modal-footer">
-				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 				<button class="btn btn-primary" type="submit" name="post_button">Post thread</button>
+				<button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
 			  </div>
 		  </form>
 		</div>
 
 		<?php
+			include_once './service/settings.php';
 			include_once './service/connect_db.php';
 			include_once './service/utils.php';
-			include_once './service/settings.php';
 			
 			// Thread to show calculation.
 			$page_id = $_GET['page_id'];
