@@ -31,7 +31,7 @@
 			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default '',
-			karma INT
+			karma INT NOT NULL default 0
 			)";
 		mysqli_query ($link, $sql) or die ('Couldn\'t create table.' . mysqli_error ($link));
 

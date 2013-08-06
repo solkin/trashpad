@@ -141,6 +141,7 @@
 				$feedback = $thread['feedback'];
 				$thread_id = $thread['thread_id'];
 				$message = $thread['message'];
+				$karma = $thread['karma'];
 				$reply_list = array_reverse($thread['reply']);
 				
 				$threads_array[$threads_iterator++] = $thread_id;
@@ -162,7 +163,7 @@
 				echo '			<button class="btn btn-mini btn-success" type="submit" name="like_button" onclick="karma_update(\''.$thread_id .'\', this.form.like_button, this.form.fire_button, 1); return false;"><i class="icon-heart icon-white"></i></button> ';
 				echo '			<button class="btn btn-mini btn-warning" type="submit" name="fire_button" onclick="karma_update(\''.$thread_id .'\', this.form.like_button, this.form.fire_button, -1); return false;"><i class="icon-fire icon-white"></i></button>';
 				echo '		</div>';
-				echo '		<span class="label label-info" id="karma_counter_'.$thread_id.'">0</span> ';
+				echo '		<span class="label label-'.(intval($karma) >= 0 ? 'info':'important').'" id="karma_counter_'.$thread_id.'">'.$karma.'</span> ';
 				echo $message;
 				echo '</form>';
 				echo '</p>';
@@ -219,10 +220,19 @@
 					type: 'POST',
 					dataType: "json",
 					url: './service/karma_update.php',
-					data: {'thread_id': thread_id.value, 'value': message.value},
+					data: {'thread_id': thread_id, 'karma': karma},
 					success: function(data) {
-						var karma_counter = parseInt(document.getElementById('karma_counter_' + thread_id).innerHTML);
-						karma_counter.innerHTML = karma_counter + karma;
+						var thread_id = data['thread_id'];
+						var karma = parseInt(data['karma']);
+						karma_counter = document.getElementById('karma_counter_' + thread_id);
+						if(karma_counter) {
+							karma_counter.innerHTML = karma;
+							if(karma >= 0) {
+								karma_counter.className = "label label-info";
+							} else {
+								karma_counter.className = "label label-important";
+							}
+						}
 					},
 					error: function(data) {
 						like_button.removeAttribute('disabled');
@@ -318,10 +328,16 @@
 					data: {'threads': JSON.stringify(fetch_array)},
 					success: function(data) {
 						var reply_array = data['reply_array'];
+						var karma_array = data['karma_array'];
 						console.log("reply: " + JSON.stringify(reply_array));
+						console.log("karma: " + JSON.stringify(karma_array));
 						for(var i=0; i<reply_array.length; i++) {
 							reply = reply_array[i];
 							display_reply(prepare_reply(reply['thread_id'], reply['reply_id'], reply['message']));
+						}
+						for(var i=0; i<karma_array.length; i++) {
+							karma = karma_array[i];
+							display_reply(update_karma(karma['thread_id'], karma['karma']));
 						}
 						if(!one_time) {
 							setTimeout("fetch_events(false)", 5000);
@@ -333,6 +349,19 @@
 						}
 					}
 				});
+			}
+			
+			function update_karma(thread_id, karma) {
+				var karma_counter = document.getElementById('karma_counter_' + thread_id);
+				
+				if(karma_counter) {
+					karma_counter.innerHTML = karma;
+					if(parseInt(karma) >= 0) {
+						karma_counter.className = "label label-info";
+					} else {
+						karma_counter.className = "label label-important";
+					}
+				}
 			}
 			
 			function prepare_reply(thread_id, reply_id, message) {
