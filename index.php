@@ -157,11 +157,14 @@
 					}
 				}
 				echo '		<i class="icon-globe"></i> '.$user_agent;
-				echo '	<div class="btn-group">';
-				echo '		<button class="btn btn-mini btn-success" type="button"><i class="icon-heart icon-white"></i></button> ';
-				echo '		<button class="btn btn-mini btn-warning" type="button"><i class="icon-fire icon-white"></i></button>';
-				echo '	</div> ';
+				echo '	<form class="form-inline" method="post">';
+				echo '		<div class="btn-group">';
+				echo '			<button class="btn btn-mini btn-success" type="submit" name="like_button" onclick="karma_update(\''.$thread_id .'\', this.form.like_button, this.form.fire_button, 1); return false;"><i class="icon-heart icon-white"></i></button> ';
+				echo '			<button class="btn btn-mini btn-warning" type="submit" name="fire_button" onclick="karma_update(\''.$thread_id .'\', this.form.like_button, this.form.fire_button, -1); return false;"><i class="icon-fire icon-white"></i></button>';
+				echo '		</div>';
+				echo '		<span class="label label-info" id="karma_counter_'.$thread_id.'">0</span> ';
 				echo $message;
+				echo '</form>';
 				echo '</p>';
 				echo '	<div class="row">';
 				echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
@@ -209,6 +212,25 @@
 		<script src="./bootstrap/js/bootstrap-modal.js"></script>
 		<script src="./bootstrap/js/bootstrap-transition.js"></script>
 		<script>
+			function karma_update(thread_id, like_button, fire_button, karma) {
+				like_button.setAttribute('disabled', true);
+				fire_button.setAttribute('disabled', true);
+				$.ajax( {
+					type: 'POST',
+					dataType: "json",
+					url: './service/karma_update.php',
+					data: {'thread_id': thread_id.value, 'value': message.value},
+					success: function(data) {
+						var karma_counter = document.getElementById('karma_counter_' + thread_id);
+						karma_counter.innerHTML = parseInt(karma_counter.innerHTML) + karma;
+					},
+					error: function(data) {
+						like_button.removeAttribute('disabled');
+						fire_button.removeAttribute('disabled');
+					}
+				});
+			}		
+		
 			function post_thread(name, feedback, message, post_button, success_alert, error_alert) {
 				error_alert.style.display = 'none';
 				success_alert.style.display = 'none';
