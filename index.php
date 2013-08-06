@@ -221,8 +221,8 @@
 					url: './service/karma_update.php',
 					data: {'thread_id': thread_id.value, 'value': message.value},
 					success: function(data) {
-						var karma_counter = document.getElementById('karma_counter_' + thread_id);
-						karma_counter.innerHTML = parseInt(karma_counter.innerHTML) + karma;
+						var karma_counter = parseInt(document.getElementById('karma_counter_' + thread_id).innerHTML);
+						karma_counter.innerHTML = karma_counter + karma;
 					},
 					error: function(data) {
 						like_button.removeAttribute('disabled');
@@ -290,7 +290,7 @@
 				}
 			}
 			
-			function load_reply(one_time) {
+			function fetch_events(one_time) {
 				var fetch_array = {};
 				var threads_array = <?
 					echo json_encode($threads_array);
@@ -304,13 +304,17 @@
 							reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
 						}
 					}
-					fetch_array[element] = reply_id;
+					var karma_counter = parseInt(document.getElementById('karma_counter_' + element).innerHTML);
+					var thread_data = {};
+					thread_data.reply = reply_id;
+					thread_data.karma = karma_counter;
+					fetch_array[element] = thread_data;
 				});
 				console.log("request: " + JSON.stringify(fetch_array));
 				$.ajax( {
 					type: 'POST',
 					dataType: "json",
-					url: './service/fetch_reply.php',
+					url: './service/fetch_events.php',
 					data: {'threads': JSON.stringify(fetch_array)},
 					success: function(data) {
 						var reply_array = data['reply_array'];
@@ -320,12 +324,12 @@
 							display_reply(prepare_reply(reply['thread_id'], reply['reply_id'], reply['message']));
 						}
 						if(!one_time) {
-							setTimeout("load_reply(false)", 5000);
+							setTimeout("fetch_events(false)", 5000);
 						}
 					},
 					error: function(data) {
 						if(!one_time) {
-							setTimeout("load_reply(false)", 5000);
+							setTimeout("fetch_events(false)", 5000);
 						}
 					}
 				});
@@ -352,7 +356,7 @@
 				}
 			}
 
-			load_reply(false);
+			fetch_events(false);
 		</script>
 	</body>
 </html>
