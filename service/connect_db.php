@@ -1,30 +1,23 @@
 <?php
-	include_once './settings.php';
-	
-	$init = $_GET['init'];
+// This class provide link to work with DB. Also this can init DB.
 
-	$link = mysqli_connect ($db_host, $db_user, $db_pass, $db_name);
+include_once './settings.php';
 
-	if (mysqli_connect_errno ()) {
-		die("Failed to connect to MySQL: " . mysqli_connect_error ());
-	}
+$init = $_GET['init'];
 
-	if ($init) {
-		echo "Init mode. ";
-		
-		$sql = "DROP TABLE threads";
-		if (!mysqli_query ($link, $sql)) {
-			echo "Coudn\'t drop table " . mysqli_error ($link);
-		}
-		
-		$sql = "DROP TABLE reply";
-		if (!mysqli_query ($link, $sql)) {
-			echo "Coudn\'t drop table " . mysqli_error ($link);
-		}
-		
-		$sql = "CREATE TABLE IF NOT EXISTS threads (
+$link = mysqli_connect($db_host, $db_user, $db_pass, $db_name)
+    or die('{"status": "failed", "reason": ' . json_encode(mysqli_connect_error($link)) . '}');
+
+if ($init) {
+    $sql = "DROP TABLE threads";
+    mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+
+    $sql = "DROP TABLE reply";
+    mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+
+    $sql = "CREATE TABLE IF NOT EXISTS threads (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-			time INT,
+			time BIGINT,
 			name TEXT,
 			feedback TEXT,
 			ip TEXT,
@@ -33,19 +26,17 @@
 			message TEXT NOT NULL default '',
 			karma INT NOT NULL default 0
 			)";
-		mysqli_query ($link, $sql) or die ('Couldn\'t create table.' . mysqli_error ($link));
+    mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
-		$sql = "CREATE TABLE IF NOT EXISTS reply (
+    $sql = "CREATE TABLE IF NOT EXISTS reply (
 			id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
 			reply_id TEXT NOT NULL default '',
-			time INT,
+			time BIGINT,
 			ip TEXT,
 			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default ''
 			)";
-		mysqli_query ($link, $sql) or die ('Couldn\'t create table.' . mysqli_error ($link));
-		
-		echo "Init completed.";
-	}
+    mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+}
 ?>
