@@ -10,6 +10,10 @@
 				$sql .= " OR";
 			}
 			$sql .= " message LIKE '%" . $query_piece . "%'";
+			$sql .= " OR";
+			$sql .= " name LIKE '%" . $query_piece . "%'";
+			$sql .= " OR";
+			$sql .= " feedback LIKE '%" . $query_piece . "%'";
 			$index ++;
 		}
 		$sql .= ")";

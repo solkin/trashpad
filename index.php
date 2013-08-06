@@ -39,9 +39,9 @@
 		<div class="navbar navbar-fixed-top navbar-inverse" style="margin: -1px -1px 0;">
 		  <div class="navbar-inner">
 			<div class="container" style="width: auto; padding: 0 20px;">
-			  <a class="brand" href="#">TrashPad</a>
+			  <a class="brand" href="./">TrashPad</a>
 			  <ul class="nav">
-				<li class="active"><a href="#"><i class="icon-home icon-white"></i> Home</a></li>
+				<li class="active"><a href="./"><i class="icon-home icon-white"></i> Home</a></li>
 				<li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
 				<li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
 			  </ul>
@@ -247,7 +247,13 @@
 						success: function(data) {
 							var thread_id = data['thread_id'];
 							success_alert.style.display = 'block';
-							location.href = location.protocol + '//' + location.host + '?thread_id=' + thread_id;
+							var path_array = location.pathname.split( '/' );
+							var path_new = "";
+							for ( i = 1; i < path_array.length; i++ ) {
+								path_new += "/";
+								path_new += path_array[i];
+							}
+							location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
 						},
 						error: function(data) {
 							name.removeAttribute('readOnly');
