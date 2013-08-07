@@ -10,27 +10,8 @@
             padding-top: 60px;
             padding-bottom: 40px;
         }
-
         form {
-            margin-bottom: 0px;
-        }
-
-            /* Custom container */
-        .container-narrow {
-            margin: 0 auto;
-            max-width: 1000px;
-        }
-
-        .author-info {
-            position: relative;
-            margin: 14px 0;
-            padding: 10px 15px 5px;
-            *padding-top: 10px;
-            background-color: #fff;
-            border: 1px solid #ddd;
-            -webkit-border-radius: 4px;
-            -moz-border-radius: 4px;
-            border-radius: 4px;
+            margin-bottom: 0;
         }
     </style>
 </head>
@@ -232,9 +213,9 @@ echo '</div>';
             success: function (data) {
                 var thread_id = data['thread_id'];
                 var karma = parseInt(data['karma']);
-                karma_counter = document.getElementById('karma_counter_' + thread_id);
+                var karma_counter = document.getElementById('karma_counter_' + thread_id);
                 if (karma_counter) {
-                    karma_counter.innerHTML = karma;
+                    karma_counter.innerHTML = karma.toString();
                     if (karma >= 0) {
                         karma_counter.className = "label label-info";
                     } else {
@@ -265,12 +246,14 @@ echo '</div>';
                 success: function (data) {
                     var thread_id = data['thread_id'];
                     success_alert.style.display = 'block';
+                    // Current page path.
                     var path_array = location.pathname.split('/');
                     var path_new = "";
                     for (i = 1; i < path_array.length; i++) {
                         path_new += "/";
                         path_new += path_array[i];
                     }
+                    // Redirect.
                     location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
                 },
                 error: function (data) {
@@ -318,7 +301,7 @@ echo '</div>';
             var thread_div = document.getElementById(element);
             var reply_id = "";
             if (typeof thread_div.childNodes[0].getAttribute == 'function') {
-                var reply_id = thread_div.childNodes[0].getAttribute('id');
+                reply_id = thread_div.childNodes[0].getAttribute('id');
                 if (reply_id != null) {
                     reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
                 }
@@ -342,11 +325,11 @@ echo '</div>';
                 var fresh_threads_count = parseInt(data['fresh_threads_count']);
                 var fresh_time = parseInt(data['fresh_time']);
                 for (var i = 0; i < reply_array.length; i++) {
-                    reply = reply_array[i];
+                    var reply = reply_array[i];
                     display_reply(prepare_reply(reply['thread_id'], reply['reply_id'], reply['message']));
                 }
                 for (var i = 0; i < karma_array.length; i++) {
-                    karma = karma_array[i];
+                    var karma = karma_array[i];
                     display_reply(update_karma(karma['thread_id'], karma['karma']));
                 }
                 if(fresh_threads_count > 0 && fresh_time > 0) {
@@ -390,16 +373,16 @@ echo '</div>';
     }
 
     function prepare_reply(thread_id, reply_id, message) {
-        var reply_id = thread_id + '_' + reply_id;
-        if (!document.getElementById(reply_id)) {
+        var thread_reply_id = thread_id + '_' + reply_id;
+        if (!document.getElementById(thread_reply_id)) {
             $('#' + thread_id).prepend(
-                '<div class="row" id="' + reply_id + '" style="display:none;">' +
+                '<div class="row" id="' + thread_reply_id + '" style="display:none;">' +
                     '	<div class="span6 offset1">' +
                     '	<p><i class="icon-comment"></i> ' + message + '</p>' +
                     '	</div>' +
                     '</div>'
             );
-            return reply_id;
+            return thread_reply_id;
         }
         return "";
     }
