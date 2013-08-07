@@ -368,8 +368,8 @@ echo '</div>';
         var fresh_counter = document.getElementById('fresh_counter');
 
         if (fresh_counter) {
-            fresh_counter.innerHTML = (parseInt(fresh_counter.innerHTML) + fresh_threads_count).toString();
             $('#fresh_counter').hide('fast', function () {});
+            fresh_counter.innerHTML = (parseInt(fresh_counter.innerHTML) + fresh_threads_count).toString();
             $('#fresh_counter').show('fast', function () {});
         }
 
