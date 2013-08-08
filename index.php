@@ -13,6 +13,11 @@
         form {
             margin-bottom: 0;
         }
+		/* Custom container */
+		.container-narrow {
+			margin: 0 auto;
+			max-width: 1000px;
+		}
     </style>
 </head>
 <body>
