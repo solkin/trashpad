@@ -9,8 +9,8 @@ $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $message = $_POST['message'];
 $thread_id = $_POST['thread_id'];
 
-$sql = "INSERT INTO reply (reply_id, time, ip, user_agent, thread_id, message)
-		VALUES ('$reply_id', '$time', '$ip', '$user_agent', '$thread_id', '$message')";
+$sql = "INSERT INTO reply (reply_id, time, ip, user_agent, thread_id, message) ".
+		"VALUES ('$reply_id', '$time', '$ip', '$user_agent', '$thread_id', '$message')";
 
 mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
