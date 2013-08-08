@@ -52,14 +52,17 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3 id="myModalLabel">Post thread</h3>
     </div>
-    <form onsubmit="post_thread(name, feedback, message, post_button, success_alert, error_alert); return false;"
+    <form onsubmit="post_thread(name, feedback, message, post_button, success_alert, warning_alert, error_alert); return false;"
           method="post" class="form-horizontal">
         <div class="modal-body">
             <div class="alert alert-success hide" id="success_alert">
                 <strong>Congratulations!</strong> New thread successfully posted! Redirecting...
             </div>
-            <div class="alert alert-error hide" id="error_alert">
+            <div class="alert alert-warning hide" id="warning_alert">
                 <strong>Heads up!</strong> You must fill at least message field.
+            </div>
+            <div class="alert alert-error hide" id="error_alert">
+                <strong>Errrm.</strong> Something was wrong on the host during post this thread. 
             </div>
             <div class="control-group">
                 <label class="control-label" for="inputName">Name</label>
@@ -230,7 +233,7 @@ echo '</div>';
         });
     }
 
-    function post_thread(name, feedback, message, post_button, success_alert, error_alert) {
+    function post_thread(name, feedback, message, post_button, success_alert, warning_alert, error_alert) {
         error_alert.style.display = 'none';
         success_alert.style.display = 'none';
         if (message.value) {
@@ -244,27 +247,37 @@ echo '</div>';
                 url: './service/post_thread.php',
                 data: {'name': name.value, 'feedback': feedback.value, 'message': message.value},
                 success: function (data) {
-                    var thread_id = data['thread_id'];
-                    success_alert.style.display = 'block';
-                    // Current page path.
-                    var path_array = location.pathname.split('/');
-                    var path_new = "";
-                    for (i = 1; i < path_array.length; i++) {
-                        path_new += "/";
-                        path_new += path_array[i];
-                    }
-                    // Redirect.
-                    location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
+                    var status = data['status'];
+                    if(status == 'ok') {
+						var thread_id = data['thread_id'];
+						success_alert.style.display = 'block';
+						// Current page path.
+						var path_array = location.pathname.split('/');
+						var path_new = "";
+						for (i = 1; i < path_array.length; i++) {
+							path_new += "/";
+							path_new += path_array[i];
+						}
+						// Redirect.
+						location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
+					} else {
+						name.removeAttribute('readOnly');
+						feedback.removeAttribute('readOnly');
+						message.removeAttribute('readOnly');
+						post_button.removeAttribute('disabled');
+						error_alert.style.display = 'block';
+					}
                 },
                 error: function (data) {
                     name.removeAttribute('readOnly');
                     feedback.removeAttribute('readOnly');
                     message.removeAttribute('readOnly');
                     post_button.removeAttribute('disabled');
+					error_alert.style.display = 'block';
                 }
             });
         } else {
-            error_alert.style.display = 'block';
+            warning_alert.style.display = 'block';
         }
     }
 
