@@ -37,6 +37,8 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
             <ul class="nav">
                 <li class="active"><a href="./"><i class="icon-home icon-white"></i> Home <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
                 </li>
+                <li><a href="./?rated=true"><i class="icon-star icon-white"></i> Top rated</a></li>
+                <li class="divider-vertical"></li>
                 <li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
                 <li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
             </ul>
@@ -93,7 +95,7 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
                 <label class="control-label" for="inputMessage">Message</label>
 
                 <div class="controls">
-                    <textarea id="inputMessage" name="message" placeholder="Your message here"></textarea>
+                    <textarea id="inputMessage" name="message" id="message" placeholder="Your message here"></textarea>
                 </div>
             </div>
         </div>
@@ -107,14 +109,19 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
 <?php
 // Thread to show calculation.
 $page_id = $_GET['page_id'];
-
-if (!$page_id || $page_id == 0) {
-    $page_id = 1;
-}
-$thread_from = ($page_id - 1) * $threads_per_page;
-
 $thread_id = $_GET['thread_id'];
 $query = $_GET['query'];
+$rated = $_GET['rated'];
+
+if($rated == true) {
+    $thread_from = 0;
+    $threads_per_page = $top_threads_per_page;
+} else {
+    if (!$page_id || $page_id == 0) {
+        $page_id = 1;
+    }
+    $thread_from = ($page_id - 1) * $threads_per_page;
+}
 
 if ($thread_id) {
     $threads_list = get_thread($link, true, $thread_id);
@@ -123,8 +130,12 @@ if ($thread_id) {
     $pages_total = ceil(get_query_threads_count($link, $query) / $threads_per_page);
 } else {
     // Obtain required threads.
-    $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from);
-    $pages_total = ceil(get_threads_count($link) / $threads_per_page);
+    $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
+    if($rated == true) {
+        $pages_total = 0;
+    } else {
+        $pages_total = ceil(get_threads_count($link) / $threads_per_page);
+    }
 }
 
 echo '<div class="container-narrow">';
@@ -211,8 +222,8 @@ echo '</div>';
 <script src="./bootstrap/js/bootstrap-transition.js"></script>
 <script>
     function karma_update(thread_id, like_button, fire_button, karma) {
-        like_button.setAttribute('disabled', true);
-        fire_button.setAttribute('disabled', true);
+        like_button.setAttribute('disabled', 'true');
+        fire_button.setAttribute('disabled', 'true');
         $.ajax({
             type: 'POST',
             dataType: "json",
@@ -242,10 +253,10 @@ echo '</div>';
         error_alert.style.display = 'none';
         success_alert.style.display = 'none';
         if (message.value) {
-            name.setAttribute('readOnly', true);
-            feedback.setAttribute('readOnly', true);
-            message.setAttribute('readOnly', true);
-            post_button.setAttribute('disabled', true);
+            name.setAttribute('readOnly', 'true');
+            feedback.setAttribute('readOnly', 'true');
+            message.setAttribute('readOnly', 'true');
+            post_button.setAttribute('disabled', 'true');
             $.ajax({
                 type: 'POST',
                 dataType: "json",
@@ -288,8 +299,8 @@ echo '</div>';
 
     function post_reply(thread_id, message, reply_button) {
         if (message.value) {
-            message.setAttribute('readOnly', true);
-            reply_button.setAttribute('disabled', true);
+            message.setAttribute('readOnly', 'true');
+            reply_button.setAttribute('disabled', 'true');
             $.ajax({
                 type: 'POST',
                 dataType: "json",
