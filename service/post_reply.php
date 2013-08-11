@@ -6,7 +6,7 @@ $reply_id = generate_random_string(true);
 $time = get_time_millis();
 $ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-$message = $_POST['message'];
+$message = htmlspecialchars($_POST['message'], ENT_QUOTES);
 $thread_id = $_POST['thread_id'];
 
 $sql = "INSERT INTO reply (reply_id, time, ip, user_agent, thread_id, message) ".

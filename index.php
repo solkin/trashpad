@@ -297,17 +297,29 @@ echo '</div>';
         }
     }
 
+    String.prototype.escape = function() {
+        var tagsToReplace = {
+            '&': '&amp;',
+            '<': '&lt;',
+            '>': '&gt;'
+        };
+        return this.replace(/[&<>]/g, function(tag) {
+            return tagsToReplace[tag] || tag;
+        });
+    };
+
     function post_reply(thread_id, message, reply_button) {
-        if (message.value) {
+        var message_text = message.value;
+        if (message_text) {
             message.setAttribute('readOnly', 'true');
             reply_button.setAttribute('disabled', 'true');
             $.ajax({
                 type: 'POST',
                 dataType: "json",
                 url: './service/post_reply.php',
-                data: {'thread_id': thread_id.value, 'message': message.value},
+                data: {'thread_id': thread_id.value, 'message': message_text},
                 success: function (data) {
-                    display_reply(prepare_reply(data['thread_id'], data['reply_id'], message.value));
+                    display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
                     message.value = "";
                     message.removeAttribute('readOnly');
                     reply_button.removeAttribute('disabled');

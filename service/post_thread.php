@@ -3,11 +3,11 @@ include_once './connect_db.php';
 include_once './utils.php';
 
 $time = get_time_millis();
-$name = $_POST['name'];
-$feedback = $_POST['feedback'];
+$name = htmlspecialchars($_POST['name'], ENT_QUOTES);
+$feedback = htmlspecialchars($_POST['feedback'], ENT_QUOTES);
 $ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-$message = $_POST['message'];
+$message = htmlspecialchars($_POST['message'], ENT_QUOTES);
 $thread_id = generate_random_string();
 
 $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message) ".
