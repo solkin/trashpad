@@ -112,6 +112,12 @@ $page_id = $_GET['page_id'];
 $thread_id = $_GET['thread_id'];
 $query = $_GET['query'];
 $rated = $_GET['rated'];
+$admin_key = $_GET['admin'];
+if($admin_key == $secret_key) {
+    $admin = true;
+} else {
+    $admin = false;
+}
 
 if($rated == true) {
     $thread_from = 0;
@@ -167,6 +173,10 @@ foreach ($threads_list as $thread) {
     }
     echo '		<i class="icon-globe"></i> ' . $user_agent;
     echo '	<form class="form-inline" method="post">';
+    if($admin) {
+        echo '		<button class="btn btn-mini btn-danger" type="submit" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';
+        echo '		<button class="btn btn-mini" type="submit" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-thumbs-down"></i></button> ';
+    }
     echo '		<div class="btn-group">';
     echo '			<button class="btn btn-mini btn-success" type="submit" name="like_button" onclick="karma_update(\'' . $thread_id . '\', this.form.like_button, this.form.fire_button, 1); return false;"><i class="icon-heart icon-white"></i></button> ';
     echo '			<button class="btn btn-mini btn-warning" type="submit" name="fire_button" onclick="karma_update(\'' . $thread_id . '\', this.form.like_button, this.form.fire_button, -1); return false;"><i class="icon-fire icon-white"></i></button>';
@@ -221,9 +231,62 @@ echo '</div>';
 <script src="./bootstrap/js/bootstrap-modal.js"></script>
 <script src="./bootstrap/js/bootstrap-transition.js"></script>
 <script>
+    function remove_thread(thread_id, admin_key) {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: './service/remove_thread.php',
+            data: {'thread_id': thread_id, 'admin_key': admin_key},
+            success: function (data) {
+                if(data['status'] == 'ok') {
+                    // Page refresh.
+                    location.href = location.href;
+                } else {
+                    this.error(data);
+                }
+            },
+            error: function (data) {
+                alert('Thread remove failed: \nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+            }
+        });
+    }
+
+    function karma_reset(thread_id, admin_key) {
+        $.ajax({
+            type: 'POST',
+            dataType: "json",
+            url: './service/karma_update.php',
+            data: {'thread_id': thread_id, 'karma': 'reset', 'admin_key': admin_key},
+            success: function (data) {
+                if(data['status'] == 'ok') {
+                    var thread_id = data['thread_id'];
+                    var karma = parseInt(data['karma']);
+                    var karma_counter = document.getElementById('karma_counter_' + thread_id);
+                    if (karma_counter) {
+                        karma_counter.innerHTML = karma.toString();
+                        if (karma >= 0) {
+                            karma_counter.className = "label label-info";
+                        } else {
+                            karma_counter.className = "label label-important";
+                        }
+                    }
+                } else {
+                    this.error(data);
+                }
+            },
+            error: function (data) {
+                alert('Karma reset failed: \nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+            }
+        });
+    }
+
     function karma_update(thread_id, like_button, fire_button, karma) {
-        like_button.setAttribute('disabled', 'true');
-        fire_button.setAttribute('disabled', 'true');
+        <?
+        if(!$admin) {
+            echo "like_button.setAttribute('disabled', 'true');\n";
+            echo "fire_button.setAttribute('disabled', 'true');\n";
+        }
+        ?>
         $.ajax({
             type: 'POST',
             dataType: "json",
