@@ -179,10 +179,10 @@ foreach ($threads_list as $thread) {
         echo '		<button class="btn btn-mini" type="submit" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-thumbs-down"></i></button> ';
     }
     echo '		<div class="btn-group">';
-    echo '			<button class="btn btn-mini btn-success" type="submit" name="like_button" onclick="karma_update(\'' . $thread_id . '\', this.form.like_button, this.form.fire_button, 1); return false;"><i class="icon-heart icon-white"></i></button> ';
-    echo '			<button class="btn btn-mini btn-warning" type="submit" name="fire_button" onclick="karma_update(\'' . $thread_id . '\', this.form.like_button, this.form.fire_button, -1); return false;"><i class="icon-fire icon-white"></i></button>';
+    echo '			<button class="btn btn-mini btn-success" type="submit" id="like_button_'.$thread_id.'" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><i class="icon-heart icon-white"></i></button> ';
+    echo '			<button class="btn btn-mini btn-warning" type="submit" id="fire_button_'.$thread_id.'" onclick="karma_update(\'' . $thread_id . '\', -1); return false;"><i class="icon-fire icon-white"></i></button>';
     echo '		</div>';
-    echo '		<span class="label label-' . (intval($karma) >= 0 ? 'info' : 'important') . '" id="karma_counter_' . $thread_id . '">' . $karma . '</span> ';
+    echo '		<span class="label label-' . (intval($karma) >= 0 ? 'info' : 'warning') . '" id="karma_counter_' . $thread_id . '">' . $karma . '</span> ';
     echo $message;
     echo '</form>';
     echo '</p>';
@@ -190,8 +190,8 @@ foreach ($threads_list as $thread) {
     echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
     echo '			<input type="hidden" name="thread_id" value="' . $thread_id . '">';
     echo '			<div class="span5 offset1 input-append">';
-    echo '				<input class="input-block-level" type="text" name="message" placeholder="Your reply here">';
-    echo '				<button type="submit" class="btn btn-primary" name="reply_button">Reply</button>';
+    echo '				<input class="input-block-level" type="text" id="reply_message_'.$thread_id.'" name="message" placeholder="Your reply here">';
+    echo '				<button type="submit" class="btn btn-primary" id="reply_button_'.$thread_id.'" name="reply_button">Reply</button>';
     echo '			</div>';
     echo '		</form>';
     echo '	</div>';
@@ -268,7 +268,7 @@ echo '</div>';
                         if (karma >= 0) {
                             karma_counter.className = "label label-info";
                         } else {
-                            karma_counter.className = "label label-important";
+                            karma_counter.className = "label label-warning";
                         }
                     }
                 } else {
@@ -281,7 +281,10 @@ echo '</div>';
         });
     }
 
-    function karma_update(thread_id, like_button, fire_button, karma) {
+    function karma_update(thread_id, karma) {
+        // Find buttons.
+        var like_button = document.getElementById("like_button_" + thread_id);
+        var fire_button = document.getElementById("fire_button_" + thread_id);
         <?
         if(!$admin) {
             echo "like_button.setAttribute('disabled', 'true'); ";
@@ -302,7 +305,7 @@ echo '</div>';
                     if (karma >= 0) {
                         karma_counter.className = "label label-info";
                     } else {
-                        karma_counter.className = "label label-important";
+                        karma_counter.className = "label label-warning";
                     }
                 }
             },
@@ -411,7 +414,7 @@ echo '</div>';
                     reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
                 }
             }
-            var karma_counter = parseInt(document.getElementById('karma_counter_' + element).innerHTML);
+            var karma_counter = document.getElementById('karma_counter_' + element).innerHTML;
             var thread_data = {};
             thread_data.reply = reply_id;
             thread_data.karma = karma_counter;
@@ -435,7 +438,7 @@ echo '</div>';
                 }
                 for (var i = 0; i < karma_array.length; i++) {
                     var karma = karma_array[i];
-                    display_reply(update_karma(karma['thread_id'], karma['karma']));
+                    update_karma(karma['thread_id'], karma['karma']);
                 }
                 if(fresh_threads_count > 0 && fresh_time > 0) {
                     update_fresh_threads_count(fresh_threads_count, fresh_time);
@@ -470,10 +473,23 @@ echo '</div>';
 
         if (karma_counter) {
             karma_counter.innerHTML = karma;
-            if (parseInt(karma) >= 0) {
-                karma_counter.className = "label label-info";
-            } else {
+            if (karma == '<?echo $unrated_value;?>') {
                 karma_counter.className = "label label-important";
+                // Disable buttons.
+                var like_button = document.getElementById("like_button_" + thread_id);
+                var fire_button = document.getElementById("fire_button_" + thread_id);
+                var reply_message = document.getElementById("reply_message_" + thread_id);
+                var reply_button = document.getElementById("reply_button_" + thread_id);
+                like_button.disabled = true;
+                fire_button.disabled = true;
+                reply_message.disabled = true;
+                reply_button.disabled = true;
+            } else {
+                if (parseInt(karma) >= 0) {
+                    karma_counter.className = "label label-info";
+                } else {
+                    karma_counter.className = "label label-warning";
+                }
             }
         }
     }
