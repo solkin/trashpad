@@ -175,8 +175,8 @@ foreach ($threads_list as $thread) {
     echo '		<i class="icon-globe"></i> ' . $user_agent;
     echo '	<form class="form-inline" method="post">';
     if($admin) {
-        echo '		<button class="btn btn-mini btn-danger" type="submit" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';
-        echo '		<button class="btn btn-mini" type="submit" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-thumbs-down"></i></button> ';
+        echo '		<button class="btn btn-mini btn-danger" type="submit" id="remove_button_'.$thread_id.'" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';
+        echo '		<button class="btn btn-mini" type="submit" id="reset_button_'.$thread_id.'" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-thumbs-down"></i></button> ';
     }
     echo '		<div class="btn-group">';
     echo '			<button class="btn btn-mini btn-success" type="submit" id="like_button_'.$thread_id.'" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><i class="icon-heart icon-white"></i></button> ';
@@ -484,6 +484,14 @@ echo '</div>';
                 fire_button.disabled = true;
                 reply_message.disabled = true;
                 reply_button.disabled = true;
+                <?
+                if($admin) {
+                    echo 'var remove_button = document.getElementById("remove_button_" + thread_id);';
+                    echo 'var reset_button = document.getElementById("reset_button_" + thread_id);';
+                    echo 'remove_button.disabled = true;';
+                    echo 'reset_button.disabled = true;';
+                }
+                ?>
             } else {
                 if (parseInt(karma) >= 0) {
                     karma_counter.className = "label label-info";
