@@ -147,6 +147,7 @@ if ($thread_id) {
 echo '<div class="container-narrow">';
 
 $threads_iterator = 0;
+$threads_array = array();
 // Page generation.
 foreach ($threads_list as $thread) {
     $name = $thread['name'];
@@ -283,7 +284,7 @@ echo '</div>';
     function karma_update(thread_id, like_button, fire_button, karma) {
         <?
         if(!$admin) {
-            echo "like_button.setAttribute('disabled', 'true');\n";
+            echo "like_button.setAttribute('disabled', 'true'); ";
             echo "fire_button.setAttribute('disabled', 'true');\n";
         }
         ?>
