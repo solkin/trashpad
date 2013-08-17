@@ -241,7 +241,7 @@ echo '</div>';
             success: function (data) {
                 if(data['status'] == 'ok') {
                     // Page refresh.
-                    location.href = location.href;
+                    update_karma(thread_id, '<?echo $unrated_value;?>');
                 } else {
                     this.error(data);
                 }
