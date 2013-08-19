@@ -27,6 +27,12 @@ include_once './service/settings.php';
 include_once './service/connect_db.php';
 include_once './service/utils.php';
 
+$page_id = $_GET['page_id'];
+$thread_id = $_GET['thread_id'];
+$query = $_GET['query'];
+$rated = $_GET['rated'];
+$admin_key = $_GET['admin'];
+
 echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '">';
 ?>
 
@@ -35,9 +41,9 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
         <div class="container" style="width: auto; padding: 0 20px;">
             <a class="brand" href="./">TrashPad</a>
             <ul class="nav">
-                <li class="active"><a href="./"><i class="icon-home icon-white"></i> Home <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
+                <li <?if(!$rated) echo 'class="active"'; ?>><a href="./"><i class="icon-home icon-white"></i> Home <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
                 </li>
-                <li><a href="./?rated=true"><i class="icon-star icon-white"></i> Top rated</a></li>
+                <li <?if($rated) echo 'class="active"'; ?>><a href="./?rated=true"><i class="icon-star icon-white"></i> Top rated</a></li>
                 <li class="divider-vertical"></li>
                 <li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
                 <li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
@@ -108,11 +114,7 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
 
 <?php
 // Thread to show calculation.
-$page_id = $_GET['page_id'];
-$thread_id = $_GET['thread_id'];
-$query = $_GET['query'];
-$rated = $_GET['rated'];
-$admin_key = $_GET['admin'];
+
 if($admin_key == $secret_key) {
     $admin = true;
 } else {
