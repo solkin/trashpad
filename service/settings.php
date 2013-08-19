@@ -1,7 +1,6 @@
 <?php
 // Main page settings.
 $threads_per_page = 5;
-$top_threads_per_page = 10;
 // Database settings.
 $db_host = 'localhost';
 $db_user = 'root';

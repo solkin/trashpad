@@ -119,15 +119,10 @@ if($admin_key == $secret_key) {
     $admin = false;
 }
 
-if($rated == true) {
-    $thread_from = 0;
-    $threads_per_page = $top_threads_per_page;
-} else {
-    if (!$page_id || $page_id == 0) {
-        $page_id = 1;
-    }
-    $thread_from = ($page_id - 1) * $threads_per_page;
+if (!$page_id || $page_id == 0) {
+    $page_id = 1;
 }
+$thread_from = ($page_id - 1) * $threads_per_page;
 
 if ($thread_id) {
     $threads_list = get_thread($link, true, $thread_id);
@@ -137,11 +132,7 @@ if ($thread_id) {
 } else {
     // Obtain required threads.
     $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
-    if($rated == true) {
-        $pages_total = 0;
-    } else {
-        $pages_total = ceil(get_threads_count($link) / $threads_per_page);
-    }
+    $pages_total = ceil(get_threads_count($link) / $threads_per_page);
 }
 
 echo '<div class="container-narrow">';
@@ -214,8 +205,8 @@ foreach ($threads_list as $thread) {
     echo '	</div>';
     echo '</div>';
 }
-$href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . '"';
-$href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . '"';
+$href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
+$href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
 
 echo '<ul class="pager">';
 echo '<li class="previous' . (($page_id <= 1) ? " disabled" : " ") . '">';
