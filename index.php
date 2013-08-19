@@ -146,6 +146,12 @@ if ($thread_id) {
 
 echo '<div class="container-narrow">';
 
+if($thread_id) {
+  echo '<form class="form-inline" action="./" method="post">';
+  echo '<button class="span3 offset3 btn btn-large btn-success" type="submit" id="big_green_button">To other threads</button> ';
+  echo '</form>';
+}
+
 $threads_iterator = 0;
 $threads_array = array();
 // Page generation.
