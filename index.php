@@ -208,12 +208,14 @@ foreach ($threads_list as $thread) {
 $href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
 $href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
 
+$newer_title = $rated ? "Higher" : "Newer";
+$older_title = $rated ? "Lower" : "Older";
 echo '<ul class="pager">';
 echo '<li class="previous' . (($page_id <= 1) ? " disabled" : " ") . '">';
-echo '<a' . (($page_id <= 1) ? "" : (' href=' . $href_page_prev)) . '>&larr; Newer</a>';
+echo '<a' . (($page_id <= 1) ? "" : (' href=' . $href_page_prev)) . '>&larr; ' . $newer_title . '</a>';
 echo '</li>';
 echo '<li class="next' . (($page_id >= $pages_total) ? " disabled" : " ") . '">';
-echo '<a' . (($page_id >= $pages_total) ? "" : (' href=' . $href_page_next)) . '>Older &rarr;</a>';
+echo '<a' . (($page_id >= $pages_total) ? "" : (' href=' . $href_page_next)) . '>' . $older_title . ' &rarr;</a>';
 echo '</li>';
 echo '</ul>';
 
