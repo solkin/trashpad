@@ -13,15 +13,33 @@
         form {
             margin-bottom: 0;
         }
-		/* Custom container */
-		.container-narrow {
-			margin: 0 auto;
-			max-width: 1000px;
-		}
+	/* Custom container */
+	.container-narrow {
+		margin: 0 auto;
+		max-width: 1000px;
+	}
+	.facebook {float:left;margin-right:5px;padding:5px 0;}
+	.facebook a {opacity: 0.5;display:block;width:19px;height:19px;background:url("./bootstrap/img/share_icons.png") no-repeat scroll 0 0 transparent;}
+	.facebook a:hover {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat 0px -21px;}
+	.facebook a:active {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat 0px -42px;}
+	
+	.twitter {float:left;margin-right:5px;padding:5px 0;}
+	.twitter a {opacity: 0.5;display:block;width:19px;height:19px;background:url("./bootstrap/img/share_icons.png") no-repeat scroll -42px 0 transparent;}
+	.twitter a:hover {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -42px -21px;}
+	.twitter a:active {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -42px -42px;}
+	
+	.vkontakte {float:left;margin-right:5px;padding:5px 0;}
+	.vkontakte a {opacity: 0.5;display:block;width:19px;height:19px;background:url("./bootstrap/img/share_icons.png") no-repeat scroll -21px 0 transparent;}
+	.vkontakte a:hover {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -21px -21px;}
+	.vkontakte a:active {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -21px -42px;}
+
+	.googleplus {float:left;padding:5px 0;margin-right:0;}
+	.googleplus a {opacity: 0.5;display:block;width:19px;height:19px;background:url("./bootstrap/img/share_icons.png") no-repeat scroll -63px 0 transparent;}
+	.googleplus a:hover {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -63px -21px;}
+	.googleplus a:active {opacity:1;background:url("./bootstrap/img/share_icons.png") no-repeat -63px -42px;}
     </style>
 </head>
 <body>
-
 <?php
 include_once './service/settings.php';
 include_once './service/connect_db.php';
@@ -160,9 +178,9 @@ foreach ($threads_list as $thread) {
 
     $threads_array[$threads_iterator++] = $thread_id;
     echo '<div class="row">';
-    echo '	<div class="span8 offset1">';
-    echo '  <p>';
-    echo '	<br>';
+    echo '  <div class="span8 offset1">';
+    echo '    <p>';
+    echo '    <br>';
     if (!empty($name) || !empty($feedback)) {
         if (!empty($name)) {
             echo '		<strong><i class="icon-user"></i> ' . $name . '</strong><br>';
@@ -172,7 +190,7 @@ foreach ($threads_list as $thread) {
         }
     }
     echo '		<i class="icon-globe"></i> ' . $user_agent;
-    echo '	<form class="form-inline" method="post">';
+    echo '      <form class="form-inline" method="post">';
     if($admin) {
         echo '		<button class="btn btn-mini btn-danger" type="submit" id="remove_button_'.$thread_id.'" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';
         echo '		<button class="btn btn-mini" type="submit" id="reset_button_'.$thread_id.'" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-thumbs-down"></i></button> ';
@@ -183,8 +201,22 @@ foreach ($threads_list as $thread) {
     echo '		</div>';
     echo '		<span class="label label-' . (intval($karma) >= 0 ? 'info' : 'warning') . '" id="karma_counter_' . $thread_id . '">' . $karma . '</span> ';
     echo $message;
-    echo '</form>';
-    echo '</p>';
+    echo '      </form>';
+    echo '    </p>';
+    echo '<div class="share">';
+    echo '  <div class="twitter">';
+    echo '    <a href="http://twitter.com/intent/tweet?text=%D0%94%D0%BE%D1%81%D1%82%D1%83%D0%BF%D0%BD%D0%BE+%D0%BE%D0%B1%D0%BD%D0%BE%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5+Android+4.3+%D0%B4%D0%BB%D1%8F+Google+Nexus+4+%23habr+http://habr.ru/p/188276/" title="Опубликовать ссылку в Twitter" target="_blank"></a>';
+    echo '  </div>';
+    echo '  <div class="vkontakte">';
+    echo '    <a href="http://vk.com/share.php?url=http://habrahabr.ru/post/188276/" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
+    echo '  </div>';
+    echo '  <div class="facebook">';
+    echo '    <a href="https://www.facebook.com/sharer/sharer.php?u=http://habrahabr.ru/post/188276/" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
+    echo '  </div>';
+    /*echo '  <div class="googleplus">';
+    echo '    <a href="https://plus.google.com/share?url=http://habrahabr.ru/post/188276/" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, \'Опубликовать ссылку в Google Plus\', \'width=800,height=300\'); return false"></a>';
+    echo '  </div>';*/
+    echo '</div>';
     echo '	<div class="row">';
     echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
     echo '			<input type="hidden" name="thread_id" value="' . $thread_id . '">';
