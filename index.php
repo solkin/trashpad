@@ -206,7 +206,11 @@ foreach ($threads_list as $thread) {
     $direct_link  = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
     $direct_link .= $_SERVER['SERVER_NAME'];
     $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
-    $direct_link = dirname($direct_link) . "/?thread_id=" . $thread_id;
+    $question_pos = strpos($direct_link, '?');
+    if($question_pos) {
+      $direct_link = substr($direct_link, 0, $question_pos);
+    }
+    $direct_link = $direct_link . "?thread_id=" . $thread_id;
     echo '<div class="share">';
     echo '  <div class="twitter">';
     echo '    <a href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="Опубликовать ссылку в Twitter" target="_blank"></a>';
