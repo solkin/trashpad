@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2013-08-31 21:50+0400\n"
+"PO-Revision-Date: 2013-08-31 22:52+0400\n"
+"Last-Translator: Igor Solkin <inbox@tomclaw.com>\n"
+"Language-Team: \n"
+"Language: ru\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.7\n"
+"X-Poedit-KeywordsList: _;gettext;gettext_noop\n"
+"X-Poedit-Basepath: D:\\Code\\WEB\\trashpad\n"
+"X-Poedit-SearchPath-0: D:\\Code\\WEB\\trashpad\n"
+
+#: D:\Code\WEB\trashpad/index.php:68
+msgid "TrashPad"
+msgstr "TrashPad"
+
+#: D:\Code\WEB\trashpad/index.php:70
+msgid "Home"
+msgstr "Главная"
+
+#: D:\Code\WEB\trashpad/index.php:72
+msgid "Top rated"
+msgstr "Оценённые"
+
+#: D:\Code\WEB\trashpad/index.php:73
+msgid "Random"
+msgstr "Случайный"
+
+#: D:\Code\WEB\trashpad/index.php:75
+msgid "About"
+msgstr "Про сервис"
+
+#: D:\Code\WEB\trashpad/index.php:76
+msgid "Post"
+msgstr "Новая заметка"
+
+#: D:\Code\WEB\trashpad/index.php:80 D:\Code\WEB\trashpad/index.php:81
+msgid "Search"
+msgstr "Поиск"
+
+#: D:\Code\WEB\trashpad/index.php:93 D:\Code\WEB\trashpad/index.php:134
+msgid "Post thread"
+msgstr "Опубликовать"
+
+#: D:\Code\WEB\trashpad/index.php:100
+msgid "Congratulations!"
+msgstr "Поздравляем!"
+
+#: D:\Code\WEB\trashpad/index.php:100
+msgid "New thread successfully posted! Redirecting..."
+msgstr "Новая заметка успешно опубликована! Перенаправляемся к ней..."
+
+#: D:\Code\WEB\trashpad/index.php:103
+msgid "Heads up!"
+msgstr "Внимание!"
+
+#: D:\Code\WEB\trashpad/index.php:103
+msgid "You must fill at least message field."
+msgstr "Вы должны заполнить хотя бы одно поле."
+
+#: D:\Code\WEB\trashpad/index.php:106
+msgid "Errrm."
+msgstr "Хммм."
+
+#: D:\Code\WEB\trashpad/index.php:106
+msgid "Something was wrong on the host during post this thread."
+msgstr "Что-то пошло не так в процессе публикации заметки."
+
+#: D:\Code\WEB\trashpad/index.php:109 D:\Code\WEB\trashpad/index.php:113
+msgid "Name"
+msgstr "Имя"
+
+#: D:\Code\WEB\trashpad/index.php:118 D:\Code\WEB\trashpad/index.php:122
+msgid "Feedback"
+msgstr "Обратная связь"
+
+#: D:\Code\WEB\trashpad/index.php:127
+msgid "Message"
+msgstr "Заметка"
+
+#: D:\Code\WEB\trashpad/index.php:129
+msgid "Your message here"
+msgstr "Текст Вашей заметки"
+
+#: D:\Code\WEB\trashpad/index.php:135
+msgid "Close"
+msgstr "Закрыть"
+
+#: D:\Code\WEB\trashpad/index.php:172
+msgid "One more random"
+msgstr "Ещё случайная записка"
+
+#: D:\Code\WEB\trashpad/index.php:176
+msgid "To other threads"
+msgstr "К другим запискам"
+
+#: D:\Code\WEB\trashpad/index.php:230
+msgid "Share via Twitter"
+msgstr "Опубликовать ссылку в Twitter"
+
+#: D:\Code\WEB\trashpad/index.php:233
+msgid "Share via VK"
+msgstr "Опубликовать ссылку во ВКонтакте"
+
+#: D:\Code\WEB\trashpad/index.php:236
+msgid "Share via Facebook"
+msgstr "Опубликовать ссылку в Facebook"
+
+#: D:\Code\WEB\trashpad/index.php:246
+msgid "Your reply here"
+msgstr "Ваш ответ здесь"
+
+#: D:\Code\WEB\trashpad/index.php:247
+msgid "Reply"
+msgstr "Ответить"
+
+#: D:\Code\WEB\trashpad/index.php:272
+msgid ""
+"Unfortunately, we have no threads here, but we have lots of others. Just "
+"press big green button!"
+msgstr ""
+"К сожалению, здесь нет заметок. Зато у нас много других! Просто нажмите эту "
+"большую зелёную кнопку!"
+
+#: D:\Code\WEB\trashpad/index.php:280
+msgid "Higher"
+msgstr "Лучше"
+
+#: D:\Code\WEB\trashpad/index.php:280
+msgid "Newer"
+msgstr "Новее"
+
+#: D:\Code\WEB\trashpad/index.php:281
+msgid "Lower"
+msgstr "Хуже"
+
+#: D:\Code\WEB\trashpad/index.php:281
+msgid "Older"
+msgstr "Старее"
+
+#: D:\Code\WEB\trashpad/index.php:319
+msgid "Thread remove failed:"
+msgstr "Не удалось удалить заметку:"
+
+#: D:\Code\WEB\trashpad/index.php:348
+msgid "Karma reset failed:"
+msgstr "Не удалось сбросить карму:"
+
+#: D:\Code\WEB\trashpad/index.php:564
+msgid ""
+"This thread was moderated, so you can't share it more. Refresh page to get "
+"deleted threads gone forever."
+msgstr ""
+"Эта заметка была удалена модераторами. Видимо, не спроста. Поэтому ею больше "
+"нельзя делиться в социальных сетях."
