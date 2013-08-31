@@ -1,6 +1,6 @@
 <?php
-include_once './connect_db.php';
-include_once './utils.php';
+include_once 'connect_db.php';
+include_once 'utils.php';
 
 $reply_id = generate_random_string(true);
 $time = get_time_millis();

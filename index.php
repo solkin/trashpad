@@ -41,9 +41,9 @@
 </head>
 <body>
 <?php
-include_once './service/settings.php';
-include_once './service/connect_db.php';
-include_once './service/utils.php';
+include_once 'service/settings.php';
+include_once 'service/connect_db.php';
+include_once 'service/utils.php';
 
 $page_id = $_GET['page_id'];
 $thread_id = $_GET['thread_id'];
@@ -213,13 +213,13 @@ foreach ($threads_list as $thread) {
     $direct_link = $direct_link . "?thread_id=" . $thread_id;
     echo '<div class="share">';
     echo '  <div class="twitter">';
-    echo '    <a href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="Опубликовать ссылку в Twitter" target="_blank"></a>';
+    echo '    <a id="twitter_'.$thread_id.'" href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="Опубликовать ссылку в Twitter" target="_blank"></a>';
     echo '  </div>';
     echo '  <div class="vkontakte">';
-    echo '    <a href="http://vk.com/share.php?url=' . $direct_link . '" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
+    echo '    <a id="vkontakte_'.$thread_id.'" href="http://vk.com/share.php?url=' . $direct_link . '" title="Опубликовать ссылку во ВКонтакте" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
     echo '  </div>';
     echo '  <div class="facebook">';
-    echo '    <a href="https://www.facebook.com/sharer/sharer.php?u=' . $direct_link . '" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
+    echo '    <a id="facebook_'.$thread_id.'" href="https://www.facebook.com/sharer/sharer.php?u=' . $direct_link . '" title="Опубликовать ссылку в Facebook" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
     echo '  </div>';
     /*echo '  <div class="googleplus">';
     echo '    <a href="https://plus.google.com/share?url=' . $direct_link . '" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, \'Опубликовать ссылку в Google Plus\', \'width=800,height=300\'); return false"></a>';
@@ -521,10 +521,23 @@ echo '</div>';
                 var fire_button = document.getElementById("fire_button_" + thread_id);
                 var reply_message = document.getElementById("reply_message_" + thread_id);
                 var reply_button = document.getElementById("reply_button_" + thread_id);
+
+                var twitter = document.getElementById("twitter_" + thread_id);
+                var vkontakte = document.getElementById("vkontakte_" + thread_id);
+                var facebook = document.getElementById("facebook_" + thread_id);
+
                 like_button.disabled = true;
                 fire_button.disabled = true;
                 reply_message.disabled = true;
                 reply_button.disabled = true;
+
+                var moderated_action = function() {
+                    alert('This thread was moderated, so you can\'t share it more. Refresh page to get deleted threads gone forever.'); 
+                    return false;
+                };
+                twitter.onclick = moderated_action;
+                vkontakte.onclick = moderated_action;
+                facebook.onclick = moderated_action;
                 <?
                 if($admin) {
                     echo 'var remove_button = document.getElementById("remove_button_" + thread_id);';

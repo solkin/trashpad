@@ -1,7 +1,7 @@
 <?php
 // This class provide link to work with DB. Also this can init DB.
 
-include_once './settings.php';
+include_once 'settings.php';
 
 $init = $_GET['init'];
 

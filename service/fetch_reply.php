@@ -1,8 +1,8 @@
 <?php
 // Deprecated. Use fetch_events.php instead.
-include_once './connect_db.php';
-include_once './utils.php';
-include_once './settings.php';
+include_once 'connect_db.php';
+include_once 'utils.php';
+include_once 'settings.php';
 
 $count = 0;
 $fetch_result = array();

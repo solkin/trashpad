@@ -1,7 +1,7 @@
 <?php
-include_once './connect_db.php';
-include_once './utils.php';
-include_once './settings.php';
+include_once 'connect_db.php';
+include_once 'utils.php';
+include_once 'settings.php';
 
 $time = get_time_millis();
 $fresh_threads_time = 0;

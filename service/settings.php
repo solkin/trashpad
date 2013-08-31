@@ -3,9 +3,9 @@
 $threads_per_page = 5;
 // Database settings.
 $db_host = 'localhost';
-$db_user = 'root';
+$db_user = 'user';
 $db_pass = '380349';
-$db_name = 'hlamogram_db';
+$db_name = 'trashpad_db';
 // Admin
 $secret_key = 'secret_key';
 $unrated_value = '-∞';

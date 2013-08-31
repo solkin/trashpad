@@ -1,6 +1,6 @@
 <?php
-include_once './connect_db.php';
-include_once './utils.php';
+include_once 'connect_db.php';
+include_once 'utils.php';
 
 $thread_id = $_POST['thread_id'];
 $karma = $_POST['karma'];

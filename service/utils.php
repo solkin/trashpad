@@ -124,7 +124,7 @@ function generate_random_string($lower_case = false, $length = 24)
 
 function get_time_millis()
 {
-    return round(microtime(true) * 1000);
+    return round(microtime(true) * 100);
 }
 
 ?>

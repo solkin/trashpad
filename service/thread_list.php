@@ -1,6 +1,6 @@
 <?php
-include_once './connect_db.php';
-include_once './utils.php';
+include_once 'connect_db.php';
+include_once 'utils.php';
 
 $include_reply = $_GET['include_reply'] == 'true' ? true : false;
 $invert = $_GET['invert'] == 'true' ? true : false;
