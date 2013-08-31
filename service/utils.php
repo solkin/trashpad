@@ -27,6 +27,14 @@ function get_threads_by_query($link, $include_reply, $query, $threads_count = 0,
     return list_threads($link, $result, $include_reply);
 }
 
+function get_random_thread($link, $include_reply)
+{
+    $sql = "SELECT * FROM threads ORDER BY RAND() LIMIT 1";
+    $result = mysqli_query($link, $sql) or die ('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+
+    return list_threads($link, $result, $include_reply);
+}
+
 function get_thread($link, $include_reply, $thread_id)
 {
     $sql = "SELECT * FROM threads WHERE thread_id='" . $thread_id . "'";

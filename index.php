@@ -49,6 +49,7 @@ $page_id = $_GET['page_id'];
 $thread_id = $_GET['thread_id'];
 $query = $_GET['query'];
 $rated = $_GET['rated'];
+$random = $_GET['random'];
 $admin_key = $_GET['admin'];
 
 echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '">';
@@ -59,9 +60,10 @@ echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '
         <div class="container" style="width: auto; padding: 0 20px;">
             <a class="brand" href="./">TrashPad</a>
             <ul class="nav">
-                <li <?if(!$rated) echo 'class="active"'; ?>><a href="./"><i class="icon-home icon-white"></i> Home <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
+                <li <?if(!$rated && !$random) echo 'class="active"'; ?>><a href="./"><i class="icon-home icon-white"></i> Home <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
                 </li>
                 <li <?if($rated) echo 'class="active"'; ?>><a href="./?rated=true"><i class="icon-star icon-white"></i> Top rated</a></li>
+                <li <?if($random) echo 'class="active"'; ?>><a href="./?random=true"><i class="icon-random icon-white"></i> Random</a></li>
                 <li class="divider-vertical"></li>
                 <li><a href="#"><i class="icon-info-sign icon-white"></i> About</a></li>
                 <li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> Post</a></li>
@@ -144,7 +146,9 @@ if (!$page_id || $page_id == 0) {
 }
 $thread_from = ($page_id - 1) * $threads_per_page;
 
-if ($thread_id) {
+if($random) {
+    $threads_list = get_random_thread($link, true);
+} else if ($thread_id) {
     $threads_list = get_thread($link, true, $thread_id);
 } else if ($query) {
     $threads_list = get_threads_by_query($link, true, $query, $threads_per_page, $thread_from);
@@ -157,7 +161,11 @@ if ($thread_id) {
 
 echo '<div class="container-narrow">';
 
-if($thread_id || empty($threads_list)) {
+if($random) {
+  echo '<form class="form-inline" action="./?random=true" method="post">';
+  echo '<button class="span3 offset3 btn btn-large btn-info" type="submit" id="big_green_button">One more random</button> ';
+  echo '</form>';
+} else if($thread_id || empty($threads_list)) {
   echo '<form class="form-inline" action="./" method="post">';
   echo '<button class="span3 offset3 btn btn-large btn-success" type="submit" id="big_green_button">To other threads</button> ';
   echo '</form>';
