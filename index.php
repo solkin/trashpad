@@ -157,7 +157,7 @@ if ($thread_id) {
 
 echo '<div class="container-narrow">';
 
-if($thread_id) {
+if($thread_id || empty($threads_list)) {
   echo '<form class="form-inline" action="./" method="post">';
   echo '<button class="span3 offset3 btn btn-large btn-success" type="submit" id="big_green_button">To other threads</button> ';
   echo '</form>';
@@ -247,19 +247,33 @@ foreach ($threads_list as $thread) {
     echo '	</div>';
     echo '</div>';
 }
-$href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
-$href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
 
-$newer_title = $rated ? "Higher" : "Newer";
-$older_title = $rated ? "Lower" : "Older";
-echo '<ul class="pager">';
-echo '<li class="previous' . (($page_id <= 1) ? " disabled" : " ") . '">';
-echo '<a' . (($page_id <= 1) ? "" : (' href=' . $href_page_prev)) . '>&larr; ' . $newer_title . '</a>';
-echo '</li>';
-echo '<li class="next' . (($page_id >= $pages_total) ? " disabled" : " ") . '">';
-echo '<a' . (($page_id >= $pages_total) ? "" : (' href=' . $href_page_next)) . '>' . $older_title . ' &rarr;</a>';
-echo '</li>';
-echo '</ul>';
+echo '<br>';
+
+if(empty($threads_list)) {
+    echo '<br>';
+    echo '<div class="row">';
+    echo '  <div class="span8 offset1">';
+    echo '    <p align="center"><br><i class="icon-tint"></i> ';
+    echo 'Unfortunately, we have no threads here, but we have lots of others. Just press big green button!';
+    echo '    </p>';
+    echo '  </div>';
+    echo '</div>';
+} else {
+    $href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
+    $href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
+
+    $newer_title = $rated ? "Higher" : "Newer";
+    $older_title = $rated ? "Lower" : "Older";
+    echo '<ul class="pager">';
+    echo '<li class="previous' . (($page_id <= 1) ? " disabled" : " ") . '">';
+    echo '<a' . (($page_id <= 1) ? "" : (' href=' . $href_page_prev)) . '>&larr; ' . $newer_title . '</a>';
+    echo '</li>';
+    echo '<li class="next' . (($page_id >= $pages_total) ? " disabled" : " ") . '">';
+    echo '<a' . (($page_id >= $pages_total) ? "" : (' href=' . $href_page_next)) . '>' . $older_title . ' &rarr;</a>';
+    echo '</li>';
+    echo '</ul>';
+}
 
 echo '<hr class="soften">';
 echo '<div class="footer">';
