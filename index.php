@@ -219,8 +219,6 @@
                 $browser_logo = $browser[1];
                 echo '		<img src="./images/browser/' . $browser_logo . '.png"></i> ' . $browser_name;
               }
-              // echo $time;
-              // echo '		<i class="icon-globe"></i> ' . $user_agent;
               echo '      <form class="form-inline" method="post">';
               if ($admin) {
                 echo '		<button class="btn btn-mini btn-danger" type="submit" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';

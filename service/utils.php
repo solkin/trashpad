@@ -131,6 +131,7 @@ function get_os_by_ua($user_agent) {
   $os_platform = null;
 
   $os_array = array(
+      '/windows phone/i' => array('Windows Phone', 'windows-3'),
       '/windows nt 6.2/i' => array('Windows 8', 'windows-3'),
       '/windows nt 6.1/i' => array('Windows 7', 'windows-2'),
       '/windows nt 6.0/i' => array('Windows Vista', 'windows-2'),
@@ -153,8 +154,10 @@ function get_os_by_ua($user_agent) {
   );
 
   foreach ($os_array as $regex => $value) {
-    if (preg_match($regex, $user_agent))
+    if (preg_match($regex, $user_agent)) {
       $os_platform = $value;
+      break;
+    }
   }
 
   return $os_platform;
