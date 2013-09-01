@@ -41,13 +41,13 @@
           </head>
           <body>
             <?php
-            putenv ("LC_ALL=ru_RU");
-            setlocale (LC_ALL, "Russian");
+            putenv("LC_ALL=ru_RU");
+            setlocale(LC_ALL, "Russian");
             $domain = "trashpad";
-            bindtextdomain ($domain, "./locale");
+            bindtextdomain($domain, "./locale");
             bind_textdomain_codeset($domain, 'UTF-8');
-            textdomain ($domain);
-            
+            textdomain($domain);
+
             include_once 'service/settings.php';
             include_once 'service/connect_db.php';
             include_once 'service/utils.php';
@@ -65,20 +65,20 @@
             <div class="navbar navbar-fixed-top navbar-inverse" style="margin: -1px -1px 0;">
               <div class="navbar-inner">
                 <div class="container" style="width: auto; padding: 0 20px;">
-                  <a class="brand" href="./"><?echo _("TrashPad")?></a>
+                  <a class="brand" href="./"><? echo _("TrashPad") ?></a>
                   <ul class="nav">
-                    <li <? if (!$rated && !$random) echo 'class="active"'; ?>><a href="./"><i class="icon-home icon-white"></i> <?echo _("Home")?> <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
+                    <li <? if (!$rated && !$random) echo 'class="active"'; ?>><a href="./"><i class="icon-home icon-white"></i> <? echo _("Home") ?> <span id="fresh_counter" class="label label-info" style="display:none;">0</span></a>
                     </li>
-                    <li <? if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><i class="icon-star icon-white"></i> <?echo _("Top rated")?></a></li>
-                    <li <? if ($random) echo 'class="active"'; ?>><a href="./?random=true"><i class="icon-random icon-white"></i> <?echo _("Random")?></a></li>
+                    <li <? if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><i class="icon-star icon-white"></i> <? echo _("Top rated") ?></a></li>
+                    <li <? if ($random) echo 'class="active"'; ?>><a href="./?random=true"><i class="icon-random icon-white"></i> <? echo _("Random") ?></a></li>
                     <li class="divider-vertical"></li>
-                    <li><a href="#"><i class="icon-info-sign icon-white"></i> <?echo _("About")?></a></li>
-                    <li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> <?echo _("Post")?></a></li>
+                    <li><a href="#"><i class="icon-info-sign icon-white"></i> <? echo _("About") ?></a></li>
+                    <li><a href="#myModal" data-toggle="modal"><i class="icon-pencil icon-white"></i> <? echo _("Post") ?></a></li>
                   </ul>
                   <form class="navbar-search pull-right form-search" action="./">
                     <div class="input-append">
-                      <input type="text" class="span2 search-query" placeholder="<?echo _("Search")?>" name="query">
-                        <button type="submit" class="btn btn-inverse"><?echo _("Search")?></button>
+                      <input type="text" class="span2 search-query" placeholder="<? echo _("Search") ?>" name="query">
+                        <button type="submit" class="btn btn-inverse"><? echo _("Search") ?></button>
                     </div>
                   </form>
                 </div>
@@ -90,49 +90,49 @@
             <div id="myModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
               <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                <h3 id="myModalLabel"><?echo _("Post thread")?></h3>
+                <h3 id="myModalLabel"><? echo _("Post thread") ?></h3>
               </div>
               <form onsubmit="post_thread(name, feedback, message, post_button, success_alert, warning_alert, error_alert);
                   return false;"
                     method="post" class="form-horizontal">
                 <div class="modal-body">
                   <div class="alert alert-success hide" id="success_alert">
-                    <strong><?echo _("Congratulations!")?></strong> <?echo _("New thread successfully posted! Redirecting...")?>
+                    <strong><? echo _("Congratulations!") ?></strong> <? echo _("New thread successfully posted! Redirecting...") ?>
                   </div>
                   <div class="alert alert-warning hide" id="warning_alert">
-                    <strong><?echo _("Heads up!")?></strong> <?echo _("You must fill at least message field.")?>
+                    <strong><? echo _("Heads up!") ?></strong> <? echo _("You must fill at least message field.") ?>
                   </div>
                   <div class="alert alert-error hide" id="error_alert">
-                    <strong><?echo _("Errrm.")?></strong> <?echo _("Something was wrong on the host during post this thread.")?>
+                    <strong><? echo _("Errrm.") ?></strong> <? echo _("Something was wrong on the host during post this thread.") ?>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="inputName"><?echo _("Name")?></label>
+                    <label class="control-label" for="inputName"><? echo _("Name") ?></label>
                     <div class="controls">
                       <div class="input-prepend">
                         <span class="add-on"><i class="icon-user"></i></span>
-                        <input type="text" id="inputName" name="name" placeholder="<?echo _("Name")?>">
+                        <input type="text" id="inputName" name="name" placeholder="<? echo _("Name") ?>">
                       </div>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="inputFeedback"><?echo _("Feedback")?></label>
+                    <label class="control-label" for="inputFeedback"><? echo _("Feedback") ?></label>
                     <div class="controls">
                       <div class="input-prepend">
                         <span class="add-on"><i class="icon-envelope"></i></span>
-                        <input type="text" id="inputFeedback" name="feedback" placeholder="<?echo _("Feedback")?>">
+                        <input type="text" id="inputFeedback" name="feedback" placeholder="<? echo _("Feedback") ?>">
                       </div>
                     </div>
                   </div>
                   <div class="control-group">
-                    <label class="control-label" for="inputMessage"><?echo _("Message")?></label>
+                    <label class="control-label" for="inputMessage"><? echo _("Message") ?></label>
                     <div class="controls">
-                      <textarea id="inputMessage" name="message" id="message" placeholder="<?echo _("Your message here")?>"></textarea>
+                      <textarea id="inputMessage" name="message" id="message" placeholder="<? echo _("Your message here") ?>"></textarea>
                     </div>
                   </div>
                 </div>
                 <div class="modal-footer">
-                  <button class="btn btn-primary" type="submit" name="post_button"><?echo _("Post thread")?></button>
-                  <button class="btn" data-dismiss="modal" aria-hidden="true"><?echo _("Close")?></button>
+                  <button class="btn btn-primary" type="submit" name="post_button"><? echo _("Post thread") ?></button>
+                  <button class="btn" data-dismiss="modal" aria-hidden="true"><? echo _("Close") ?></button>
                 </div>
               </form>
             </div>
@@ -188,6 +188,7 @@
               $thread_id = $thread['thread_id'];
               $message = $thread['message'];
               $karma = $thread['karma'];
+              $time = $thread['time'];
               $reply_list = array_reverse($thread['reply']);
 
               $threads_array[$threads_iterator++] = $thread_id;
@@ -203,7 +204,23 @@
                   echo '		<a href="mailto:' . $feedback . '"><i class="icon-envelope"></i> ' . $feedback . '</a><br>';
                 }
               }
-              echo '		<i class="icon-globe"></i> ' . $user_agent;
+              echo "<i class='icon-calendar'></i> " . date("d.m.Y", $time / 100);
+              echo " <i class='icon-time'></i> " . date("H:i:s", $time / 100);
+              echo '<br>';
+              $os = get_os_by_ua($user_agent);
+              $browser = get_browser_by_ua($user_agent);
+              if ($os) {
+                $os_name = $os[0];
+                $os_logo = $os[1];
+                echo '		<img src="/images/os/' . $os_logo . '.png"></i> ' . $os_name;
+              }
+              if ($browser) {
+                $browser_name = $browser[0];
+                $browser_logo = $browser[1];
+                echo '		<img src="/images/browser/' . $browser_logo . '.png"></i> ' . $browser_name;
+              }
+              // echo $time;
+              // echo '		<i class="icon-globe"></i> ' . $user_agent;
               echo '      <form class="form-inline" method="post">';
               if ($admin) {
                 echo '		<button class="btn btn-mini btn-danger" type="submit" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><i class="icon-trash icon-white"></i></button> ';
@@ -227,13 +244,13 @@
               $direct_link = $direct_link . "?thread_id=" . $thread_id;
               echo '<div class="share">';
               echo '  <div class="twitter">';
-              echo '    <a id="twitter_' . $thread_id . '" href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="'.  _("Share via Twitter").'" target="_blank"></a>';
+              echo '    <a id="twitter_' . $thread_id . '" href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="' . _("Share via Twitter") . '" target="_blank"></a>';
               echo '  </div>';
               echo '  <div class="vkontakte">';
-              echo '    <a id="vkontakte_' . $thread_id . '" href="http://vk.com/share.php?url=' . $direct_link . '" title="'.  _("Share via VK").'" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
+              echo '    <a id="vkontakte_' . $thread_id . '" href="http://vk.com/share.php?url=' . $direct_link . '" title="' . _("Share via VK") . '" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
               echo '  </div>';
               echo '  <div class="facebook">';
-              echo '    <a id="facebook_' . $thread_id . '" href="https://www.facebook.com/sharer/sharer.php?u=' . $direct_link . '" title="'.  _("Share via Facebook").'" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
+              echo '    <a id="facebook_' . $thread_id . '" href="https://www.facebook.com/sharer/sharer.php?u=' . $direct_link . '" title="' . _("Share via Facebook") . '" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
               echo '  </div>';
               /* echo '  <div class="googleplus">';
                 echo '    <a href="https://plus.google.com/share?url=' . $direct_link . '" title="Опубликовать ссылку в Google Plus" onclick="window.open(this.href, \'Опубликовать ссылку в Google Plus\', \'width=800,height=300\'); return false"></a>';
@@ -243,8 +260,8 @@
               echo '		<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
               echo '			<input type="hidden" name="thread_id" value="' . $thread_id . '">';
               echo '			<div class="span5 offset0 input-append">';
-              echo '				<input class="input-block-level" type="text" id="reply_message_' . $thread_id . '" name="message" placeholder="'._("Your reply here").'">';
-              echo '				<button type="submit" class="btn btn-primary" id="reply_button_' . $thread_id . '" name="reply_button">'._("Reply").'</button>';
+              echo '				<input class="input-block-level" type="text" id="reply_message_' . $thread_id . '" name="message" placeholder="' . _("Your reply here") . '">';
+              echo '				<button type="submit" class="btn btn-primary" id="reply_button_' . $thread_id . '" name="reply_button">' . _("Reply") . '</button>';
               echo '			</div>';
               echo '		</form>';
               echo '	</div>';
@@ -316,7 +333,7 @@
                       }
                     },
                     error: function(data) {
-                      alert('<?echo _("Thread remove failed:")?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                      alert('<? echo _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                     }
                   });
                 }
@@ -345,7 +362,7 @@
                       }
                     },
                     error: function(data) {
-                      alert('<?echo _("Karma reset failed:")?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                      alert('<? echo _("Karma reset failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                     }
                   });
                 }
@@ -561,7 +578,7 @@ echo json_encode($threads_array);
                       reply_button.disabled = true;
 
                       var moderated_action = function() {
-                        alert('<?echo _("This thread was moderated, so you can't share it more. Refresh page to get deleted threads gone forever.")?>');
+                        alert('<? echo _("This thread was moderated, so you can't share it more. Refresh page to get deleted threads gone forever.") ?>');
                         return false;
                       };
                       twitter.onclick = moderated_action;

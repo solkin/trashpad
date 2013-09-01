@@ -1,4 +1,5 @@
 <?php
+
 // Main page settings.
 $threads_per_page = 5;
 // Database settings.
