@@ -212,12 +212,12 @@
               if ($os) {
                 $os_name = $os[0];
                 $os_logo = $os[1];
-                echo '		<img src="/images/os/' . $os_logo . '.png"></i> ' . $os_name;
+                echo '		<img src="./images/os/' . $os_logo . '.png"></i> ' . $os_name;
               }
               if ($browser) {
                 $browser_name = $browser[0];
                 $browser_logo = $browser[1];
-                echo '		<img src="/images/browser/' . $browser_logo . '.png"></i> ' . $browser_name;
+                echo '		<img src="./images/browser/' . $browser_logo . '.png"></i> ' . $browser_name;
               }
               // echo $time;
               // echo '		<i class="icon-globe"></i> ' . $user_agent;
