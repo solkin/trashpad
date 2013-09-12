@@ -85,16 +85,23 @@ ob_start("sanitize_output");
     bind_textdomain_codeset($domain, 'UTF-8');
     textdomain($domain);
 
-    include_once 'service/settings.php';
-    include_once 'service/connect_db.php';
-    include_once 'service/utils.php';
-
     $page_id = $_GET['page_id'];
     $thread_id = $_GET['thread_id'];
     $query = $_GET['query'];
     $rated = $_GET['rated'];
     $random = $_GET['random'];
     $admin_key = $_GET['admin'];
+    
+    include_once 'service/settings.php';
+    
+    if ($admin_key === $secret_key) {
+      $admin = true;
+    } else {
+      $admin = false;
+    }
+    
+    include_once 'service/connect_db.php';
+    include_once 'service/utils.php';
 
     echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '"></input>';
     ?>
@@ -179,13 +186,6 @@ ob_start("sanitize_output");
 
     <?php
     // Thread to show calculation.
-
-    if ($admin_key === $secret_key) {
-      $admin = true;
-    } else {
-      $admin = false;
-    }
-
     if (!$page_id || $page_id == 0) {
       $page_id = 1;
     }

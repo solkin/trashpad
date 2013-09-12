@@ -8,7 +8,7 @@ $init = $_GET['init'];
 
 $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name) or die('{"status": "failed", "reason": ' . json_encode(mysqli_connect_error($link)) . '}');
 
-if ($init) {
+if ($init && $admin) {
   $sql = "DROP TABLE IF EXISTS threads";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
