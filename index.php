@@ -1,3 +1,20 @@
+<?php
+function sanitize_output($buffer) {
+    $search = array(
+        '/\>[^\S ]+/s',  // strip whitespaces after tags, except space
+        '/[^\S ]+\</s',  // strip whitespaces before tags, except space
+        '/(\s)+/s'       // shorten multiple whitespace sequences
+    );
+    $replace = array(
+        '>',
+        '<',
+        '\\1'
+    );
+    return preg_replace($search, $replace, $buffer);
+}
+ob_start("sanitize_output");
+?>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
 <html>
   <head>
@@ -6,15 +23,16 @@
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
       <meta name="description" content="TrashPad">
       <meta name="author" content="TomClaw Software">
-        
-      <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
-      <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
-      <script src="./bootstrap/js/bootstrap.min.js"></script>
+      <script src="./jquery/jquery-1.10.2.min.js"></script>
       
-      <script src="./bootstrap/js/jquery.js"></script>
+      <script src="./bootstrap/js/bootstrap.min.js"></script>
       <script src="./bootstrap/js/modal.js"></script>
       <script src="./bootstrap/js/transition.js"></script>
       <script src="./bootstrap/js/collapse.js"></script>
+        
+      <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+      <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
+      
       
       <style type="text/css">
         body {
@@ -23,7 +41,7 @@
         }
         
         .container {
-          max-width: 1000px;
+          max-width: 1024px;
         }
 
         .navbar-form {
@@ -78,7 +96,7 @@
     $random = $_GET['random'];
     $admin_key = $_GET['admin'];
 
-    echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '"/>';
+    echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '"></input>';
     ?>
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -89,7 +107,7 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./"><? echo _("TrashPad") ?></a>
+          <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-home icon-white"></span>&nbsp;<? echo _("TrashPad") ?></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
@@ -356,7 +374,6 @@
                 data: {'thread_id': thread_id, 'admin_key': admin_key},
                 success: function(data) {
                   if (data['status'] === 'ok') {
-                    // Page refresh.
                     update_karma(thread_id, '<? echo $unrated_value; ?>');
                   } else {
                     this.error(data);
@@ -400,7 +417,6 @@
             }
 
             function karma_update(thread_id, karma) {
-              // Find buttons.
               var like_button = document.getElementById("like_button_" + thread_id);
               var fire_button = document.getElementById("fire_button_" + thread_id);
 <?
@@ -455,14 +471,12 @@ if (!$admin) {
                     if (status === 'ok') {
                       var thread_id = data['thread_id'];
                       $('#success_alert').show('fast');
-                      // Current page path.
                       var path_array = location.pathname.split('/');
                       var path_new = "";
                       for (i = 1; i < path_array.length; i++) {
                         path_new += "/";
                         path_new += path_array[i];
                       }
-                      // Redirect.
                       location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
                     } else {
                       name.removeAttribute('readOnly');
@@ -529,7 +543,7 @@ echo json_encode($threads_array);
               threads_array.forEach(function(element, index, array) {
                 var thread_div = document.getElementById(element);
                 var reply_id = "";
-                if (typeof thread_div.childNodes[0].getAttribute === 'function') {
+                if (thread_div.childNodes[0] !== undefined) {
                   reply_id = thread_div.childNodes[0].getAttribute('id');
                   if (reply_id !== null) {
                     reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
@@ -597,7 +611,7 @@ echo json_encode($threads_array);
                 karma_counter.innerHTML = karma;
                 if (karma === '<? echo $unrated_value; ?>') {
                   karma_counter.className = "label label-important";
-                  // Disable buttons.
+                  
                   var like_button = document.getElementById("like_button_" + thread_id);
                   var fire_button = document.getElementById("fire_button_" + thread_id);
                   var reply_message = document.getElementById("reply_message_" + thread_id);
