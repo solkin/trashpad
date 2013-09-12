@@ -61,8 +61,7 @@
   </head>
   <body data-spy="scroll" data-target=".bs-docs-sidebar">
     <?php
-    putenv("LC_ALL=ru_RU");
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "ru_RU.UTF-8");
     $domain = "trashpad";
     bindtextdomain($domain, "./locale");
     bind_textdomain_codeset($domain, 'UTF-8');

@@ -9,10 +9,10 @@ $init = $_GET['init'];
 $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name) or die('{"status": "failed", "reason": ' . json_encode(mysqli_connect_error($link)) . '}');
 
 if ($init) {
-  $sql = "DROP TABLE threads";
+  $sql = "DROP TABLE IF EXISTS threads";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
-  $sql = "DROP TABLE reply";
+  $sql = "DROP TABLE IF EXISTS reply";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
   $sql = "CREATE TABLE IF NOT EXISTS threads (
