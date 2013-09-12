@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2013-08-31 21:50+0400\n"
-"PO-Revision-Date: 2013-09-09 01:03+0400\n"
+"PO-Revision-Date: 2013-09-12 20:25+0400\n"
 "Last-Translator: Igor Solkin <inbox@tomclaw.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -36,7 +36,7 @@ msgstr "Про сервис"
 
 #: D:\Code\WEB\trashpad/index.php:76
 msgid "Post"
-msgstr "Новая заметка"
+msgstr "Новая записка"
 
 #: D:\Code\WEB\trashpad/index.php:80 D:\Code\WEB\trashpad/index.php:81
 msgid "Search"
@@ -52,7 +52,7 @@ msgstr "Поздравляем!"
 
 #: D:\Code\WEB\trashpad/index.php:100
 msgid "New thread successfully posted! Redirecting..."
-msgstr "Новая заметка успешно опубликована! Перенаправляемся к ней..."
+msgstr "Новая записка успешно опубликована! Перенаправляемся к ней..."
 
 #: D:\Code\WEB\trashpad/index.php:103
 msgid "Heads up!"
@@ -68,7 +68,7 @@ msgstr "Хммм."
 
 #: D:\Code\WEB\trashpad/index.php:106
 msgid "Something was wrong on the host during post this thread."
-msgstr "Что-то пошло не так в процессе публикации заметки."
+msgstr "Что-то пошло не так в процессе публикации записки."
 
 #: D:\Code\WEB\trashpad/index.php:109 D:\Code\WEB\trashpad/index.php:113
 msgid "Name"
@@ -80,11 +80,11 @@ msgstr "Обратная связь"
 
 #: D:\Code\WEB\trashpad/index.php:127
 msgid "Message"
-msgstr "Заметка"
+msgstr "Записка"
 
 #: D:\Code\WEB\trashpad/index.php:129
 msgid "Your message here"
-msgstr "Текст Вашей заметки"
+msgstr "Текст Вашей записки"
 
 #: D:\Code\WEB\trashpad/index.php:135
 msgid "Close"
@@ -144,7 +144,7 @@ msgstr "Старее"
 
 #: D:\Code\WEB\trashpad/index.php:319
 msgid "Thread remove failed:"
-msgstr "Не удалось удалить заметку:"
+msgstr "Не удалось удалить записку:"
 
 #: D:\Code\WEB\trashpad/index.php:348
 msgid "Karma reset failed:"
@@ -155,5 +155,5 @@ msgid ""
 "This thread was moderated, so you can't share it more. Refresh page to get "
 "deleted threads gone forever."
 msgstr ""
-"Эта заметка была удалена модераторами. Видимо, не спроста. Поэтому ею больше "
+"Эта записка была удалена модераторами. Видимо, не спроста. Поэтому ею больше "
 "нельзя делиться в социальных сетях."
