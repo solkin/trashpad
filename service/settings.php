@@ -9,7 +9,7 @@ $db_pass = '380349';
 $db_name = 'trashpad_db';
 // Admin
 $secret_key = 'secret_key';
-$unrated_value = '-∞';
+$unrated_value = '-&#8734;';
 
 $events_poll_time = 2000;
 $fetch_events_timeout = 60000;

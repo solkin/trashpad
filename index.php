@@ -253,6 +253,14 @@ ob_start("sanitize_output");
           echo '<a href="mailto:' . $feedback . '"><span class="glyphicon glyphicon-envelope"></span> ' . $feedback . '</a><br/>';
         }
       }
+      $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+      $direct_link .= $_SERVER['SERVER_NAME'];
+      $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
+      $question_pos = strpos($direct_link, '?');
+      if ($question_pos) {
+        $direct_link = substr($direct_link, 0, $question_pos);
+      }
+      $direct_link = $direct_link . "?thread_id=" . $thread_id;
       echo '<span class="glyphicon glyphicon-calendar"></span> ' . date('d.m.Y', $time / 100) . '&nbsp;';
       echo '<span class="glyphicon glyphicon-time"></span> ' . date('H:i', $time / 100);
       echo '<div class="twitter">';
@@ -285,14 +293,6 @@ ob_start("sanitize_output");
       echo '&nbsp;<span class="label label-' . $label_type . '" id="karma_counter_' . $thread_id . '">' . $karma . '</span>&nbsp;';
       echo $message;
       echo '</form>';
-      $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-      $direct_link .= $_SERVER['SERVER_NAME'];
-      $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
-      $question_pos = strpos($direct_link, '?');
-      if ($question_pos) {
-        $direct_link = substr($direct_link, 0, $question_pos);
-      }
-      $direct_link = $direct_link . "?thread_id=" . $thread_id;
       echo '<hr/>';
       echo '<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
       echo '<input type="hidden" name="thread_id" value="' . $thread_id . '"/>';
