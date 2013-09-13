@@ -52,9 +52,9 @@ do {
       }
     } else {
       // No such thread anymore.
-      if ($karma != $unrated_value) {
+      if ($karma != "unrated") {
         $empty_karma['thread_id'] = $key;
-        $empty_karma['karma'] = $unrated_value;
+        $empty_karma['karma'] = "unrated";
         $karma_array[$karma_count++] = $empty_karma;
       }
     }

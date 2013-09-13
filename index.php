@@ -32,7 +32,8 @@ ob_start("sanitize_output");
         
       <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
       <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
-      
+        
+      <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
       
       <style type="text/css">
         body {
@@ -114,19 +115,19 @@ ob_start("sanitize_output");
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./"><span class="glyphicon glyphicon-trash icon-white"></span>&nbsp;<? echo _("TrashPad") ?></a>
+          <a class="navbar-brand" href="./"><span class="icon-trash"></span>&nbsp;<? echo _("TrashPad") ?></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li <? if (!$rated && !$random) echo 'class="active"'; ?>><a href="./">
-                <span class="glyphicon glyphicon-home icon-white"></span> <? echo _("Home") ?> 
+                <span class="icon-home icon-white"></span> <? echo _("Home") ?> 
                 <span id="fresh_counter" class="badge" style="display:none;">0</span></a>
             </li>
-            <li <? if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="glyphicon glyphicon-star icon-white"></span> <? echo _("Top rated") ?></a></li>
-            <li <? if ($random) echo 'class="active"'; ?>><a href="./?random=true"><span class="glyphicon glyphicon-random icon-white"></span> <? echo _("Random") ?></a></li>
+            <li <? if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="icon-star icon-white"></span> <? echo _("Top rated") ?></a></li>
+            <li <? if ($random) echo 'class="active"'; ?>><a href="./?random=true"><span class="icon-random icon-white"></span> <? echo _("Random") ?></a></li>
             <li class="divider-vertical"></li>
-            <li><a href="#"><span class="glyphicon glyphicon-info-sign icon-white"></span> <? echo _("About") ?></a></li>
-            <li><a href="#write_modal" data-toggle="modal"><span class="glyphicon glyphicon-pencil icon-white"></span> <? echo _("Post") ?></a></li>
+            <li><a href="#"><span class="icon-info-sign icon-white"></span> <? echo _("About") ?></a></li>
+            <li><a href="#write_modal" data-toggle="modal"><span class="icon-pencil icon-white"></span> <? echo _("Post") ?></a></li>
           </ul>
           <form class="navbar-form navbar-right" role="search" action="./">
             <div class="form-group">
@@ -247,10 +248,10 @@ ob_start("sanitize_output");
       echo '<div class="panel-heading">';
       if (!empty($name) || !empty($feedback)) {
         if (!empty($name)) {
-          echo '<strong><span class="glyphicon glyphicon-user"></span> ' . $name . '</strong><br/>';
+          echo '<strong><span class="icon-user"></span> ' . $name . '</strong><br/>';
         }
         if (!empty($feedback)) {
-          echo '<a href="mailto:' . $feedback . '"><span class="glyphicon glyphicon-envelope"></span> ' . $feedback . '</a><br/>';
+          echo '<a href="mailto:' . $feedback . '"><span class="icon-envelope"></span> ' . $feedback . '</a><br/>';
         }
       }
       $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
@@ -261,8 +262,8 @@ ob_start("sanitize_output");
         $direct_link = substr($direct_link, 0, $question_pos);
       }
       $direct_link = $direct_link . "?thread_id=" . $thread_id;
-      echo '<span class="glyphicon glyphicon-calendar"></span> ' . date('d.m.Y', $time / 100) . '&nbsp;';
-      echo '<span class="glyphicon glyphicon-time"></span> ' . date('H:i', $time / 100);
+      echo '<span class="icon-calendar"></span> ' . date('d.m.Y', $time / 100) . '&nbsp;';
+      echo '<span class="icon-time"></span> ' . date('H:i', $time / 100);
       echo '<div class="twitter">';
       echo '<a id="twitter_' . $thread_id . '" href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="' . _("Share via Twitter") . '" target="_blank"></a>';
       echo '</div>';
@@ -276,12 +277,12 @@ ob_start("sanitize_output");
       echo '<div class="panel-body">';
       echo '<form class="form-inline" method="post">';
       if ($admin) {
-        echo '<button class="btn btn-xs btn-danger" type="button" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="glyphicon glyphicon-trash icon-white"></span></button> ';
-        echo '<button class="btn btn-xs btn-default" type="buton" id="reset_button_' . $thread_id . '" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="glyphicon glyphicon-thumbs-down"></span></button> ';
+        echo '<button class="btn btn-xs btn-danger" type="button" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash icon-white"></span></button> ';
+        echo '<button class="btn btn-xs btn-default" type="buton" id="reset_button_' . $thread_id . '" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-hand-down"></span></button> ';
       }
       echo '<div class="btn-group">';
-      echo '<button class="btn btn-xs btn-success" type="submit" id="like_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><span class="glyphicon glyphicon-heart icon-white"></span></button> ';
-      echo '<button class="btn btn-xs btn-warning" type="submit" id="fire_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', -1); return false;"><span class="glyphicon glyphicon-fire icon-white"></span></button>';
+      echo '<button class="btn btn-xs btn-success" type="submit" id="like_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><span class="icon-thumbs-up-alt"></span></button> ';
+      echo '<button class="btn btn-xs btn-warning" type="submit" id="fire_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', -1); return false;"><span class="icon-thumbs-down-alt"></span></button>';
       echo '</div>';
       if(intval($karma) == 0) {
         $label_type = 'default';
@@ -307,7 +308,7 @@ ob_start("sanitize_output");
       echo '<div id="' . $thread_id . '" class="col-md-9">';
       foreach ($reply_list as $reply) {
         echo '<div id="' . $thread_id . '_' . $reply['reply_id'] . '">';
-        echo '<p><span class="glyphicon glyphicon-comment"/></span>&nbsp;' . $reply['message'] . '</p>';
+        echo '<p><span class="icon-comment"/></span>&nbsp;' . $reply['message'] . '</p>';
         echo '</div>';
       }
       echo '</div>';
@@ -331,12 +332,12 @@ ob_start("sanitize_output");
     }
 
     if (empty($threads_list)) {
-      echo '<div class="row">';
+      echo '<div class="row" style="padding-bottom: 15px;">';
       echo '<div class="col-lg-4"></div>';
-      echo '<div class="col-lg-4">';
-      echo '<img align="center" src="./images/system/burova.jpg" class="img-circle"></img>';
+      echo '<div class="col-lg-4" align="middle">';
+      echo '<img src="./images/system/burova.jpg" class="img-circle"></img>';
       echo '</div>';
-      echo '<div class="col-lg-4"></div>';
+      echo '</div>';
       echo '<p align="center">';
       echo _("Unfortunately, we have no threads here, but we have lots of others. Just press big green button!");
       echo '</p>';
@@ -374,7 +375,7 @@ ob_start("sanitize_output");
                 data: {'thread_id': thread_id, 'admin_key': admin_key},
                 success: function(data) {
                   if (data['status'] === 'ok') {
-                    update_karma(thread_id, '<? echo $unrated_value; ?>');
+                    update_karma(thread_id, 'unrated');
                   } else {
                     this.error(data);
                   }
@@ -437,12 +438,12 @@ if (!$admin) {
                   if (karma_counter) {
                     karma_counter.innerHTML = karma.toString();
                     if (karma === 0) {
-                        karma_counter.className = "label label-default";
-                      } else if (karma > 0) {
-                        karma_counter.className = "label label-info";
-                      } else {
-                        karma_counter.className = "label label-warning";
-                      }
+                      karma_counter.className = "label label-default";
+                    } else if (karma > 0) {
+                      karma_counter.className = "label label-info";
+                    } else {
+                      karma_counter.className = "label label-warning";
+                    }
                   }
                 },
                 error: function(data) {
@@ -550,6 +551,9 @@ echo json_encode($threads_array);
                   }
                 }
                 var karma_counter = document.getElementById('karma_counter_' + element).innerHTML;
+                if(!is_numeric(karma_counter)) {
+                  karma_counter = "unrated";
+                }
                 var thread_data = {};
                 thread_data.reply = reply_id;
                 thread_data.karma = karma_counter;
@@ -608,9 +612,9 @@ echo json_encode($threads_array);
               var karma_counter = document.getElementById('karma_counter_' + thread_id);
 
               if (karma_counter) {
-                karma_counter.innerHTML = karma;
-                if (karma === '<? echo $unrated_value; ?>') {
-                  karma_counter.className = "label label-important";
+                if (karma === 'unrated') {
+                  karma_counter.className = "label label-danger";
+                  karma = '<span class="icon-fire"></span>';
                   
                   var like_button = document.getElementById("like_button_" + thread_id);
                   var fire_button = document.getElementById("fire_button_" + thread_id);
@@ -642,12 +646,15 @@ if ($admin) {
 }
 ?>
                 } else {
-                  if (parseInt(karma) >= 0) {
+                  if (parseInt(karma) === 0) {
+                    karma_counter.className = "label label-default";
+                  } else if (parseInt(karma) > 0) {
                     karma_counter.className = "label label-info";
                   } else {
                     karma_counter.className = "label label-warning";
                   }
                 }
+                karma_counter.innerHTML = karma;
               }
             }
 
@@ -656,7 +663,7 @@ if ($admin) {
               if (!document.getElementById(thread_reply_id)) {
                 $('#' + thread_id).prepend(
                         '<div id="' + thread_reply_id + '" style="display:none;">' +
-                        '<p><span class="glyphicon glyphicon-comment"></span>&nbsp;' + message + '</p>' +
+                        '<p><span class="icon-comment"></span>&nbsp;' + message + '</p>' +
                         '</div>'
                         );
                 return thread_reply_id;
@@ -669,6 +676,10 @@ if ($admin) {
                 $('#' + reply_id).show('fast', function() {
                 });
               }
+            }
+            
+            function is_numeric(n) {
+              return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
             fetch_events(false);
