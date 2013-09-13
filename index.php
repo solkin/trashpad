@@ -206,7 +206,7 @@ ob_start("sanitize_output");
       $pages_total = ceil(get_threads_count($link) / $threads_per_page);
     }
 
-    echo '<div class="container">';
+    echo '<div class="container" style="max-width: 850px;">';
     if ($random || $thread_id || empty($threads_list)) {
       echo '<div class="row">';
       echo '<div class="col-lg-4"></div>';
@@ -332,11 +332,8 @@ ob_start("sanitize_output");
     }
 
     if (empty($threads_list)) {
-      echo '<div class="row" style="padding-bottom: 15px;">';
-      echo '<div class="col-lg-4"></div>';
-      echo '<div class="col-lg-4" align="middle">';
+      echo '<div class="row" style="padding-bottom: 15px;" align="middle">';
       echo '<img src="./images/system/burova.jpg" class="img-circle"></img>';
-      echo '</div>';
       echo '</div>';
       echo '<p align="center">';
       echo _("Unfortunately, we have no threads here, but we have lots of others. Just press big green button!");
