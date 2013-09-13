@@ -23,10 +23,16 @@ if (mysqli_num_rows($result) > 0) {
 
   mysqli_free_result($result);
 } else {
-  $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message) " .
-          "VALUES ('$time', '$name', '$feedback', '$ip', '$user_agent', '$thread_id', '$message')";
+  $message_length = mb_strlen($_POST['message'], "UTF-8");
+  if($message_length > $thread_length) {
+    mysqli_close($link);
+    die('{"status": "failed", "reason": "message too long (' . $message_length . ') - maximum thread length is ' . $thread_length . ' chars"}');
+  } else {
+    $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message) " .
+            "VALUES ('$time', '$name', '$feedback', '$ip', '$user_agent', '$thread_id', '$message')";
 
-  mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+    mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+  }
 }
 
 mysqli_close($link);

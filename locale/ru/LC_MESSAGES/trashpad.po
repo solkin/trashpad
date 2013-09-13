@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-08-31 21:50+0400\n"
-"PO-Revision-Date: 2013-09-12 20:25+0400\n"
+"POT-Creation-Date: 2013-09-13 21:21+0400\n"
+"PO-Revision-Date: 2013-09-13 21:22+0400\n"
 "Last-Translator: Igor Solkin <inbox@tomclaw.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -14,111 +14,111 @@ msgstr ""
 "X-Poedit-Basepath: D:\\Code\\WEB\\trashpad\n"
 "X-Poedit-SearchPath-0: D:\\Code\\WEB\\trashpad\n"
 
-#: D:\Code\WEB\trashpad/index.php:68
+#: D:\Code\WEB\trashpad/index.php:118
 msgid "TrashPad"
 msgstr "TrashPad"
 
-#: D:\Code\WEB\trashpad/index.php:70
+#: D:\Code\WEB\trashpad/index.php:123
 msgid "Home"
 msgstr "Главная"
 
-#: D:\Code\WEB\trashpad/index.php:72
+#: D:\Code\WEB\trashpad/index.php:126
 msgid "Top rated"
 msgstr "Топ записок"
 
-#: D:\Code\WEB\trashpad/index.php:73
+#: D:\Code\WEB\trashpad/index.php:127
 msgid "Random"
 msgstr "Случайная"
 
-#: D:\Code\WEB\trashpad/index.php:75
+#: D:\Code\WEB\trashpad/index.php:129
 msgid "About"
 msgstr "Про сервис"
 
-#: D:\Code\WEB\trashpad/index.php:76
+#: D:\Code\WEB\trashpad/index.php:130
 msgid "Post"
 msgstr "Новая записка"
 
-#: D:\Code\WEB\trashpad/index.php:80 D:\Code\WEB\trashpad/index.php:81
+#: D:\Code\WEB\trashpad/index.php:134
 msgid "Search"
 msgstr "Поиск"
 
-#: D:\Code\WEB\trashpad/index.php:93 D:\Code\WEB\trashpad/index.php:134
+#: D:\Code\WEB\trashpad/index.php:146 D:\Code\WEB\trashpad/index.php:181
 msgid "Post thread"
 msgstr "Опубликовать"
 
-#: D:\Code\WEB\trashpad/index.php:100
+#: D:\Code\WEB\trashpad/index.php:152
 msgid "Congratulations!"
 msgstr "Поздравляем!"
 
-#: D:\Code\WEB\trashpad/index.php:100
+#: D:\Code\WEB\trashpad/index.php:152
 msgid "New thread successfully posted! Redirecting..."
 msgstr "Новая записка успешно опубликована! Перенаправляемся к ней..."
 
-#: D:\Code\WEB\trashpad/index.php:103
+#: D:\Code\WEB\trashpad/index.php:155
 msgid "Heads up!"
 msgstr "Внимание!"
 
-#: D:\Code\WEB\trashpad/index.php:103
+#: D:\Code\WEB\trashpad/index.php:155
 msgid "You must fill at least message field."
 msgstr "Вы должны заполнить хотя бы одно поле."
 
-#: D:\Code\WEB\trashpad/index.php:106
+#: D:\Code\WEB\trashpad/index.php:158
 msgid "Errrm."
 msgstr "Хммм."
 
-#: D:\Code\WEB\trashpad/index.php:106
+#: D:\Code\WEB\trashpad/index.php:158
 msgid "Something was wrong on the host during post this thread."
 msgstr "Что-то пошло не так в процессе публикации записки."
 
-#: D:\Code\WEB\trashpad/index.php:109 D:\Code\WEB\trashpad/index.php:113
+#: D:\Code\WEB\trashpad/index.php:161 D:\Code\WEB\trashpad/index.php:163
 msgid "Name"
 msgstr "Имя"
 
-#: D:\Code\WEB\trashpad/index.php:118 D:\Code\WEB\trashpad/index.php:122
+#: D:\Code\WEB\trashpad/index.php:167 D:\Code\WEB\trashpad/index.php:169
 msgid "Feedback"
 msgstr "Обратная связь"
 
-#: D:\Code\WEB\trashpad/index.php:127
+#: D:\Code\WEB\trashpad/index.php:173
 msgid "Message"
 msgstr "Записка"
 
-#: D:\Code\WEB\trashpad/index.php:129
+#: D:\Code\WEB\trashpad/index.php:175
 msgid "Your message here"
 msgstr "Текст Вашей записки"
 
-#: D:\Code\WEB\trashpad/index.php:135
+#: D:\Code\WEB\trashpad/index.php:180
 msgid "Close"
 msgstr "Закрыть"
 
-#: D:\Code\WEB\trashpad/index.php:172
+#: D:\Code\WEB\trashpad/index.php:216
 msgid "One more random"
 msgstr "Ещё случайная записка"
 
-#: D:\Code\WEB\trashpad/index.php:176
+#: D:\Code\WEB\trashpad/index.php:220
 msgid "To other threads"
 msgstr "К другим запискам"
 
-#: D:\Code\WEB\trashpad/index.php:230
+#: D:\Code\WEB\trashpad/index.php:268
 msgid "Share via Twitter"
 msgstr "Опубликовать ссылку в Twitter"
 
-#: D:\Code\WEB\trashpad/index.php:233
+#: D:\Code\WEB\trashpad/index.php:271
 msgid "Share via VK"
 msgstr "Опубликовать ссылку во ВКонтакте"
 
-#: D:\Code\WEB\trashpad/index.php:236
+#: D:\Code\WEB\trashpad/index.php:274
 msgid "Share via Facebook"
 msgstr "Опубликовать ссылку в Facebook"
 
-#: D:\Code\WEB\trashpad/index.php:246
+#: D:\Code\WEB\trashpad/index.php:301
 msgid "Your reply here"
 msgstr "Ваш ответ здесь"
 
-#: D:\Code\WEB\trashpad/index.php:247
+#: D:\Code\WEB\trashpad/index.php:303
 msgid "Reply"
 msgstr "Ответить"
 
-#: D:\Code\WEB\trashpad/index.php:272
+#: D:\Code\WEB\trashpad/index.php:339
 msgid ""
 "Unfortunately, we have no threads here, but we have lots of others. Just "
 "press big green button!"
@@ -126,31 +126,35 @@ msgstr ""
 "К сожалению, здесь нет записок. Зато у нас много других! Просто нажмите эту "
 "большую зелёную кнопку!"
 
-#: D:\Code\WEB\trashpad/index.php:280
+#: D:\Code\WEB\trashpad/index.php:345
 msgid "Higher"
 msgstr "Лучше"
 
-#: D:\Code\WEB\trashpad/index.php:280
+#: D:\Code\WEB\trashpad/index.php:345
 msgid "Newer"
 msgstr "Новее"
 
-#: D:\Code\WEB\trashpad/index.php:281
+#: D:\Code\WEB\trashpad/index.php:346
 msgid "Lower"
 msgstr "Хуже"
 
-#: D:\Code\WEB\trashpad/index.php:281
+#: D:\Code\WEB\trashpad/index.php:346
 msgid "Older"
 msgstr "Старее"
 
-#: D:\Code\WEB\trashpad/index.php:319
+#: D:\Code\WEB\trashpad/index.php:381
 msgid "Thread remove failed:"
 msgstr "Не удалось удалить записку:"
 
-#: D:\Code\WEB\trashpad/index.php:348
+#: D:\Code\WEB\trashpad/index.php:412
 msgid "Karma reset failed:"
 msgstr "Не удалось сбросить карму:"
 
-#: D:\Code\WEB\trashpad/index.php:564
+#: D:\Code\WEB\trashpad/index.php:527
+msgid "Unable to post a reply"
+msgstr "Не удалось опубликовать ответ"
+
+#: D:\Code\WEB\trashpad/index.php:636
 msgid ""
 "This thread was moderated, so you can't share it more. Refresh page to get "
 "deleted threads gone forever."

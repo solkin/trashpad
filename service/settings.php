@@ -12,4 +12,6 @@ $secret_key = 'secret_key';
 
 $events_poll_time = 2000;
 $fetch_events_timeout = 60000;
+$thread_length = 500;
+$reply_length = 250;
 ?>

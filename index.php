@@ -172,7 +172,7 @@ ob_start("sanitize_output");
               <div class="form-group">
                 <label for="inputFeedback" class="col-lg-3 control-label"><? echo _("Message") ?></label>
                 <div class="col-lg-9">
-                  <textarea name="message" type="text" rows="3" class="form-control" id="inputFeedback" placeholder="<? echo _("Your message here") ?>"></textarea>
+                  <textarea name="message" type="text" rows="3" maxlength="<? echo $thread_length ?>" class="form-control" id="inputFeedback" placeholder="<? echo _("Your message here") ?>"></textarea>
                 </div>
               </div>
             </div>
@@ -209,8 +209,8 @@ ob_start("sanitize_output");
     echo '<div class="container" style="max-width: 850px;">';
     if ($random || $thread_id || empty($threads_list)) {
       echo '<div class="row">';
-      echo '<div class="col-lg-4"></div>';
-      echo '<div class="col-lg-4">';
+      echo '<div class="col-lg-3"></div>';
+      echo '<div class="col-lg-6">';
       if ($random) {
         echo '<form class="form-inline" action="./?random=true" method="post">';
         echo '<button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button">' . _("One more random") . '</button> ';
@@ -298,14 +298,14 @@ ob_start("sanitize_output");
       echo '<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
       echo '<input type="hidden" name="thread_id" value="' . $thread_id . '"/>';
       echo '<div class="input-group">';
-      echo '<input class="form-control" type="text" id="reply_message_' . $thread_id . '" name="message" placeholder="' . _("Your reply here") . '"/>';
+      echo '<input class="form-control" type="text" maxlength="' . $reply_length . '" id="reply_message_' . $thread_id . '" name="message" placeholder="' . _("Your reply here") . '"/>';
       echo '<span class="input-group-btn">';
       echo '<button type="submit" class="btn btn-primary" id="reply_button_' . $thread_id . '" name="reply_button">' . _("Reply") . '</button>';
       echo '</span>';
       echo '</div>';
       echo '</form>';
       echo '<br/>';
-      echo '<div id="' . $thread_id . '" class="col-md-9">';
+      echo '<div id="' . $thread_id . '" class="col-md-10">';
       foreach ($reply_list as $reply) {
         echo '<div id="' . $thread_id . '_' . $reply['reply_id'] . '">';
         echo '<p><span class="icon-comment"/></span>&nbsp;' . $reply['message'] . '</p>';
@@ -519,8 +519,13 @@ if (!$admin) {
                   url: './service/post_reply.php',
                   data: {'thread_id': thread_id.value, 'message': message_text},
                   success: function(data) {
-                    display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
-                    message.value = "";
+                    var status = data['status'];
+                    if (status === 'ok') {
+                      display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
+                      message.value = "";
+                    } else {
+                      alert('<? echo _("Unable to post a reply") ?>');
+                    }
                     message.removeAttribute('readOnly');
                     reply_button.removeAttribute('disabled');
                   },
