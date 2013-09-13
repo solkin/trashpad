@@ -341,7 +341,7 @@ ob_start("sanitize_output");
       echo '<p align="center">';
       echo _("Unfortunately, we have no threads here, but we have lots of others. Just press big green button!");
       echo '</p>';
-    } elseif (sizeof($threads_list) > 1) {
+    } elseif ($pages_total > 1) {
       $href_page_prev = '"?page_id=' . ($page_id - 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
       $href_page_next = '"?page_id=' . ($page_id + 1) . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
 
