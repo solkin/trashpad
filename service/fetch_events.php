@@ -12,6 +12,7 @@ $reply_array = array();
 $karma_array = array();
 $threads = json_decode($_POST['threads']);
 $generation_time = $_POST['generation_time'];
+
 do {
   foreach ($threads as $key => $value) {
     $reply = $value->{'reply'};
