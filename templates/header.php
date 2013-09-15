@@ -104,7 +104,7 @@ ob_start("sanitize_output");
     include_once 'service/connect_db.php';
     include_once 'service/utils.php';
 
-    echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '"></input>';
+    echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '">';
     ?>
 
     <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
@@ -160,13 +160,13 @@ ob_start("sanitize_output");
               <div class="form-group">
                 <label for="inputName" class="col-lg-3 control-label"><? echo _("Name") ?></label>
                 <div class="col-lg-9">
-                  <input name="name" type="text" class="form-control" id="inputName" placeholder="<? echo _("Name") ?>"/>
+                  <input name="name" type="text" class="form-control" id="inputName" placeholder="<? echo _("Name") ?>">
                 </div>
               </div>
               <div class="form-group">
                 <label for="inputFeedback" class="col-lg-3 control-label"><? echo _("Feedback") ?></label>
                 <div class="col-lg-9">
-                  <input name="feedback" type="email" class="form-control" id="inputFeedback" placeholder="<? echo _("Feedback") ?>"/>
+                  <input name="feedback" type="email" class="form-control" id="inputFeedback" placeholder="<? echo _("Feedback") ?>">
                 </div>
               </div>
               <div class="form-group">
