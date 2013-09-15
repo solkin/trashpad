@@ -32,10 +32,10 @@ ob_start("sanitize_output");
     <script src="./bootstrap/js/transition.js"></script>
     <script src="./bootstrap/js/collapse.js"></script>
 
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css"></link>
-    <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css"></link>
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">
 
-    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css"></link>
+    <link rel="stylesheet" href="./font-awesome/css/font-awesome.min.css">
 
     <style type="text/css">
       body {
@@ -172,7 +172,7 @@ ob_start("sanitize_output");
               <div class="form-group">
                 <label for="inputFeedback" class="col-lg-3 control-label"><? echo _("Message") ?></label>
                 <div class="col-lg-9">
-                  <textarea name="message" type="text" rows="3" maxlength="<? echo $thread_length ?>" class="form-control" id="inputFeedback" placeholder="<? echo _("Your message here") ?>"></textarea>
+                  <textarea name="message" rows="3" maxlength="<? echo $thread_length ?>" class="form-control" id="inputMessage" placeholder="<? echo _("Your message here") ?>"></textarea>
                 </div>
               </div>
             </div>
