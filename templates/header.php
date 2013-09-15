@@ -20,11 +20,11 @@ ob_start("sanitize_output");
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="utf-8"></meta>
+    <meta charset="utf-8">
     <title>TrashPad</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"></meta>
-    <meta name="description" content="TrashPad"></meta>
-    <meta name="author" content="TomClaw Software"></meta>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TrashPad">
+    <meta name="author" content="TomClaw Software">
     <script src="./jquery/jquery-1.10.2.min.js"></script>
 
     <script src="./bootstrap/js/bootstrap.min.js"></script>
