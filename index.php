@@ -488,7 +488,7 @@ if ($admin) {
               return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
-            setTimeout("fetch_events(false)", 500);
+            setTimeout("fetch_events(false)", 1000);
     </script>
 <?
   require_once './templates/footer.php';
