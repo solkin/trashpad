@@ -118,7 +118,7 @@
       echo '<div id="' . $thread_id . '" class="col-md-10">';
       foreach ($reply_list as $reply) {
         echo '<div id="' . $thread_id . '_' . $reply['reply_id'] . '">';
-        echo '<p><span class="icon-comment"/></span>&nbsp;' . $reply['message'] . '</p>';
+        echo '<p><span class="icon-comment"></span>&nbsp;' . $reply['message'] . '</p>';
         echo '</div>';
       }
       echo '</div>';
@@ -130,12 +130,12 @@
       if ($os) {
         $os_name = $os[0];
         $os_logo = $os[1];
-        echo '<img src="./images/os/' . $os_logo . '.png"/></span> ' . $os_name . '&nbsp;';
+        echo '<img src="./images/os/' . $os_logo . '.png" alt="' . $os_name . '"> ' . $os_name . '&nbsp;';
       }
       if ($browser) {
         $browser_name = $browser[0];
         $browser_logo = $browser[1];
-        echo '<img src="./images/browser/' . $browser_logo . '.png"/></span>&nbsp;' . $browser_name;
+        echo '<img src="./images/browser/' . $browser_logo . '.png" alt="' . $browser_name . '">&nbsp;' . $browser_name;
       }
       echo '</div>';
       echo '</div>';
