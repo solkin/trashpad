@@ -182,7 +182,7 @@
                   }
                 },
                 error: function(data) {
-                  alert('<? echo _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                  alert('<?php echo _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -213,7 +213,7 @@
                   }
                 },
                 error: function(data) {
-                  alert('<? echo _("Karma reset failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                  alert('<?php echo _("Karma reset failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -328,7 +328,7 @@ if (!$admin) {
                       display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
                       message.value = "";
                     } else {
-                      alert('<? echo _("Unable to post a reply") ?>');
+                      alert('<?php echo _("Unable to post a reply") ?>');
                     }
                     message.removeAttribute('readOnly');
                     reply_button.removeAttribute('disabled');
@@ -437,7 +437,7 @@ echo json_encode($threads_array);
                   reply_button.disabled = true;
 
                   var moderated_action = function() {
-                    alert('<? echo _("This thread was moderated, so you can't share it more. Refresh page to get deleted threads gone forever.") ?>');
+                    alert('<?php echo _("This thread was moderated, so you can't share it more. Refresh page to get deleted threads gone forever.") ?>');
                     return false;
                   };
                   twitter.onclick = moderated_action;

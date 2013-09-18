@@ -115,23 +115,23 @@ ob_start("sanitize_output");
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="./"><span class="icon-trash"></span>&nbsp;<? echo _("TrashPad") ?></a>
+          <a class="navbar-brand" href="./"><span class="icon-trash"></span>&nbsp;<?php echo _("TrashPad") ?></a>
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li <? if (!$rated && !$random) echo 'class="active"'; ?>><a href="./">
-                <span class="icon-home icon-white"></span> <? echo _("Home") ?> 
+            <li <?php if (!$rated && !$random) echo 'class="active"'; ?>><a href="./">
+                <span class="icon-home icon-white"></span> <?php echo _("Home") ?> 
                 <span id="fresh_counter" class="badge" style="display:none;">0</span></a>
             </li>
-            <li <? if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="icon-star icon-white"></span> <? echo _("Top rated") ?></a></li>
-            <li <? if ($random) echo 'class="active"'; ?>><a href="./?random=true"><span class="icon-random icon-white"></span> <? echo _("Random") ?></a></li>
+            <li <?php if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="icon-star icon-white"></span> <?php echo _("Top rated") ?></a></li>
+            <li <?php if ($random) echo 'class="active"'; ?>><a href="./?random=true"><span class="icon-random icon-white"></span> <?php echo _("Random") ?></a></li>
             <li class="divider-vertical"></li>
-            <li <? if ($about) echo 'class="active"'; ?>><a href="./about.php"><span class="icon-info-sign icon-white"></span> <? echo _("About") ?></a></li>
-            <li><a href="#write_modal" data-toggle="modal"><span class="icon-pencil icon-white"></span> <? echo _("Post") ?></a></li>
+            <li <?php if ($about) echo 'class="active"'; ?>><a href="./about.php"><span class="icon-info-sign icon-white"></span> <?php echo _("About") ?></a></li>
+            <li><a href="#write_modal" data-toggle="modal"><span class="icon-pencil icon-white"></span> <?php echo _("Post") ?></a></li>
           </ul>
           <form class="navbar-form navbar-right" role="search" action="./">
             <div class="form-group">
-              <input type="text" placeholder="<? echo _("Search") ?>" class="form-control" name="query"/>
+              <input type="text" placeholder="<?php echo _("Search") ?>" class="form-control" name="query"/>
             </div>
           </form>
         </div>
@@ -143,42 +143,42 @@ ob_start("sanitize_output");
         <div class="modal-content">
           <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title"><? echo _("Post thread") ?></h4>
+            <h4 class="modal-title"><?php echo _("Post thread") ?></h4>
           </div>
           <form onsubmit="post_thread(name, feedback, message, post_button);
               return false;" method="post" class="form-horizontal" role="form">
             <div class="modal-body">
               <div class="alert alert-success" id="success_alert" style="display:none;">
-                <strong><? echo _("Congratulations!") ?></strong> <? echo _("New thread successfully posted! Redirecting...") ?>
+                <strong><?php echo _("Congratulations!") ?></strong> <?php echo _("New thread successfully posted! Redirecting...") ?>
               </div>
               <div class="alert alert-warning" id="warning_alert" style="display:none;">
-                <strong><? echo _("Heads up!") ?></strong> <? echo _("You must fill at least message field.") ?>
+                <strong><?php echo _("Heads up!") ?></strong> <?php echo _("You must fill at least message field.") ?>
               </div>
               <div class="alert alert-danger" id="error_alert" style="display:none;">
-                <strong><? echo _("Errrm.") ?></strong> <? echo _("Something was wrong on the host during post this thread.") ?>
+                <strong><?php echo _("Errrm.") ?></strong> <?php echo _("Something was wrong on the host during post this thread.") ?>
               </div>
               <div class="form-group">
-                <label for="inputName" class="col-lg-3 control-label"><? echo _("Name") ?></label>
+                <label for="inputName" class="col-lg-3 control-label"><?php echo _("Name") ?></label>
                 <div class="col-lg-9">
-                  <input name="name" type="text" class="form-control" id="inputName" placeholder="<? echo _("Name") ?>">
+                  <input name="name" type="text" class="form-control" id="inputName" placeholder="<?php echo _("Name") ?>">
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputFeedback" class="col-lg-3 control-label"><? echo _("Feedback") ?></label>
+                <label for="inputFeedback" class="col-lg-3 control-label"><?php echo _("Feedback") ?></label>
                 <div class="col-lg-9">
-                  <input name="feedback" type="email" class="form-control" id="inputFeedback" placeholder="<? echo _("Feedback") ?>">
+                  <input name="feedback" type="email" class="form-control" id="inputFeedback" placeholder="<?php echo _("Feedback") ?>">
                 </div>
               </div>
               <div class="form-group">
-                <label for="inputFeedback" class="col-lg-3 control-label"><? echo _("Message") ?></label>
+                <label for="inputFeedback" class="col-lg-3 control-label"><?php echo _("Message") ?></label>
                 <div class="col-lg-9">
-                  <textarea name="message" rows="3" maxlength="<? echo $thread_length ?>" class="form-control" id="inputMessage" placeholder="<? echo _("Your message here") ?>"></textarea>
+                  <textarea name="message" rows="3" maxlength="<?php echo $thread_length ?>" class="form-control" id="inputMessage" placeholder="<?php echo _("Your message here") ?>"></textarea>
                 </div>
               </div>
             </div>
             <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal"><? echo _("Close") ?></button>
-              <button type="submit" class="btn btn-primary" name="post_button"><? echo _("Post thread") ?></button>
+              <button type="button" class="btn btn-default" data-dismiss="modal"><?php echo _("Close") ?></button>
+              <button type="submit" class="btn btn-primary" name="post_button"><?php echo _("Post thread") ?></button>
             </div>
           </form>
         </div>
