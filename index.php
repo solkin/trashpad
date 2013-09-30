@@ -143,7 +143,7 @@
 
     if (empty($threads_list)) {
       echo '<div class="row" style="padding-bottom: 15px;" align="middle">';
-      echo '<img src="./images/system/burova.jpg" class="img-circle"></img>';
+      echo '<img src="./images/system/burova.jpg" class="img-circle">';
       echo '</div>';
       echo '<p align="center">';
       echo _("Unfortunately, we have no threads here, but we have lots of others. Just press big green button!");
