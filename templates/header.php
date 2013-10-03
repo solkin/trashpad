@@ -119,7 +119,7 @@ ob_start("sanitize_output");
         </div>
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
-            <li <?php if (!$rated && !$random) echo 'class="active"'; ?>><a href="./">
+            <li <?php if (!$rated && !$random & !$about) echo 'class="active"'; ?>><a href="./">
                 <span class="icon-home icon-white"></span> <?php echo _("Home") ?> 
                 <span id="fresh_counter" class="badge" style="display:none;">0</span></a>
             </li>

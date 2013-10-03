@@ -1,4 +1,5 @@
 <?php
+$about = true;
 require_once './templates/header.php';
 ?>
 <div class="row" style="padding-left: 15px; padding-right: 15px; ">
