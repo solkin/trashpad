@@ -124,7 +124,7 @@ ob_start("sanitize_output");
                 <span id="fresh_counter" class="badge" style="display:none;">0</span></a>
             </li>
             <li <?php if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="icon-star icon-white"></span> <?php echo _("Top rated") ?></a></li>
-            <li <?php if ($random) echo 'class="active"'; ?>><a href="./?random=true"><span class="icon-random icon-white"></span> <?php echo _("Random") ?></a></li>
+            <li <?php if ($random) echo 'class="active"'; ?>><a href="./random.php"><span class="icon-random icon-white"></span> <?php echo _("Random") ?></a></li>
             <li class="divider-vertical"></li>
             <li <?php if ($about) echo 'class="active"'; ?>><a href="./about.php"><span class="icon-info-sign icon-white"></span> <?php echo _("About") ?></a></li>
             <li><a href="#write_modal" data-toggle="modal"><span class="icon-pencil icon-white"></span> <?php echo _("Post") ?></a></li>

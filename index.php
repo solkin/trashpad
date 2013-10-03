@@ -8,9 +8,7 @@
 
     $thread_from = ($page_id - 1) * $threads_per_page;
 
-    if ($random) {
-      $threads_list = get_random_thread($link, true);
-    } else if ($thread_id) {
+    if ($thread_id) {
       $threads_list = get_thread($link, true, $thread_id);
     } else if ($query) {
       $threads_list = get_threads_by_query($link, true, $query, $threads_per_page, $thread_from);
@@ -26,7 +24,7 @@
       echo '<div class="col-lg-3"></div>';
       echo '<div class="col-lg-6">';
       if ($random) {
-        echo '<form class="form-inline" action="./?random=true" method="post">';
+        echo '<form class="form-inline" action="./random.php" method="post">';
         echo '<button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button">' . _("One more random") . '</button> ';
         echo '</form>';
       } else if ($thread_id || empty($threads_list)) {
