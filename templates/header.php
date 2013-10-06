@@ -115,6 +115,10 @@ ob_start("sanitize_output");
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
+          <button href="#write_modal" data-toggle="modal" class="navbar-toggle" style="color: white; height: 34px;">
+            <span class="icon-pencil icon">
+            </span>&nbsp;<?php echo _("Post") ?>
+          </button>
           <a class="navbar-brand" href="./"><span class="icon-trash"></span>&nbsp;<?php echo _("TrashPad") ?></a>
         </div>
         <div class="collapse navbar-collapse">
