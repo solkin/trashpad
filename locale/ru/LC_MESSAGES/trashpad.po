@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-10-01 01:51+0400\n"
-"PO-Revision-Date: 2013-10-01 01:52+0400\n"
+"POT-Creation-Date: 2013-10-15 23:22+0400\n"
+"PO-Revision-Date: 2013-10-15 23:22+0400\n"
 "Last-Translator: Igor Solkin <inbox@tomclaw.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -14,11 +14,11 @@ msgstr ""
 "X-Poedit-Basepath: D:\\Code\\WEB\\trashpad\n"
 "X-Poedit-SearchPath-0: D:\\Code\\WEB\\trashpad\n"
 
-#: D:\Code\WEB\trashpad/about.php:12
+#: D:\Code\WEB\trashpad/about.php:13
 msgid "Hello, world!"
 msgstr "Hello, world!"
 
-#: D:\Code\WEB\trashpad/about.php:17
+#: D:\Code\WEB\trashpad/about.php:18
 msgid "TrashPad descriptions"
 msgstr ""
 "У вас есть блокнот, в который можно записывать всё, что только придёт в "
@@ -65,35 +65,35 @@ msgstr ""
 "Все страницы TrashPad оптимизированы и содержат только нужную информацию. А "
 "как он летает на смартфонах..."
 
-#: D:\Code\WEB\trashpad/index.php:30
+#: D:\Code\WEB\trashpad/index.php:28
 msgid "One more random"
 msgstr "Ещё случайная записка"
 
-#: D:\Code\WEB\trashpad/index.php:34
+#: D:\Code\WEB\trashpad/index.php:32
 msgid "To other threads"
 msgstr "К другим запискам"
 
-#: D:\Code\WEB\trashpad/index.php:78
+#: D:\Code\WEB\trashpad/index.php:76
 msgid "Share via Twitter"
 msgstr "Опубликовать ссылку в Twitter"
 
-#: D:\Code\WEB\trashpad/index.php:81
+#: D:\Code\WEB\trashpad/index.php:79
 msgid "Share via VK"
 msgstr "Опубликовать ссылку во ВКонтакте"
 
-#: D:\Code\WEB\trashpad/index.php:84
+#: D:\Code\WEB\trashpad/index.php:82
 msgid "Share via Facebook"
 msgstr "Опубликовать ссылку в Facebook"
 
-#: D:\Code\WEB\trashpad/index.php:111
+#: D:\Code\WEB\trashpad/index.php:109
 msgid "Your reply here"
 msgstr "Ваш ответ здесь"
 
-#: D:\Code\WEB\trashpad/index.php:113
+#: D:\Code\WEB\trashpad/index.php:111
 msgid "Reply"
 msgstr "Ответить"
 
-#: D:\Code\WEB\trashpad/index.php:149
+#: D:\Code\WEB\trashpad/index.php:147
 msgid ""
 "Unfortunately, we have no threads here, but we have lots of others. Just "
 "press big green button!"
@@ -101,35 +101,35 @@ msgstr ""
 "К сожалению, здесь нет записок. Зато у нас много других! Просто нажмите эту "
 "большую зелёную кнопку!"
 
-#: D:\Code\WEB\trashpad/index.php:155
+#: D:\Code\WEB\trashpad/index.php:153
 msgid "Higher"
 msgstr "Лучше"
 
-#: D:\Code\WEB\trashpad/index.php:155
+#: D:\Code\WEB\trashpad/index.php:153
 msgid "Newer"
 msgstr "Новее"
 
-#: D:\Code\WEB\trashpad/index.php:156
+#: D:\Code\WEB\trashpad/index.php:154
 msgid "Lower"
 msgstr "Хуже"
 
-#: D:\Code\WEB\trashpad/index.php:156
+#: D:\Code\WEB\trashpad/index.php:154
 msgid "Older"
 msgstr "Старее"
 
-#: D:\Code\WEB\trashpad/index.php:185
+#: D:\Code\WEB\trashpad/index.php:183
 msgid "Thread remove failed:"
 msgstr "Не удалось удалить записку:"
 
-#: D:\Code\WEB\trashpad/index.php:216
+#: D:\Code\WEB\trashpad/index.php:214
 msgid "Karma reset failed:"
 msgstr "Не удалось сбросить карму:"
 
-#: D:\Code\WEB\trashpad/index.php:331
+#: D:\Code\WEB\trashpad/index.php:329
 msgid "Unable to post a reply"
 msgstr "Не удалось опубликовать ответ"
 
-#: D:\Code\WEB\trashpad/index.php:440
+#: D:\Code\WEB\trashpad/index.php:438
 msgid ""
 "This thread was moderated, so you can't share it more. Refresh page to get "
 "deleted threads gone forever."
@@ -137,81 +137,85 @@ msgstr ""
 "Эта записка была удалена модераторами. Видимо, не спроста. Поэтому ею больше "
 "нельзя делиться в социальных сетях."
 
-#: D:\Code\WEB\trashpad/templates/header.php:118
+#: D:\Code\WEB\trashpad/templates/header.php:120
+msgid "Write"
+msgstr "Написать"
+
+#: D:\Code\WEB\trashpad/templates/header.php:122
 msgid "TrashPad"
 msgstr "TrashPad"
 
-#: D:\Code\WEB\trashpad/templates/header.php:123
+#: D:\Code\WEB\trashpad/templates/header.php:127
 msgid "Home"
 msgstr "Главная"
 
-#: D:\Code\WEB\trashpad/templates/header.php:126
+#: D:\Code\WEB\trashpad/templates/header.php:130
 msgid "Top rated"
 msgstr "Топ записок"
 
-#: D:\Code\WEB\trashpad/templates/header.php:127
+#: D:\Code\WEB\trashpad/templates/header.php:131
 msgid "Random"
 msgstr "Случайная"
 
-#: D:\Code\WEB\trashpad/templates/header.php:129
+#: D:\Code\WEB\trashpad/templates/header.php:133
 msgid "About"
 msgstr "Про сервис"
 
-#: D:\Code\WEB\trashpad/templates/header.php:130
+#: D:\Code\WEB\trashpad/templates/header.php:134
 msgid "Post"
 msgstr "Новая записка"
 
-#: D:\Code\WEB\trashpad/templates/header.php:134
+#: D:\Code\WEB\trashpad/templates/header.php:138
 msgid "Search"
 msgstr "Поиск"
 
-#: D:\Code\WEB\trashpad/templates/header.php:146
-#: D:\Code\WEB\trashpad/templates/header.php:181
+#: D:\Code\WEB\trashpad/templates/header.php:150
+#: D:\Code\WEB\trashpad/templates/header.php:185
 msgid "Post thread"
 msgstr "Опубликовать"
 
-#: D:\Code\WEB\trashpad/templates/header.php:152
+#: D:\Code\WEB\trashpad/templates/header.php:156
 msgid "Congratulations!"
 msgstr "Поздравляем!"
 
-#: D:\Code\WEB\trashpad/templates/header.php:152
+#: D:\Code\WEB\trashpad/templates/header.php:156
 msgid "New thread successfully posted! Redirecting..."
 msgstr "Новая записка успешно опубликована! Перенаправляемся к ней..."
 
-#: D:\Code\WEB\trashpad/templates/header.php:155
+#: D:\Code\WEB\trashpad/templates/header.php:159
 msgid "Heads up!"
 msgstr "Внимание!"
 
-#: D:\Code\WEB\trashpad/templates/header.php:155
+#: D:\Code\WEB\trashpad/templates/header.php:159
 msgid "You must fill at least message field."
 msgstr "Вы должны заполнить хотя бы одно поле."
 
-#: D:\Code\WEB\trashpad/templates/header.php:158
+#: D:\Code\WEB\trashpad/templates/header.php:162
 msgid "Errrm."
 msgstr "Хммм."
 
-#: D:\Code\WEB\trashpad/templates/header.php:158
+#: D:\Code\WEB\trashpad/templates/header.php:162
 msgid "Something was wrong on the host during post this thread."
 msgstr "Что-то пошло не так в процессе публикации записки."
 
-#: D:\Code\WEB\trashpad/templates/header.php:161
-#: D:\Code\WEB\trashpad/templates/header.php:163
+#: D:\Code\WEB\trashpad/templates/header.php:165
+#: D:\Code\WEB\trashpad/templates/header.php:167
 msgid "Name"
 msgstr "Имя"
 
-#: D:\Code\WEB\trashpad/templates/header.php:167
-#: D:\Code\WEB\trashpad/templates/header.php:169
+#: D:\Code\WEB\trashpad/templates/header.php:171
+#: D:\Code\WEB\trashpad/templates/header.php:173
 msgid "Feedback"
 msgstr "Обратная связь"
 
-#: D:\Code\WEB\trashpad/templates/header.php:173
+#: D:\Code\WEB\trashpad/templates/header.php:177
 msgid "Message"
 msgstr "Записка"
 
-#: D:\Code\WEB\trashpad/templates/header.php:175
+#: D:\Code\WEB\trashpad/templates/header.php:179
 msgid "Your message here"
 msgstr "Текст Вашей записки"
 
-#: D:\Code\WEB\trashpad/templates/header.php:180
+#: D:\Code\WEB\trashpad/templates/header.php:184
 msgid "Close"
 msgstr "Закрыть"

@@ -117,7 +117,7 @@ ob_start("sanitize_output");
           </button>
           <a href="#write_modal" data-toggle="modal" class="navbar-toggle btn" style="color: white; padding-top: 6px; padding-bottom: 6px;">
             <span class="icon-pencil icon">
-            </span>&nbsp;<?php echo _("Post") ?>
+            </span>&nbsp;<?php echo _("Write") ?>
           </a>
           <a class="navbar-brand" href="./"><span class="icon-trash"></span>&nbsp;<?php echo _("TrashPad") ?></a>
         </div>
