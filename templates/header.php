@@ -28,9 +28,6 @@ ob_start("sanitize_output");
     <script src="./jquery/jquery-1.10.2.min.js"></script>
 
     <script src="./bootstrap/js/bootstrap.min.js"></script>
-    <script src="./bootstrap/js/modal.js"></script>
-    <script src="./bootstrap/js/transition.js"></script>
-    <script src="./bootstrap/js/collapse.js"></script>
 
     <link rel="stylesheet" href="./bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="./bootstrap/css/bootstrap-theme.min.css">

@@ -42,7 +42,7 @@
     // Page generation.
     foreach ($threads_list as $thread) {
       $name = $thread['name'];
-      // $ip = $thread['ip'];
+      $ip = $thread['ip'];
       $user_agent = $thread['user_agent'];
       $feedback = $thread['feedback'];
       $thread_id = $thread['thread_id'];
@@ -87,6 +87,7 @@
       if ($admin) {
         echo '<button class="btn btn-xs btn-danger" type="button" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash icon-white"></span></button> ';
         echo '<button class="btn btn-xs btn-default" type="buton" id="reset_button_' . $thread_id . '" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-hand-down"></span></button> ';
+        echo '<button class="btn btn-xs btn-info" id="info_popover" rel="popover" data-content="' . $user_agent . '" data-original-title="' . $ip . '" onclick="return false;"><span class="icon-info-sign"></span></button> ';
       }
       echo '<div class="btn-group">';
       echo '<button class="btn btn-xs btn-success" type="submit" id="like_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><span class="icon-thumbs-up-alt"></span></button> ';
@@ -487,6 +488,10 @@ if ($admin) {
             }
 
             setTimeout("fetch_events(false)", 1000);
+    
+    $(function () {
+    	$("#info_popover").popover();  
+	});
     </script>
 <?
   require_once './templates/footer.php';
