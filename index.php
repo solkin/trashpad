@@ -426,6 +426,8 @@ echo json_encode($threads_array);
                   karma_counter.className = "label label-danger";
                   karma = '<span class="icon-fire"></span>';
 
+                  karma_counter.innerHTML = '...';
+
                   var like_button = document.getElementById("like_button_" + thread_id);
                   var fire_button = document.getElementById("fire_button_" + thread_id);
                   var reply_message = document.getElementById("reply_message_" + thread_id);
@@ -456,15 +458,22 @@ if ($admin) {
 }
 ?>
                 } else {
-                  if (parseInt(karma) === 0) {
+                  var current = parseInt(karma_counter.innerHTML);
+                  var target = parseInt(karma);
+                  if (current < target) current++;
+                  if (current > target) current--;
+                  if (current === 0) {
                     karma_counter.className = "label label-default";
-                  } else if (parseInt(karma) > 0) {
+                  } else if (current > 0) {
                     karma_counter.className = "label label-info";
                   } else {
                     karma_counter.className = "label label-warning";
                   }
+                  karma_counter.innerHTML = ''+current+'';
+                  if (current !== target) setTimeout(function(){
+                    update_karma(thread_id, karma);
+                  }, 100);
                 }
-                karma_counter.innerHTML = karma;
               }
             }
 
