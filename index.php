@@ -424,9 +424,7 @@ echo json_encode($threads_array);
               if (karma_counter) {
                 if (karma === 'unrated') {
                   karma_counter.className = "label label-danger";
-                  karma = '<span class="icon-fire"></span>';
-
-                  karma_counter.innerHTML = '...';
+                  karma_counter.innerHTML = '<span class="icon-fire"></span>';
 
                   var like_button = document.getElementById("like_button_" + thread_id);
                   var fire_button = document.getElementById("fire_button_" + thread_id);
@@ -469,7 +467,7 @@ if ($admin) {
                   } else {
                     karma_counter.className = "label label-warning";
                   }
-                  karma_counter.innerHTML = ''+current+'';
+                  karma_counter.innerHTML = current.toString();
                   if (current !== target) setTimeout(function(){
                     update_karma(thread_id, karma);
                   }, 100);
