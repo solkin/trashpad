@@ -441,7 +441,7 @@ echo json_encode($threads_array);
                   reply_button.disabled = true;
 
                   var moderated_action = function() {
-                    alert('<?php echo _("This thread was moderated, so you can't share it more. Refresh page to get deleted threads gone forever.") ?>');
+                    alert('<?php echo _("This thread was moderated, so you cannot share it anymore. Refresh page to get deleted threads gone forever.") ?>');
                     return false;
                   };
                   twitter.onclick = moderated_action;
