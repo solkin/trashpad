@@ -1,6 +1,6 @@
     <?php
     require_once './templates/header.php';
-    
+
     // Thread to show calculation.
     if (!$page_id || $page_id == 0) {
       $page_id = 1;
@@ -18,7 +18,7 @@
       $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
       $pages_total = ceil(get_threads_count($link) / $threads_per_page);
     }
-    
+
     if ($random || $thread_id || empty($threads_list)) {
       echo '<div class="row" style="padding-bottom: 15px;">';
       echo '<div class="col-lg-3"></div>';
@@ -35,7 +35,7 @@
       echo '</div>';
       echo '</div>';
     }
-    
+
     echo '<div class="row" style="padding-left: 15px; padding-right: 15px;">';
     $threads_iterator = 0;
     $threads_array = array();
@@ -87,9 +87,9 @@
       if ($admin) {
         echo '<button class="btn btn-xs btn-danger" type="button" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash icon-white"></span></button> ';
         echo '<button class="btn btn-xs btn-default" type="buton" id="reset_button_' . $thread_id . '" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-hand-down"></span></button> ';
-        
+
         $popover_id = 'info_popover_' . $thread_id;
-        echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $user_agent 
+        echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $user_agent
                 . '" data-original-title="' . $ip . '" onclick="return false;">'
                 . '<span class="icon-info-sign"></span></button> ';
         echo '<script>$(function () {$(\'#' . $popover_id . '\').popover();});</script>';
@@ -127,7 +127,7 @@
       }
       echo '</div>';
       echo '</div>';
-      
+
       echo '<div class="panel-footer" style="text-align: right;">';
       $os = get_os_by_ua($user_agent);
       $browser = get_browser_by_ua($user_agent);
@@ -167,7 +167,7 @@
       echo '</li>';
       echo '</ul>';
     }
-    
+
     echo '</div>';
     ?>
 
@@ -225,7 +225,7 @@
             function karma_update(thread_id, karma) {
               var like_button = document.getElementById("like_button_" + thread_id);
               var fire_button = document.getElementById("fire_button_" + thread_id);
-<?
+<?php
 if (!$admin) {
   echo "like_button.setAttribute('disabled', 'true'); ";
   echo "fire_button.setAttribute('disabled', 'true');\n";
@@ -348,7 +348,7 @@ if (!$admin) {
             function fetch_events(one_time) {
               var generation_time = parseInt(document.getElementById('generation_time').value);
               var fetch_array = {};
-              var threads_array = <?
+              var threads_array = <?php
 echo json_encode($threads_array);
 ?>;
               threads_array.forEach(function(element, index, array) {
@@ -425,7 +425,7 @@ echo json_encode($threads_array);
                 if (karma === 'unrated') {
                   karma_counter.className = "label label-danger";
                   karma = '<span class="icon-fire"></span>';
-                  
+
                   var like_button = document.getElementById("like_button_" + thread_id);
                   var fire_button = document.getElementById("fire_button_" + thread_id);
                   var reply_message = document.getElementById("reply_message_" + thread_id);
@@ -447,7 +447,7 @@ echo json_encode($threads_array);
                   twitter.onclick = moderated_action;
                   vkontakte.onclick = moderated_action;
                   facebook.onclick = moderated_action;
-<?
+<?php
 if ($admin) {
   echo 'var remove_button = document.getElementById("remove_button_" + thread_id);';
   echo 'var reset_button = document.getElementById("reset_button_" + thread_id);';
@@ -487,13 +487,13 @@ if ($admin) {
                 });
               }
             }
-            
+
             function is_numeric(n) {
               return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
             setTimeout("fetch_events(false)", 1000);
     </script>
-<?
+<?php
   require_once './templates/footer.php';
 ?>

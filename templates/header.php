@@ -14,7 +14,7 @@ function sanitize_output($buffer) {
   return preg_replace($search, $replace, $buffer);
 }
 
-ob_start("sanitize_output");
+//ob_start("sanitize_output");
 ?>
 
 <!DOCTYPE html>
@@ -121,7 +121,7 @@ ob_start("sanitize_output");
         <div class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li <?php if (!$rated && !$random & !$about) echo 'class="active"'; ?>><a href="./">
-                <span class="icon-home icon-white"></span> <?php echo _("Home") ?> 
+                <span class="icon-home icon-white"></span> <?php echo _("Home") ?>
                 <span id="fresh_counter" class="badge" style="display:none;">0</span></a>
             </li>
             <li <?php if ($rated) echo 'class="active"'; ?>><a href="./?rated=true"><span class="icon-star icon-white"></span> <?php echo _("Top rated") ?></a></li>
@@ -185,5 +185,5 @@ ob_start("sanitize_output");
         </div>
       </div>
     </div>
-    
+
     <div class="container" style="max-width: 850px;">
