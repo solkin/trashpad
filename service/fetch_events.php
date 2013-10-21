@@ -70,7 +70,7 @@ do {
   mysqli_free_result($threads_result);
 
   if (empty($reply_array) && empty($karma_array) && $fresh_threads_count == 0) {
-    usleep($events_poll_time * 1000000);
+    usleep($events_poll_time * 1000);
   } else {
     break;
   }
