@@ -146,11 +146,11 @@ function get_os_by_ua($user_agent) {
       '/android/i' => array('Android', 'android'),
       '/ubuntu/i' => array('Ubuntu', 'ubuntu'),
       '/linux/i' => array('Linux', 'linux'),
-      '/macintosh|mac os x/i' => array('Mac OS X', 'apple'),
-      '/mac_powerpc/i' => array('Mac OS 9', 'apple'),
       '/iphone/i' => array('iPhone', 'apple'),
       '/ipod/i' => array('iPod', 'apple'),
-      '/ipad/i' => array('iPad', 'apple')
+      '/ipad/i' => array('iPad', 'apple'),
+      '/macintosh|mac os x/i' => array('Mac OS X', 'apple'),
+      '/mac_powerpc/i' => array('Mac OS 9', 'apple')
   );
 
   foreach ($os_array as $regex => $value) {
