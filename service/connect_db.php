@@ -35,7 +35,8 @@ if ($init && $admin) {
 			ip TEXT,
 			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
-			message TEXT NOT NULL default ''
+			message TEXT NOT NULL default '',
+            type INT NOT NULL default 0
 			)";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 }

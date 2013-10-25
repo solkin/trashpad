@@ -121,8 +121,20 @@
       echo '<br/>';
       echo '<div id="' . $thread_id . '" class="col-md-10">';
       foreach ($reply_list as $reply) {
-        echo '<div id="' . $thread_id . '_' . $reply['reply_id'] . '">';
-        echo '<p><span class="icon-comment"></span>&nbsp;' . $reply['message'] . '</p>';
+		$reply_id = $reply['reply_id'];
+        echo '<div id="' . $reply_id . '"><p>';
+        if ($admin) {
+          $user_agent = $reply['user_agent'];
+          $ip = $reply['ip'];
+          $popover_id = 'info_popover_' . $reply_id;
+          echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $user_agent
+                  . '" data-original-title="' . $ip . '" onclick="return false;">'
+                  . '<span class="icon-info-sign"></span></button> ';
+          echo '<script>$(function () {$(\'#' . $popover_id . '\').popover();});</script>';
+          
+          echo '<button class="btn btn-xs btn-danger" type="submit" id="reply_remove_button_' . $reply_id . '" onclick="remove_reply(\'' . $reply_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash"></span></button>&nbsp;';
+         }
+        echo '<span class="icon-comment"></span>&nbsp;' . $reply['message'] . '</p>';
         echo '</div>';
       }
       echo '</div>';
@@ -187,6 +199,25 @@
                 },
                 error: function(data) {
                   alert('<?php echo _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                }
+              });
+            }
+            
+            function remove_reply(reply_id, admin_key) {
+              $.ajax({
+                type: 'POST',
+                dataType: "json",
+                url: './service/remove_reply.php',
+                data: {'reply_id': reply_id, 'admin_key': admin_key},
+                success: function(data) {
+                  if (data['status'] === 'ok') {
+                    hide_reply(data['reply_id']);
+                  } else {
+                    this.error(data);
+                  }
+                },
+                error: function(data) {
+                  alert('<?php echo _("Reply remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -356,9 +387,6 @@ echo json_encode($threads_array);
                 var reply_id = "";
                 if (thread_div.childNodes[0] !== undefined) {
                   reply_id = thread_div.childNodes[0].getAttribute('id');
-                  if (reply_id !== null) {
-                    reply_id = reply_id.substring(reply_id.indexOf('_') + 1);
-                  }
                 }
                 var karma_counter = document.getElementById('karma_counter_' + element).innerHTML;
                 if(!is_numeric(karma_counter)) {
@@ -476,14 +504,13 @@ if ($admin) {
             }
 
             function prepare_reply(thread_id, reply_id, message) {
-              var thread_reply_id = thread_id + '_' + reply_id;
-              if (!document.getElementById(thread_reply_id)) {
+              if (!document.getElementById(reply_id)) {
                 $('#' + thread_id).prepend(
-                        '<div id="' + thread_reply_id + '" style="display:none;">' +
+                        '<div id="' + reply_id + '" style="display:none;">' +
                         '<p><span class="icon-comment"></span>&nbsp;' + message + '</p>' +
                         '</div>'
                         );
-                return thread_reply_id;
+                return reply_id;
               }
               return "";
             }
@@ -491,6 +518,13 @@ if ($admin) {
             function display_reply(reply_id) {
               if (reply_id) {
                 $('#' + reply_id).show('fast', function() {
+                });
+              }
+            }
+            
+            function hide_reply(reply_id) {
+              if (reply_id) {
+                $('#' + reply_id).hide('fast', function() {
                 });
               }
             }

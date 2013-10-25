@@ -59,7 +59,7 @@ function list_threads($link, $result, $include_reply) {
   $threads = array();
   while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     if ($include_reply) {
-      $sql = "SELECT * FROM reply WHERE thread_id='" . $row['thread_id'] . "'";
+      $sql = "SELECT * FROM reply WHERE thread_id='" . $row['thread_id'] . "' AND type!=-1";
       $reply_result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
       $count = 0;

@@ -43,7 +43,7 @@ do {
       }
 
       // Reply fetching.
-      $sql = "SELECT * FROM reply WHERE thread_id='" . $key . "' AND id>" . $id;
+      $sql = "SELECT * FROM reply WHERE thread_id='" . $key . "' AND id>" . $id . " AND type!=-1";
       $reply_result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
       $reply_object = mysqli_fetch_array($reply_result, MYSQLI_ASSOC);
