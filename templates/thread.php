@@ -11,13 +11,13 @@
 <span class="icon-calendar"></span>&nbsp;<?=$thread_date?>&nbsp;
 <span class="icon-time"></span>&nbsp;<?=$thread_time?>
 <div class="twitter">
-  <a id="twitter_<?=$thread_id?>" href="http://twitter.com/intent/tweet?text=<?=$direct_link?>" title="<?php echo _("Share via Twitter")?>" target="_blank"></a>
+  <a id="twitter_<?=$thread_id?>" href="http://twitter.com/intent/tweet?text=<?=$direct_link?>" title="<?= _("Share via Twitter")?>" target="_blank"></a>
 </div>
 <div class="vkontakte">
-  <a id="vkontakte_<?=$thread_id?>" href="http://vk.com/share.php?url=<?=$direct_link?>" title="<?php echo _("Share via VK")?>" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
+  <a id="vkontakte_<?=$thread_id?>" href="http://vk.com/share.php?url=<?=$direct_link?>" title="<?= _("Share via VK")?>" onclick="window.open(this.href, 'Опубликовать ссылку во Вконтакте', 'width=800,height=300'); return false"></a>
 </div>
 <div class="facebook">
-  <a id="facebook_<?=$thread_id?>" href="https://www.facebook.com/sharer/sharer.php?u=<?=$direct_link?>" title="<?php echo _("Share via Facebook")?>" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
+  <a id="facebook_<?=$thread_id?>" href="https://www.facebook.com/sharer/sharer.php?u=<?=$direct_link?>" title="<?= _("Share via Facebook")?>" onclick="window.open(this.href, 'Опубликовать ссылку в Facebook', 'width=640,height=436,toolbar=0,status=0'); return false"></a>
 </div>
 </div>
 <div class="panel-body">
@@ -37,9 +37,9 @@
 <form class="form-inline" onsubmit="post_reply(<?=thread_id?>, <?=message?>, <?=reply_button?>); return false;" method="post">
   <input type="hidden" name="<?=thread_id?>" value="<?=$thread_id?>"/>
   <div class="input-group">
-    <input class="form-control" type="text" maxlength="<?=$reply_length?>" id="reply_message_<?=$thread_id?>" name="message" placeholder="<?php echo _("Your reply here")?>"/>
+    <input class="form-control" type="text" maxlength="<?=$reply_length?>" id="reply_message_<?=$thread_id?>" name="message" placeholder="<?= _("Your reply here")?>"/>
     <span class="input-group-btn">
-      <button type="submit" class="btn btn-primary" id="reply_button_<?=$thread_id?>" name="reply_button"><?php echo _("Reply")?></button>
+      <button type="submit" class="btn btn-primary" id="reply_button_<?=$thread_id?>" name="reply_button"><?= _("Reply")?></button>
     </span>
   </div>
 </form>

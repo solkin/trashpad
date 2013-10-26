@@ -25,11 +25,11 @@
       <div class="col-lg-6">
       <?php if ($random): ?>
         <form class="form-inline" action="./random.php" method="post">
-        <button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button"> <?php echo _("One more random") ?> </button>
+        <button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button"> <?= _("One more random") ?> </button>
         </form>
       <? elseif ($thread_id || empty($threads_list)): ?>
         <form class="form-inline" action="./" method="post">
-        <button class="btn btn-lg btn-success btn-block" type="submit" id="big_green_button"><?php echo _("To other threads") ?></button>
+        <button class="btn btn-lg btn-success btn-block" type="submit" id="big_green_button"><?= _("To other threads") ?></button>
         </form>
       <? endif; ?>
       </div>
@@ -126,7 +126,7 @@
                   }
                 },
                 error: function(data) {
-                  alert('<?php echo _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                  alert('<?= _("Thread remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -145,7 +145,7 @@
                   }
                 },
                 error: function(data) {
-                  alert('<?php echo _("Reply remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                  alert('<?= _("Reply remove failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -176,7 +176,7 @@
                   }
                 },
                 error: function(data) {
-                  alert('<?php echo _("Karma reset failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
+                  alert('<?= _("Karma reset failed:") ?>\nstatus: ' + data['status'] + '\nreason: ' + data['reason']);
                 }
               });
             }
@@ -184,12 +184,10 @@
             function karma_update(thread_id, karma) {
               var like_button = document.getElementById("like_button_" + thread_id);
               var fire_button = document.getElementById("fire_button_" + thread_id);
-<?php
-if (!$admin) {
-  echo "like_button.setAttribute('disabled', 'true'); ";
-  echo "fire_button.setAttribute('disabled', 'true');\n";
-}
-?>
+              <?php if (!$admin): ?>
+                like_button.setAttribute('disabled', 'true');
+                fire_button.setAttribute('disabled', 'true');
+              <?php endif; ?>
               $.ajax({
                 type: 'POST',
                 dataType: "json",
@@ -291,7 +289,7 @@ if (!$admin) {
                       display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
                       message.value = "";
                     } else {
-                      alert('<?php echo _("Unable to post a reply") ?>');
+                      alert('<?= _("Unable to post a reply") ?>');
                     }
                     message.removeAttribute('readOnly');
                     reply_button.removeAttribute('disabled');
@@ -307,9 +305,7 @@ if (!$admin) {
             function fetch_events(one_time) {
               var generation_time = parseInt(document.getElementById('generation_time').value);
               var fetch_array = {};
-              var threads_array = <?php
-echo json_encode($threads_array);
-?>;
+              var threads_array = <?= json_encode($threads_array); ?>;
               threads_array.forEach(function(element, index, array) {
                 var thread_div = document.getElementById(element);
                 var reply_id = "";
@@ -397,20 +393,18 @@ echo json_encode($threads_array);
                   reply_button.disabled = true;
 
                   var moderated_action = function() {
-                    alert('<?php echo _("This thread was moderated, so you cannot share it anymore. Refresh page to get deleted threads gone forever.") ?>');
+                    alert('<?= _("This thread was moderated, so you cannot share it anymore. Refresh page to get deleted threads gone forever.") ?>');
                     return false;
                   };
                   twitter.onclick = moderated_action;
                   vkontakte.onclick = moderated_action;
                   facebook.onclick = moderated_action;
-<?php
-if ($admin) {
-  echo 'var remove_button = document.getElementById("remove_button_" + thread_id);';
-  echo 'var reset_button = document.getElementById("reset_button_" + thread_id);';
-  echo 'remove_button.disabled = true;';
-  echo 'reset_button.disabled = true;';
-}
-?>
+                  <?php if ($admin): ?>
+                    var remove_button = document.getElementById("remove_button_" + thread_id);
+                    var reset_button = document.getElementById("reset_button_" + thread_id);
+                    remove_button.disabled = true;
+                    reset_button.disabled = true;
+                  <?php endif; ?>
                 } else {
                   var current = parseInt(karma_counter.innerHTML);
                   var target = parseInt(karma);
