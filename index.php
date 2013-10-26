@@ -124,11 +124,11 @@
 		$reply_id = $reply['reply_id'];
         echo '<div id="' . $reply_id . '"><p>';
         if ($admin) {
-          $user_agent = $reply['user_agent'];
-          $ip = $reply['ip'];
+          $reply_user_agent = $reply['user_agent'];
+          $reply_ip = $reply['ip'];
           $popover_id = 'info_popover_' . $reply_id;
-          echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $user_agent
-                  . '" data-original-title="' . $ip . '" onclick="return false;">'
+          echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $reply_user_agent
+                  . '" data-original-title="' . $reply_ip . '" onclick="return false;">'
                   . '<span class="icon-info-sign"></span></button> ';
           echo '<script>$(function () {$(\'#' . $popover_id . '\').popover();});</script>';
           
