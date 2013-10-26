@@ -23,5 +23,5 @@
   require_once './templates/actions.php';
 ?>
 </div>
-<?php 
+<?php
   require_once './templates/footer.php'; 
