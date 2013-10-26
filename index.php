@@ -18,29 +18,31 @@
       $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
       $pages_total = ceil(get_threads_count($link) / $threads_per_page);
     }
-
-    if ($random || $thread_id || empty($threads_list)) {
-      echo '<div class="row" style="padding-bottom: 15px;">';
-      echo '<div class="col-lg-3"></div>';
-      echo '<div class="col-lg-6">';
-      if ($random) {
-        echo '<form class="form-inline" action="./random.php" method="post">';
-        echo '<button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button">' . _("One more random") . '</button> ';
-        echo '</form>';
-      } else if ($thread_id || empty($threads_list)) {
-        echo '<form class="form-inline" action="./" method="post">';
-        echo '<button class="btn btn-lg btn-success btn-block" type="submit" id="big_green_button">' . _("To other threads") . '</button> ';
-        echo '</form>';
-      }
-      echo '</div>';
-      echo '</div>';
-    }
-
-    echo '<div class="row" style="padding-left: 15px; padding-right: 15px;">';
+    ?>
+    <?php if ($random || $thread_id || empty($threads_list)): ?>
+      <div class="row" style="padding-bottom: 15px;">
+      <div class="col-lg-3"></div>
+      <div class="col-lg-6">
+      <?php if ($random): ?>
+        <form class="form-inline" action="./random.php" method="post">
+        <button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button"> <?php echo _("One more random") ?> </button>
+        </form>
+      <? elseif ($thread_id || empty($threads_list)): ?>
+        <form class="form-inline" action="./" method="post">
+        <button class="btn btn-lg btn-success btn-block" type="submit" id="big_green_button"><?php echo _("To other threads") ?></button>
+        </form>
+      <? endif; ?>
+      </div>
+      </div>
+    <? endif; ?>
+    <div class="row" style="padding-left: 15px; padding-right: 15px;">
+    <?php
     $threads_iterator = 0;
     $threads_array = array();
     // Page generation.
     foreach ($threads_list as $thread) {
+      
+      // Thread info.
       $name = $thread['name'];
       $ip = $thread['ip'];
       $user_agent = $thread['user_agent'];
@@ -50,18 +52,8 @@
       $karma = $thread['karma'];
       $time = $thread['time'];
       $reply_list = array_reverse($thread['reply']);
-
-      $threads_array[$threads_iterator++] = $thread_id;
-      echo '<div class="panel panel-default">';
-      echo '<div class="panel-heading">';
-      if (!empty($name) || !empty($feedback)) {
-        if (!empty($name)) {
-          echo '<strong><span class="icon-user"></span> ' . $name . '</strong><br/>';
-        }
-        if (!empty($feedback)) {
-          echo '<a href="mailto:' . $feedback . '"><span class="icon-envelope"></span> ' . $feedback . '</a><br/>';
-        }
-      }
+      
+      // Thread direct link.
       $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
       $direct_link .= $_SERVER['SERVER_NAME'];
       $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
@@ -70,34 +62,11 @@
         $direct_link = substr($direct_link, 0, $question_pos);
       }
       $direct_link = $direct_link . "?thread_id=" . $thread_id;
-      echo '<span class="icon-calendar"></span> ' . date('d.m.Y', $time / 100) . '&nbsp;';
-      echo '<span class="icon-time"></span> ' . date('H:i', $time / 100);
-      echo '<div class="twitter">';
-      echo '<a id="twitter_' . $thread_id . '" href="http://twitter.com/intent/tweet?text=' . $direct_link . '" title="' . _("Share via Twitter") . '" target="_blank"></a>';
-      echo '</div>';
-      echo '<div class="vkontakte">';
-      echo '<a id="vkontakte_' . $thread_id . '" href="http://vk.com/share.php?url=' . $direct_link . '" title="' . _("Share via VK") . '" onclick="window.open(this.href, \'Опубликовать ссылку во Вконтакте\', \'width=800,height=300\'); return false"></a>';
-      echo '</div>';
-      echo '<div class="facebook">';
-      echo '<a id="facebook_' . $thread_id . '" href="https://www.facebook.com/sharer/sharer.php?u=' . $direct_link . '" title="' . _("Share via Facebook") . '" onclick="window.open(this.href, \'Опубликовать ссылку в Facebook\', \'width=640,height=436,toolbar=0,status=0\'); return false"></a>';
-      echo '</div>';
-      echo '</div>';
-      echo '<div class="panel-body">';
-      echo '<form class="form-inline" method="post">';
-      if ($admin) {
-        echo '<button class="btn btn-xs btn-danger" type="button" id="remove_button_' . $thread_id . '" name="remove_button" onclick="remove_thread(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash icon-white"></span></button> ';
-        echo '<button class="btn btn-xs btn-default" type="buton" id="reset_button_' . $thread_id . '" name="karma_reset_button" onclick="karma_reset(\'' . $thread_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-hand-down"></span></button> ';
-
-        $popover_id = 'info_popover_' . $thread_id;
-        echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $user_agent
-                . '" data-original-title="' . $ip . '" onclick="return false;">'
-                . '<span class="icon-info-sign"></span></button> ';
-        echo '<script>$(function () {$(\'#' . $popover_id . '\').popover();});</script>';
-      }
-      echo '<div class="btn-group">';
-      echo '<button class="btn btn-xs btn-success" type="submit" id="like_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', 1); return false;"><span class="icon-thumbs-up-alt"></span></button> ';
-      echo '<button class="btn btn-xs btn-warning" type="submit" id="fire_button_' . $thread_id . '" onclick="karma_update(\'' . $thread_id . '\', -1); return false;"><span class="icon-thumbs-down-alt"></span></button>';
-      echo '</div>';
+      
+      $thread_date = date('d.m.Y', $time / 100);
+      $thread_time = date('H:i', $time / 100);
+      
+      // Karma label.
       if(intval($karma) == 0) {
         $label_type = 'default';
       } elseif (intval($karma) > 0) {
@@ -105,56 +74,15 @@
       } else {
         $label_type = 'warning';
       }
-      echo '&nbsp;<span class="label label-' . $label_type . '" id="karma_counter_' . $thread_id . '">' . $karma . '</span>&nbsp;';
-      echo $message;
-      echo '</form>';
-      echo '<hr/>';
-      echo '<form class="form-inline" onsubmit="post_reply(thread_id, message, reply_button); return false;" method="post">';
-      echo '<input type="hidden" name="thread_id" value="' . $thread_id . '"/>';
-      echo '<div class="input-group">';
-      echo '<input class="form-control" type="text" maxlength="' . $reply_length . '" id="reply_message_' . $thread_id . '" name="message" placeholder="' . _("Your reply here") . '"/>';
-      echo '<span class="input-group-btn">';
-      echo '<button type="submit" class="btn btn-primary" id="reply_button_' . $thread_id . '" name="reply_button">' . _("Reply") . '</button>';
-      echo '</span>';
-      echo '</div>';
-      echo '</form>';
-      echo '<br/>';
-      echo '<div id="' . $thread_id . '" class="col-md-10">';
-      foreach ($reply_list as $reply) {
-		$reply_id = $reply['reply_id'];
-        echo '<div id="' . $reply_id . '"><p>';
-        if ($admin) {
-          $reply_user_agent = $reply['user_agent'];
-          $reply_ip = $reply['ip'];
-          $popover_id = 'info_popover_' . $reply_id;
-          echo '<button class="btn btn-xs btn-info" id="' . $popover_id . '" data-trigger="click" rel="popover" data-content="' . $reply_user_agent
-                  . '" data-original-title="' . $reply_ip . '" onclick="return false;">'
-                  . '<span class="icon-info-sign"></span></button> ';
-          echo '<script>$(function () {$(\'#' . $popover_id . '\').popover();});</script>';
-          
-          echo '<button class="btn btn-xs btn-danger" type="submit" id="reply_remove_button_' . $reply_id . '" onclick="remove_reply(\'' . $reply_id . '\', \'' . $admin_key . '\'); return false;"><span class="icon-trash"></span></button>&nbsp;';
-         }
-        echo '<span class="icon-comment"></span>&nbsp;' . $reply['message'] . '</p>';
-        echo '</div>';
-      }
-      echo '</div>';
-      echo '</div>';
-
-      echo '<div class="panel-footer" style="text-align: right;">';
+      
+      // Browser and OS.
       $os = get_os_by_ua($user_agent);
       $browser = get_browser_by_ua($user_agent);
-      if ($os) {
-        $os_name = $os[0];
-        $os_logo = $os[1];
-        echo '<img src="./images/os/' . $os_logo . '.png" alt="' . $os_name . '"> ' . $os_name . '&nbsp;';
-      }
-      if ($browser) {
-        $browser_name = $browser[0];
-        $browser_logo = $browser[1];
-        echo '<img src="./images/browser/' . $browser_logo . '.png" alt="' . $browser_name . '">&nbsp;' . $browser_name;
-      }
-      echo '</div>';
-      echo '</div>';
+      
+      include('./templates/thread.php');
+
+      // Threads array for JS.
+      $threads_array[$threads_iterator++] = $thread_id;
     }
 
     if (empty($threads_list)) {
