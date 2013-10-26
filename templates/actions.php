@@ -172,7 +172,7 @@
             display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
             message.value = "";
           } else {
-            alert('<?= _("Unable to post a reply") ?>');
+            error(data);
           }
           message.removeAttribute('readOnly');
           reply_button.removeAttribute('disabled');
@@ -180,6 +180,7 @@
         error: function(data) {
           message.removeAttribute('readOnly');
           reply_button.removeAttribute('disabled');
+          alert('<?= _("Unable to post a reply") ?>');
         }
       });
     }
