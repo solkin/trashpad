@@ -1,5 +1,5 @@
 <?php
-  $href_string = 'href="?page_id=' . "%d" . ($query ? "&query=" . $query : "") . ($rated ? "&rated=" . $rated : "") . '"';
+  $href_string = 'href="?page_id=' . "%d" . ($query ? "&query=" . $query : "") . '"';
   // Left button.
   $left_title = $rated ? _("Higher") : _("Newer");
   if($page_id <= 1) {
