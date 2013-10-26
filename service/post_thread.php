@@ -1,5 +1,6 @@
 <?php
 
+include_once 'settings.php';
 include_once 'connect_db.php';
 include_once 'utils.php';
 
@@ -38,4 +39,3 @@ if (mysqli_num_rows($result) > 0) {
 mysqli_close($link);
 
 echo '{"status": "ok", "thread_id": "' . $thread_id . '", "user_agent": ' . json_encode($user_agent) . ', "time": "' . $time . '"}';
-?>

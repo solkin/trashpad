@@ -1,10 +1,10 @@
 <?php
-$about = true;
-require_once './templates/header.php';
+  $about = true;
+  require_once './templates/header.php';
 ?>
 <div class="row" style="padding-left: 15px; padding-right: 15px; ">
   <div class="jumbotron" style="padding: 0px; margin-bottom: 15px">
-    <img src="./images/system/burova_big.jpg" class="img-rounded img-responsive">
+    <img src="./images/system/burova_big.jpg" class="img-rounded img-responsive" alt="Burova">
   </div>
   <div class="row">
   <div class="col-lg-3"></div>
@@ -32,4 +32,3 @@ require_once './templates/header.php';
 </div>
 <?php
 require_once './templates/footer.php';
-?>

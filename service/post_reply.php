@@ -1,5 +1,6 @@
 <?php
 
+include_once 'settings.php';
 include_once 'connect_db.php';
 include_once 'utils.php';
 
@@ -26,4 +27,3 @@ mysqli_close($link);
 echo '{"status": "ok", "thread_id": "' . $thread_id . '", "reply_id": "'
  . $reply_id . '", "time": "' . $time . '", "user_agent": '
  . json_encode($user_agent) . '}';
-?>

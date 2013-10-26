@@ -1,17 +1,21 @@
 <?php
+$ini_array = parse_ini_file("settings.ini", true) or die('{"status": "failed", "reason": "No settings INI file in service folder."}');
 
-// Main page settings.
-$threads_per_page = 5;
-// Database settings.
-$db_host = 'localhost';
-$db_user = 'user';
-$db_pass = '380349';
-$db_name = 'trashpad_db';
-// Admin
-$secret_key = 'secret_key';
+$main_page = $ini_array['main_page'];
+$threads_per_page = $main_page['threads_per_page'];
 
-$events_poll_time = 2000;
-$fetch_events_timeout = 60000;
-$thread_length = 500;
-$reply_length = 250;
-?>
+$database = $ini_array['database'];
+$db_host = $database['db_host'];
+$db_user = $database['db_user'];
+$db_pass = $database['db_pass'];
+$db_name = $database['db_name'];
+
+$administration = $ini_array['administration'];
+$secret_key = $administration['secret_key'];
+$debug = $administration['debug'];
+
+$service = $ini_array['service'];
+$events_poll_time = $service['events_poll_time'];
+$fetch_events_timeout = $service['fetch_events_timeout'];
+$thread_length = $service['thread_length'];
+$reply_length = $service['reply_length'];

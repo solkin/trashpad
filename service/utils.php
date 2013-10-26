@@ -176,11 +176,10 @@ function get_browser_by_ua($user_agent) {
   );
 
   foreach ($browser_array as $regex => $value) {
-    if (preg_match($regex, $user_agent))
+    if (preg_match($regex, $user_agent)) {
       $browser = $value;
+    }
   }
 
   return $browser;
 }
-
-?>

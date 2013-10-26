@@ -2,13 +2,10 @@
 
 // This class provide link to work with DB. Also this can init DB.
 
-include_once 'settings.php';
-
-$init = $_GET['init'];
-
 $link = mysqli_connect($db_host, $db_user, $db_pass, $db_name) or die('{"status": "failed", "reason": ' . json_encode(mysqli_connect_error($link)) . '}');
 
-if ($init && $admin) {
+// Will be implemented in admin page.
+if ($init && $debug) {
   $sql = "DROP TABLE IF EXISTS threads";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
@@ -40,4 +37,3 @@ if ($init && $admin) {
 			)";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 }
-?>

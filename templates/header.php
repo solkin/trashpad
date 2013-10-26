@@ -67,10 +67,11 @@
       textdomain($domain);
 
       $admin_key = $_GET['admin'];
+      $init = $_GET['init'];
 
-      include_once './service/settings.php';
-      include_once './service/connect_db.php';
-      include_once './service/utils.php';
+      require_once './service/settings.php';
+      require_once './service/connect_db.php';
+      require_once './service/utils.php';
 
       echo '<input type="hidden" id="generation_time" value="' . get_time_millis() . '">';
       if ($admin_key === $secret_key) {
@@ -79,7 +80,7 @@
         $admin = false;
       }
 
-      include_once './templates/navbar.php';
+      require_once './templates/navbar.php';
     ?>
 
     <div class="container" style="max-width: 850px;">

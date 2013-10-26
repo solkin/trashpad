@@ -129,11 +129,7 @@
             }
             location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
           } else {
-            name.removeAttribute('readOnly');
-            feedback.removeAttribute('readOnly');
-            message.removeAttribute('readOnly');
-            post_button.removeAttribute('disabled');
-            $('#error_alert').show('fast');
+            error(data);
           }
         },
         error: function(data) {

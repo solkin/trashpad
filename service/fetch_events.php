@@ -1,8 +1,8 @@
 <?php
 
+include_once 'settings.php';
 include_once 'connect_db.php';
 include_once 'utils.php';
-include_once 'settings.php';
 
 $time = get_time_millis();
 $fresh_threads_time = 0;
@@ -80,4 +80,3 @@ mysqli_close($link);
 
 echo '{"status": "ok", "reply_array":' . json_encode($reply_array)
  . ', "karma_array":' . json_encode($karma_array) . ', "fresh_threads_count": ' . $fresh_threads_count . ', "fresh_time": ' . $fresh_threads_time . '}';
-?>
