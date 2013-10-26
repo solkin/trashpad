@@ -1,8 +1,8 @@
 <?php
 
-  $thread_id = $_GET['thread_id'];
+  $thread_id = $_GET['id'];
   if(!$thread_id) {
-    $thread_id = $_GET['random_id'];
+    $thread_id = $_GET['rid'];
     $random = true;
   }
       

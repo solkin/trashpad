@@ -9,5 +9,5 @@
   $thread = $threads_list[0];
   $thread_id = $thread['thread_id'];
 
-  header("Location: ./thread.php?random_id=" . $thread_id);
+  header("Location: ./thread.php?rid=" . $thread_id);
   die();

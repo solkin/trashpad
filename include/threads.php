@@ -23,7 +23,10 @@
     if ($question_pos) {
       $direct_link = substr($direct_link, 0, $question_pos);
     }
-    $direct_link = $direct_link . "?thread_id=" . $thread_id;
+    if(substr($direct_link, -4) === ".php") {
+      $direct_link = substr($direct_link, 0, strrpos($direct_link, "/") + 1);
+    }
+    $direct_link = $direct_link . "thread.php?id=" . $thread_id;
 
     $thread_date = date('d.m.Y', $time / 100);
     $thread_time = date('H:i', $time / 100);
@@ -46,4 +49,3 @@
     // Threads array for JS.
     $threads_array[$threads_iterator++] = $thread_id;
   }
-?>

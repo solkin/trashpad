@@ -3,7 +3,7 @@
   // Short links.
   $thread_id = $_GET['thread_id'];
   if($thread_id) {
-    header("Location: ./thread.php?thread_id=" . $thread_id);
+    header("Location: ./thread.php?id=" . $thread_id);
     die();
   }
   
