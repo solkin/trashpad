@@ -1,5 +1,12 @@
 <?php
 
+  // Short links.
+  $thread_id = $_GET['thread_id'];
+  if($thread_id) {
+    header("Location: ./thread.php?thread_id=" . $thread_id);
+    die();
+  }
+  
   $page_id = $_GET['page_id'];
   // Thread to show calculation.
   if (!$page_id || $page_id == 0) {
