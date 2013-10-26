@@ -1,5 +1,5 @@
 <?php
-$ini_array = parse_ini_file("settings.ini", true) or die('{"status": "failed", "reason": "No config INI file in ../data folder."}');
+$ini_array = parse_ini_file("./data/config.ini", true) or die('{"status": "failed", "reason": "No ../data/config.ini file."}');
 
 $main_page = $ini_array['main_page'];
 $threads_per_page = $main_page['threads_per_page'];
