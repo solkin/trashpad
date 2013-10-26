@@ -183,3 +183,21 @@ function get_browser_by_ua($user_agent) {
 
   return $browser;
 }
+
+function encode($in) {
+    return htmlspecialchars($in, ENT_QUOTES);
+}
+
+function get_current_path() {
+  $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
+  $direct_link .= $_SERVER['SERVER_NAME'];
+  $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
+  $question_pos = strpos($direct_link, '?');
+  if ($question_pos) {
+    $direct_link = substr($direct_link, 0, $question_pos);
+  }
+  if(substr($direct_link, -4) === ".php") {
+    $direct_link = substr($direct_link, 0, strrpos($direct_link, "/") + 1);
+  }
+  return $direct_link;
+}

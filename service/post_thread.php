@@ -5,11 +5,11 @@ include_once 'connect_db.php';
 include_once 'utils.php';
 
 $time = get_time_millis();
-$name = htmlspecialchars($_POST['name'], ENT_QUOTES);
-$feedback = htmlspecialchars($_POST['feedback'], ENT_QUOTES);
+$name = encode($_POST['name']);
+$feedback = encode($_POST['feedback']);
 $ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-$message = htmlspecialchars($_POST['message'], ENT_QUOTES);
+$message = encode($_POST['message']);
 $thread_id = generate_random_string();
 
 $sql = "SELECT * FROM threads WHERE message='" . $message . "'";

@@ -16,17 +16,7 @@
     $reply_list = array_reverse($thread['reply']);
 
     // Thread direct link.
-    $direct_link = isset($_SERVER['HTTPS']) ? 'https://' : 'http://';
-    $direct_link .= $_SERVER['SERVER_NAME'];
-    $direct_link .= htmlspecialchars($_SERVER['REQUEST_URI']);
-    $question_pos = strpos($direct_link, '?');
-    if ($question_pos) {
-      $direct_link = substr($direct_link, 0, $question_pos);
-    }
-    if(substr($direct_link, -4) === ".php") {
-      $direct_link = substr($direct_link, 0, strrpos($direct_link, "/") + 1);
-    }
-    $direct_link = $direct_link . "thread.php?id=" . $thread_id;
+    $direct_link = get_current_path() . "thread.php?id=" . $thread_id;
 
     $thread_date = date('d.m.Y', $time / 100);
     $thread_time = date('H:i', $time / 100);

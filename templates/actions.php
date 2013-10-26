@@ -121,13 +121,7 @@
           if (status === 'ok') {
             var thread_id = data['thread_id'];
             $('#success_alert').show('fast');
-            var path_array = location.pathname.split('/');
-            var path_new = "";
-            for (i = 1; i < path_array.length; i++) {
-              path_new += "/";
-              path_new += path_array[i];
-            }
-            location.href = location.protocol + '//' + location.host + path_new + '?thread_id=' + thread_id;
+            location.href = '<?=get_current_path()?>' + 'thread.php?id=' + thread_id;
           } else {
             error(data);
           }
@@ -193,8 +187,9 @@
     threads_array.forEach(function(element, index, array) {
       var thread_div = document.getElementById(element);
       var reply_id = "";
-      if (thread_div.childNodes[0] !== undefined) {
-        reply_id = thread_div.childNodes[0].getAttribute('id');
+      var first_child = thread_div.getElementsByTagName("div")[0];
+      if (first_child !== undefined) {
+        reply_id = first_child.getAttribute('id');
       }
       var karma_counter = document.getElementById('karma_counter_' + element).innerHTML;
       if(!is_numeric(karma_counter)) {

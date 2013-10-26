@@ -4,9 +4,9 @@ include_once 'settings.php';
 include_once 'connect_db.php';
 include_once 'utils.php';
 
-$thread_id = $_POST['thread_id'];
-$karma = $_POST['karma'];
-$admin_key = $_POST['admin_key'];
+$thread_id = encode($_POST['thread_id']);
+$karma = encode($_POST['karma']);
+$admin_key = encode($_POST['admin_key']);
 
 // Karma fetching.
 $sql = "SELECT thread_id, karma FROM threads WHERE thread_id='" . $thread_id . "'";

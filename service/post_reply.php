@@ -8,8 +8,8 @@ $reply_id = generate_random_string(true);
 $time = get_time_millis();
 $ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
-$message = htmlspecialchars($_POST['message'], ENT_QUOTES);
-$thread_id = $_POST['thread_id'];
+$message = encode($_POST['message']);
+$thread_id = encode($_POST['thread_id']);
 
 $message_length = mb_strlen($_POST['message'], "UTF-8");
 if($message_length > $reply_length) {

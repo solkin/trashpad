@@ -4,8 +4,8 @@ include_once 'settings.php';
 include_once 'connect_db.php';
 include_once 'utils.php';
 
-$thread_id = $_POST['thread_id'];
-$admin_key = $_POST['admin_key'];
+$thread_id = encode($_POST['thread_id']);
+$admin_key = encode($_POST['admin_key']);
 
 if ($admin_key == $secret_key) {
   // Thread removing.
