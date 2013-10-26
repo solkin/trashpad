@@ -8,6 +8,5 @@
     $thread = $threads_list[0];
     $thread_id = $thread['thread_id'];
     
-    header("Location: ./index.php?thread_id=" . $thread_id . "&random=true");
+    header("Location: ./thread.php?random_id=" . $thread_id);
 	die();
-?>

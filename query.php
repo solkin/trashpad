@@ -1,5 +1,6 @@
 <?php
 
+  $query = $_GET['query'];
   $page_id = $_GET['page_id'];
   // Thread to show calculation.
   if (!$page_id || $page_id == 0) {
@@ -9,8 +10,8 @@
   require_once './templates/header.php';
   
   $thread_from = ($page_id - 1) * $threads_per_page;
-  $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
-  $pages_total = ceil(get_threads_count($link) / $threads_per_page);
+  $threads_list = get_threads_by_query($link, true, $query, $threads_per_page, $thread_from);
+  $pages_total = ceil(get_query_threads_count($link, $query) / $threads_per_page);
 ?>
 <div class="row" style="padding-left: 15px; padding-right: 15px;">
 <?php
