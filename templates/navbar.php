@@ -32,6 +32,3 @@
     </div>
   </div>
 </nav>
-
-<?php
-include 'write_modal.php';

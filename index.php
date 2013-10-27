@@ -1,4 +1,6 @@
 <?php
+  require_once './include/initializer.php';
+  
   // Short links.
   $thread_id = $_GET['thread_id'];
   if($thread_id) {
@@ -12,22 +14,16 @@
     $page_id = 1;
   }
   
-  require_once './templates/header.php';
-  
   $thread_from = ($page_id - 1) * $threads_per_page;
   $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
   $pages_total = ceil(get_threads_count($link) / $threads_per_page);
-?>
-<div class="row" style="padding-left: 15px; padding-right: 15px;">
-<?php
+  
+  include './templates/header.php';
   require_once './include/threads.php';
   if (empty($threads_list)) {
     include ('./templates/burova.php');
   } else if ($pages_total > 1) {
     include ('./include/navigator.php');
   }
-?>
-</div>
-<?php
-  require_once './templates/actions.php';
-  require_once './templates/footer.php'; 
+  require_once './include/actions.php';
+  require_once './templates/footer.php';
