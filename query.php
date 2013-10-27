@@ -18,7 +18,7 @@
   if (empty($threads_list)) {
     include ('./templates/burova.php');
   } else if ($pages_total > 1) {
-    include ('./include/navigator.php');
+    require_once ('./include/navigator.php');
   }
   require_once './include/actions.php';
-  require_once './templates/footer.php';
+  include './templates/footer.php';
