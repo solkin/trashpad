@@ -1,5 +1,4 @@
 <?php
-
   include_once 'service/settings.php';
   include_once 'service/connect_db.php';
   include_once 'service/utils.php';

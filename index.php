@@ -1,5 +1,4 @@
 <?php
-
   // Short links.
   $thread_id = $_GET['thread_id'];
   if($thread_id) {
@@ -27,8 +26,8 @@
   } else if ($pages_total > 1) {
     include ('./include/navigator.php');
   }
-  require_once './templates/actions.php';
 ?>
 </div>
 <?php
+  require_once './templates/actions.php';
   require_once './templates/footer.php'; 

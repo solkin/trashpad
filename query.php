@@ -22,8 +22,8 @@
   } else if ($pages_total > 1) {
     include ('./include/navigator.php');
   }
-  require_once './templates/actions.php';
 ?>
 </div>
-<?php 
+<?php
+  require_once './templates/actions.php';
   require_once './templates/footer.php'; 
