@@ -8,6 +8,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="TrashPad">
     <meta name="author" content="TomClaw Software">
+    
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    
     <script src="./jquery/jquery-1.10.2.min.js"></script>
 
     <script src="./bootstrap/js/bootstrap.min.js"></script>
