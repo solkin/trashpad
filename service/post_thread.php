@@ -10,6 +10,7 @@ $feedback = encode($_POST['feedback']);
 $ip = $_SERVER['REMOTE_ADDR'];
 $user_agent = $_SERVER['HTTP_USER_AGENT'];
 $message = encode($_POST['message']);
+$type = get_type_index($_POST['type']);
 $thread_id = generate_random_string();
 
 $sql = "SELECT * FROM threads WHERE message='" . $message . "'";
@@ -29,8 +30,8 @@ if (mysqli_num_rows($result) > 0) {
     mysqli_close($link);
     die('{"status": "failed", "reason": "message too long (' . $message_length . ') - maximum thread length is ' . $thread_length . ' chars"}');
   } else {
-    $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message) " .
-            "VALUES ('$time', '$name', '$feedback', '$ip', '$user_agent', '$thread_id', '$message')";
+    $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message, type) " .
+            "VALUES ('$time', '$name', '$feedback', '$ip', '$user_agent', '$thread_id', '$message', '$type')";
 
     mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
   }

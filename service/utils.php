@@ -1,5 +1,10 @@
 <?php
 
+class Type {
+  const TYPE_THREAD = 0;
+  const TYPE_KIOSK = 1;
+}
+
 function get_threads_by_query($link, $include_reply, $query, $threads_count = 0, $thread_from = 0) {
   $query_parts = explode(' ', $query);
 
@@ -200,4 +205,15 @@ function get_current_path() {
     $direct_link = substr($direct_link, 0, strrpos($direct_link, "/") + 1);
   }
   return $direct_link;
+}
+
+function get_type_index($type) {
+  switch ($type) {
+    case 'thread':
+      return Type::TYPE_THREAD;
+    case 'kiosk':
+      return Type::TYPE_KIOSK;
+    default:
+      return Type::TYPE_THREAD;
+  }
 }

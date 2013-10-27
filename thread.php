@@ -6,6 +6,7 @@
     $thread_id = $_GET['rid'];
     $random = true;
   }
+  $thread_direct = true;
   
   $threads_list = get_thread($link, true, $thread_id);
   

@@ -5,8 +5,8 @@
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
         <h4 class="modal-title"><?= _("Post thread") ?></h4>
       </div>
-      <form onsubmit="post_thread(name, feedback, message, post_button);
-          return false;" method="post" class="form-horizontal" role="form">
+      <form onsubmit="post_thread(name, feedback, message, post_button, thread_button, kiosk_button); return false;" 
+            method="post" class="form-horizontal" role="form">
         <div class="modal-body">
           <div class="alert alert-success" id="success_alert" style="display:none;">
             <strong><?= _("Congratulations!") ?></strong> <?= _("New thread successfully posted! Redirecting...") ?>
@@ -16,6 +16,12 @@
           </div>
           <div class="alert alert-danger" id="error_alert" style="display:none;">
             <strong><?= _("Errrm.") ?></strong> <?= _("Something was wrong on the host during post this thread.") ?>
+          </div>
+          <div class="well well-sm" style="text-align: center;">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success active" name="thread_button" id="thread_button" onclick="toggle_type(thread_button, kiosk_button, thread_button); return false;"><?= _("Thread") ?></button>
+              <button type="button" class="btn btn-info" name="kiosk_button" id="kiosk_button" onclick="toggle_type(thread_button, kiosk_button, kiosk_button); return false;"><?= _("Kiosk") ?></button>
+            </div>
           </div>
           <div class="form-group">
             <label for="inputName" class="col-lg-3 control-label"><?= _("Name") ?></label>

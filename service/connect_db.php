@@ -21,7 +21,9 @@ if ($init && $debug) {
 			user_agent TEXT,
 			thread_id TEXT NOT NULL default '',
 			message TEXT NOT NULL default '',
-			karma INT NOT NULL default 0
+			karma INT NOT NULL default 0,
+            type INT NOT NULL default 0,
+            polls INT NOT NULL default 0
 			)";
   mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 

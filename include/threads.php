@@ -13,6 +13,8 @@
     $message = $thread['message'];
     $karma = $thread['karma'];
     $time = $thread['time'];
+    $type = $thread['type'];
+    $polls = $thread['polls'];
     $reply_list = array_reverse($thread['reply']);
 
     // Thread direct link.

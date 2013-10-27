@@ -102,7 +102,7 @@
     });
   }
 
-  function post_thread(name, feedback, message, post_button) {
+  function post_thread(name, feedback, message, post_button, thread_button, kiosk_button) {
     $('#error_alert').hide('fast');
     $('#success_alert').hide('fast');
     $('#warning_alert').hide('fast');
@@ -111,11 +111,14 @@
       feedback.setAttribute('readOnly', 'true');
       message.setAttribute('readOnly', 'true');
       post_button.setAttribute('disabled', 'true');
+      thread_button.setAttribute('disabled', 'true');
+      kiosk_button.setAttribute('disabled', 'true');
+      var type = get_type(thread_button, kiosk_button);
       $.ajax({
         type: 'POST',
         dataType: "json",
         url: './service/post_thread.php',
-        data: {'name': name.value, 'feedback': feedback.value, 'message': message.value},
+        data: {'name': name.value, 'feedback': feedback.value, 'message': message.value, 'type': type},
         success: function(data) {
           var status = data['status'];
           if (status === 'ok') {
@@ -131,6 +134,8 @@
           feedback.removeAttribute('readOnly');
           message.removeAttribute('readOnly');
           post_button.removeAttribute('disabled');
+          thread_button.removeAttribute('disabled');
+          kiosk_button.removeAttribute('disabled');
           $('#error_alert').show('fast');
         }
       });
@@ -186,18 +191,42 @@
     var threads_array = <?= json_encode($threads_array); ?>;
     threads_array.forEach(function(element, index, array) {
       var thread_div = document.getElementById(element);
-      var reply_id = "";
-      var first_child = thread_div.getElementsByTagName("div")[0];
-      if (first_child !== undefined) {
-        reply_id = first_child.getAttribute('id');
+      var reply_id = null;
+      var shown = true;
+      if(thread_div !== null) {
+        var first_child = thread_div.getElementsByTagName("div")[0];
+        if (first_child !== undefined) {
+          reply_id = first_child.getAttribute('id');
+        } else {
+          reply_id = "";
+        }
+      } else {
+        shown = false;
       }
-      var karma_counter = document.getElementById('karma_counter_' + element).innerHTML;
-      if(!is_numeric(karma_counter)) {
-        karma_counter = "unrated";
+      var karma_counter = null;
+      var karma_span = document.getElementById('karma_counter_' + element);
+      if(karma_span !== null) {
+        karma_counter = karma_span.innerHTML;
+        if(!is_numeric(karma_counter)) {
+          karma_counter = "unrated";
+        }
+      }
+      var polls_counter = null;
+      var polls_span = document.getElementById('polls_counter_' + element);
+      if(polls_span !== null) {
+        polls_counter = polls_span.innerHTML;
       }
       var thread_data = {};
-      thread_data.reply = reply_id;
-      thread_data.karma = karma_counter;
+      if(reply_id !== null) {
+        thread_data.reply = reply_id;
+      }
+      if(karma_counter !== null) {
+        thread_data.karma = karma_counter;
+      }
+      if(polls_counter !== null) {
+        thread_data.polls = polls_counter;
+      }
+      thread_data.shown = shown;
       fetch_array[element] = thread_data;
     });
     console.log("threads: " + JSON.stringify(fetch_array) + ", generation_time: " + generation_time);
@@ -209,17 +238,26 @@
       success: function(data) {
         console.log("data: " + JSON.stringify(data));
         var reply_array = data['reply_array'];
-        var karma_array = data['karma_array'];
+        var threads_array = data['threads_array'];
         var fresh_threads_count = parseInt(data['fresh_threads_count']);
         var fresh_time = parseInt(data['fresh_time']);
         for (var i = 0; i < reply_array.length; i++) {
           var reply = reply_array[i];
           display_reply(prepare_reply(reply['thread_id'], reply['reply_id'], reply['message']));
         }
-        for (var i = 0; i < karma_array.length; i++) {
+        for(var thread_id in threads_array) {
+          var thread_data = threads_array[thread_id];
+          if(thread_data['karma'] !== null) {
+            update_karma(thread_id, thread_data['karma']);
+          }
+          if(thread_data['karma'] !== null) {
+            update_polls(thread_id, thread_data['polls']);
+          }
+        }
+        /*for (var i = 0; i < karma_array.length; i++) {
           var karma = karma_array[i];
           update_karma(karma['thread_id'], karma['karma']);
-        }
+        }*/
         if (fresh_threads_count > 0 && fresh_time > 0) {
           update_fresh_threads_count(fresh_threads_count, fresh_time);
         }
@@ -247,6 +285,13 @@
     }
 
     document.getElementById('generation_time').value = fresh_time;
+  }
+  
+  function update_polls(thread_id, polls) {
+    var polls_counter = document.getElementById('polls_counter_' + thread_id);
+    if (polls_counter) {
+      polls_counter.innerHTML = polls;
+    }
   }
 
   function update_karma(thread_id, karma) {
@@ -303,12 +348,34 @@
       }
     }
   }
+  
+  function get_type(thread_button, kiosk_button) {
+    var thread_class = thread_button.className;
+    var kiosk_class = kiosk_button.className;
+    if(thread_class.indexOf("active") >= 0) {
+      return 'thread';
+    } else if(kiosk_class.indexOf("active") >= 0) {
+      return 'kiosk';
+    }
+    thread_button.className = thread_class;
+    kiosk_button.className = kiosk_class;
+  }
+  
+  function toggle_type(thread_button, kiosk_button, active_button) {
+    var thread_class = thread_button.className;
+    var kiosk_class = kiosk_button.className;
+    var active_class = active_button.className;
+    
+    thread_button.className = thread_class.replace('active', '');
+    kiosk_button.className = kiosk_class.replace('active', '');
+    active_button.className = active_class.replace('active', '') + ' active';
+  }
 
   function prepare_reply(thread_id, reply_id, message) {
     if (!document.getElementById(reply_id)) {
       $('#' + thread_id).prepend(
               '<div id="' + reply_id + '" style="display:none;">' +
-              '<p><span class="icon-comment"></span>&nbsp;' + message + '</p>' +
+              '<p style="margin: -2px; margin-top: 12px;"><span class="icon-comment"></span>&nbsp;' + message + '</p>' +
               '</div>'
               );
       return reply_id;
