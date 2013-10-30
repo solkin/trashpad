@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2013-10-27 18:00+0400\n"
-"PO-Revision-Date: 2013-10-27 18:00+0400\n"
+"POT-Creation-Date: 2013-10-31 00:18+0400\n"
+"PO-Revision-Date: 2013-10-31 00:18+0400\n"
 "Last-Translator: Igor Solkin <inbox@tomclaw.com>\n"
 "Language-Team: \n"
 "Language: ru\n"
@@ -27,11 +27,11 @@ msgstr "Не удалось удалить записку:"
 msgid "Karma reset failed:"
 msgstr "Не удалось сбросить карму:"
 
-#: D:\Code\WEB\trashpad/include/actions.php:177
+#: D:\Code\WEB\trashpad/include/actions.php:182
 msgid "Unable to post a reply"
 msgstr "Не удалось опубликовать ответ"
 
-#: D:\Code\WEB\trashpad/include/actions.php:275
+#: D:\Code\WEB\trashpad/include/actions.php:424
 #, fuzzy
 msgid ""
 "This thread was moderated, so you cannot share it anymore. Refresh page to "
@@ -155,28 +155,32 @@ msgstr "Новая записка"
 msgid "Search"
 msgstr "Поиск"
 
-#: D:\Code\WEB\trashpad/templates/thread.php:14
+#: D:\Code\WEB\trashpad/templates/thread.php:19
 msgid "Share via Twitter"
 msgstr "Опубликовать ссылку в Twitter"
 
-#: D:\Code\WEB\trashpad/templates/thread.php:17
+#: D:\Code\WEB\trashpad/templates/thread.php:22
 msgid "Share via VK"
 msgstr "Опубликовать ссылку во ВКонтакте"
 
-#: D:\Code\WEB\trashpad/templates/thread.php:20
+#: D:\Code\WEB\trashpad/templates/thread.php:25
 msgid "Share via Facebook"
 msgstr "Опубликовать ссылку в Facebook"
 
-#: D:\Code\WEB\trashpad/templates/thread.php:40
+#: D:\Code\WEB\trashpad/templates/thread.php:54
 msgid "Your reply here"
 msgstr "Ваш ответ здесь"
 
-#: D:\Code\WEB\trashpad/templates/thread.php:42
+#: D:\Code\WEB\trashpad/templates/thread.php:56
 msgid "Reply"
 msgstr "Ответить"
 
+#: D:\Code\WEB\trashpad/templates/thread.php:79
+msgid "Enter"
+msgstr "Войти"
+
 #: D:\Code\WEB\trashpad/templates/write_modal.php:6
-#: D:\Code\WEB\trashpad/templates/write_modal.php:49
+#: D:\Code\WEB\trashpad/templates/write_modal.php:47
 msgid "Post thread"
 msgstr "Опубликовать"
 
@@ -204,32 +208,32 @@ msgstr "Хммм."
 msgid "Something was wrong on the host during post this thread."
 msgstr "Что-то пошло не так в процессе публикации записки."
 
-#: D:\Code\WEB\trashpad/templates/write_modal.php:23
+#: D:\Code\WEB\trashpad/templates/write_modal.php:22
 msgid "Thread"
 msgstr "Записка"
 
-#: D:\Code\WEB\trashpad/templates/write_modal.php:24
+#: D:\Code\WEB\trashpad/templates/write_modal.php:23
 msgid "Kiosk"
 msgstr "Беседка"
 
+#: D:\Code\WEB\trashpad/templates/write_modal.php:27
 #: D:\Code\WEB\trashpad/templates/write_modal.php:29
-#: D:\Code\WEB\trashpad/templates/write_modal.php:31
 msgid "Name"
 msgstr "Имя"
 
+#: D:\Code\WEB\trashpad/templates/write_modal.php:33
 #: D:\Code\WEB\trashpad/templates/write_modal.php:35
-#: D:\Code\WEB\trashpad/templates/write_modal.php:37
 msgid "Feedback"
 msgstr "Обратная связь"
 
-#: D:\Code\WEB\trashpad/templates/write_modal.php:41
+#: D:\Code\WEB\trashpad/templates/write_modal.php:39
 msgid "Message"
 msgstr "Записка"
 
-#: D:\Code\WEB\trashpad/templates/write_modal.php:43
+#: D:\Code\WEB\trashpad/templates/write_modal.php:41
 msgid "Your message here"
 msgstr "Текст Вашей записки"
 
-#: D:\Code\WEB\trashpad/templates/write_modal.php:48
+#: D:\Code\WEB\trashpad/templates/write_modal.php:46
 msgid "Close"
 msgstr "Закрыть"

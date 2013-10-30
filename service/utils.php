@@ -5,6 +5,10 @@ class Type {
   const TYPE_KIOSK = 1;
 }
 
+class State {
+  const STATE_REMOVED = 'removed';
+}
+
 function get_threads_by_query($link, $include_reply, $query, $threads_count = 0, $thread_from = 0) {
   $query_parts = explode(' ', $query);
 

@@ -7,7 +7,7 @@
       data: {'thread_id': thread_id, 'admin_key': admin_key},
       success: function(data) {
         if (data['status'] === 'ok') {
-          update_karma(thread_id, 'unrated');
+          update_state(thread_id, '<?=State::STATE_REMOVED?>');
         } else {
           this.error(data);
         }
@@ -191,8 +191,14 @@
     var threads_array = <?= json_encode($threads_array); ?>;
     threads_array.forEach(function(element, index, array) {
       var thread_div = document.getElementById(element);
+      var type = document.getElementById("type_" + element).innerHTML;
+      
+      var karma_counter = null;
       var reply_id = null;
       var shown = true;
+      var state = null;
+      var polls_counter = null;
+      
       if(thread_div !== null) {
         var first_child = thread_div.getElementsByTagName("div")[0];
         if (first_child !== undefined) {
@@ -203,20 +209,37 @@
       } else {
         shown = false;
       }
-      var karma_counter = null;
-      var karma_span = document.getElementById('karma_counter_' + element);
-      if(karma_span !== null) {
-        karma_counter = karma_span.innerHTML;
-        if(!is_numeric(karma_counter)) {
-          karma_counter = "unrated";
+      
+      if(type === '<?=Type::TYPE_THREAD?>') {
+        var karma_span = document.getElementById('karma_counter_' + element);
+        if(karma_span !== null) {
+          karma_counter = karma_span.innerHTML;
+          if(!is_numeric(karma_counter)) {
+            /** Thread removed **/
+            karma_counter = null;
+            shown = false;
+            reply_id = null;
+            state = '<?=State::STATE_REMOVED?>';
+          }
+        }
+      } else if(type === '<?=Type::TYPE_KIOSK?>') {
+        var polls_span = document.getElementById('polls_counter_' + element);
+        if(polls_span !== null) {
+          polls_counter = polls_span.innerHTML;
+          if(!is_numeric(polls_counter)) {
+            /** Thread removed **/
+            polls_counter = null;
+            shown = false;
+            reply_id = null;
+            state = '<?=State::STATE_REMOVED?>';
+          }
         }
       }
-      var polls_counter = null;
-      var polls_span = document.getElementById('polls_counter_' + element);
-      if(polls_span !== null) {
-        polls_counter = polls_span.innerHTML;
-      }
+      
       var thread_data = {};
+      if(state !== null) {
+        thread_data.state = state;
+      }
       if(reply_id !== null) {
         thread_data.reply = reply_id;
       }
@@ -247,22 +270,21 @@
         }
         for(var thread_id in threads_array) {
           var thread_data = threads_array[thread_id];
-          if(thread_data['karma'] !== null) {
+          if(thread_data['state'] !== undefined) {
+            update_state(thread_id, thread_data['state']);
+          }
+          if(thread_data['karma'] !== undefined) {
             update_karma(thread_id, thread_data['karma']);
           }
-          if(thread_data['karma'] !== null) {
+          if(thread_data['polls'] !== undefined) {
             update_polls(thread_id, thread_data['polls']);
           }
         }
-        /*for (var i = 0; i < karma_array.length; i++) {
-          var karma = karma_array[i];
-          update_karma(karma['thread_id'], karma['karma']);
-        }*/
         if (fresh_threads_count > 0 && fresh_time > 0) {
           update_fresh_threads_count(fresh_threads_count, fresh_time);
         }
         if (!one_time) {
-          fetch_events(false);
+          setTimeout("fetch_events(false)", 1000);
         }
       },
       error: function(data) {
@@ -287,6 +309,19 @@
     document.getElementById('generation_time').value = fresh_time;
   }
   
+  function update_state(thread_id, state) {
+    switch(state) {
+      case '<?=State::STATE_REMOVED?>': {
+          var type = document.getElementById("type_" + thread_id).innerHTML;
+          disable_thread(thread_id, type);
+          return false;
+      }
+      default: {
+          return true;
+      }
+    }
+  }
+  
   function update_polls(thread_id, polls) {
     var polls_counter = document.getElementById('polls_counter_' + thread_id);
     if (polls_counter) {
@@ -298,54 +333,21 @@
     var karma_counter = document.getElementById('karma_counter_' + thread_id);
 
     if (karma_counter) {
-      if (karma === 'unrated') {
-        karma_counter.className = "label label-danger";
-        karma_counter.innerHTML = '<span class="icon-fire"></span>';
-
-        var like_button = document.getElementById("like_button_" + thread_id);
-        var fire_button = document.getElementById("fire_button_" + thread_id);
-        var reply_message = document.getElementById("reply_message_" + thread_id);
-        var reply_button = document.getElementById("reply_button_" + thread_id);
-
-        var twitter = document.getElementById("twitter_" + thread_id);
-        var vkontakte = document.getElementById("vkontakte_" + thread_id);
-        var facebook = document.getElementById("facebook_" + thread_id);
-
-        like_button.disabled = true;
-        fire_button.disabled = true;
-        reply_message.disabled = true;
-        reply_button.disabled = true;
-
-        var moderated_action = function() {
-          alert('<?= _("This thread was moderated, so you cannot share it anymore. Refresh page to get deleted threads gone forever.") ?>');
-          return false;
-        };
-        twitter.onclick = moderated_action;
-        vkontakte.onclick = moderated_action;
-        facebook.onclick = moderated_action;
-        <?php if ($admin): ?>
-          var remove_button = document.getElementById("remove_button_" + thread_id);
-          var reset_button = document.getElementById("reset_button_" + thread_id);
-          remove_button.disabled = true;
-          reset_button.disabled = true;
-        <?php endif; ?>
+      var current = parseInt(karma_counter.innerHTML);
+      var target = parseInt(karma);
+      if (current < target) current++;
+      if (current > target) current--;
+      if (current === 0) {
+        karma_counter.className = "label label-default";
+      } else if (current > 0) {
+        karma_counter.className = "label label-info";
       } else {
-        var current = parseInt(karma_counter.innerHTML);
-        var target = parseInt(karma);
-        if (current < target) current++;
-        if (current > target) current--;
-        if (current === 0) {
-          karma_counter.className = "label label-default";
-        } else if (current > 0) {
-          karma_counter.className = "label label-info";
-        } else {
-          karma_counter.className = "label label-warning";
-        }
-        karma_counter.innerHTML = current.toString();
-        if (current !== target) setTimeout(function(){
-          update_karma(thread_id, karma);
-        }, 100);
+        karma_counter.className = "label label-warning";
       }
+      karma_counter.innerHTML = current.toString();
+      if (current !== target) setTimeout(function(){
+        update_karma(thread_id, karma);
+      }, 100);
     }
   }
   
@@ -369,6 +371,70 @@
     thread_button.className = thread_class.replace('active', '');
     kiosk_button.className = kiosk_class.replace('active', '');
     active_button.className = active_class.replace('active', '') + ' active';
+  }
+  
+  function disable_thread(thread_id, type) {
+    var counter;
+    var icon;
+    var lock_reply;
+    if(type === '<?=Type::TYPE_THREAD?>') {
+      var like_button = document.getElementById("like_button_" + thread_id);
+      var fire_button = document.getElementById("fire_button_" + thread_id);
+      like_button.disabled = true;
+      fire_button.disabled = true;
+      
+      counter = document.getElementById('karma_counter_' + thread_id);
+      icon = "icon-fire";
+      
+      lock_reply = true;
+    } else if(type === '<?=Type::TYPE_KIOSK?>') {
+      counter = document.getElementById('polls_counter_' + thread_id);
+      icon = "icon-lock";
+      
+      var enter_button = document.getElementById('enter_' + thread_id);
+      if(enter_button) {
+        enter_button.disabled = true;
+      }
+      
+      var thread_direct = document.getElementById('direct_' + thread_id);
+      if(thread_direct) {
+        lock_reply = true;
+      } else {
+        lock_reply = false;
+      }
+    }
+    
+    if (counter) {
+      counter.className = "label label-danger";
+      counter.innerHTML = '<span class="' + icon + '"></span>';
+    }
+
+    if(lock_reply) {
+      var reply_message = document.getElementById("reply_message_" + thread_id);
+      var reply_button = document.getElementById("reply_button_" + thread_id);
+      reply_message.disabled = true;
+      reply_button.disabled = true;
+    }
+
+    var twitter = document.getElementById("twitter_" + thread_id);
+    var vkontakte = document.getElementById("vkontakte_" + thread_id);
+    var facebook = document.getElementById("facebook_" + thread_id);
+
+    var moderated_action = function() {
+      alert('<?= _("This thread was moderated, so you cannot share it anymore. Refresh page to get deleted threads gone forever.") ?>');
+      return false;
+    };
+    twitter.onclick = moderated_action;
+    vkontakte.onclick = moderated_action;
+    facebook.onclick = moderated_action;
+    <?php if ($admin): ?>
+      var remove_button = document.getElementById("remove_button_" + thread_id);
+      remove_button.disabled = true;
+      if(type === '<?=Type::TYPE_THREAD?>') {
+        var reset_button = document.getElementById("reset_button_" + thread_id);
+        reset_button.disabled = true;
+      }
+    <?php endif; ?>
   }
 
   function prepare_reply(thread_id, reply_id, message) {

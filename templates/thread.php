@@ -1,6 +1,11 @@
 <div class="panel panel-default">
 <div class="panel-heading">
 
+<div class="hide" id="type_<?=$thread_id?>"><?=$type?></div>
+<?php if($thread_direct): ?>
+<div class="hide" id="direct_<?=$thread_id?>">true</div>
+<?php endif; ?>
+  
 <?php if (!empty($name)): ?>
   <strong><span class="icon-user"></span>&nbsp;<?=$name?></strong><br/>
 <?php endif; ?>
@@ -71,7 +76,7 @@
   <span class="badge" id="polls_counter_<?=$thread_id?>"><?=$polls?></span>&nbsp;<span class="icon-male"></span>
 </p>
 <div style="margin-top: 15px; text-align: right;">
-  <a href="<?=$direct_link?>" type="button" class="btn btn-success">Войти &rarr;</a>
+  <button onclick="location.href='<?=$direct_link?>'" class="btn btn-success" id="enter_<?=$thread_id?>"><?=_("Enter")?> &rarr;</button>
 </div>
 <?php endif; ?>
 </div>
