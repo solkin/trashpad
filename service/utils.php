@@ -50,25 +50,26 @@ function get_thread($link, $include_reply, $thread_id) {
   return list_threads($link, $result, $include_reply);
 }
 
-function get_thread_list($link, $include_reply, $threads_count = 0, $thread_from = 0, $rated = false) {
+function get_thread_list($link, $include_reply, $threads_count = 0, 
+        $thread_from = 0, $rated = false, $threads_select = "*", $reply_select = "*") {
   if ($rated == true) {
     $order = 'karma';
   } else {
     $order = 'id';
   }
   $limit = $threads_count > 0 ? " ORDER BY " . $order . " DESC LIMIT " . $thread_from . ", " . $threads_count : "";
-  $sql = "SELECT * FROM threads" . $limit;
+  $sql = "SELECT " . $threads_select . " FROM threads" . $limit;
   $result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
-  return list_threads($link, $result, $include_reply);
+  return list_threads($link, $result, $include_reply, $reply_select);
 }
 
-function list_threads($link, $result, $include_reply) {
+function list_threads($link, $result, $include_reply, $reply_select = "*") {
   $threads_count = 0;
   $threads = array();
   while ($row = mysqli_fetch_array($result, MYSQLI_ASSOC)) {
     if ($include_reply) {
-      $sql = "SELECT * FROM reply WHERE thread_id='" . $row['thread_id'] . "' AND type!=-1";
+      $sql = "SELECT " . $reply_select . " FROM reply WHERE thread_id='" . $row['thread_id'] . "' AND type!=-1";
       $reply_result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
       $count = 0;
