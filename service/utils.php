@@ -57,8 +57,17 @@ function get_thread_list($link, $include_reply, $threads_count = 0,
   } else {
     $order = 'id';
   }
-  $limit = $threads_count > 0 ? " ORDER BY " . $order . " DESC LIMIT " . $thread_from . ", " . $threads_count : "";
-  $sql = "SELECT " . $threads_select . " FROM threads" . $limit;
+  // $thread_from may by position or thread_id.
+  if(is_numeric($thread_from)) {
+    $limit = $threads_count > 0 ? " ORDER BY " . $order . " DESC LIMIT " . $thread_from . ", " . $threads_count : "";
+    $sql = "SELECT " . $threads_select . " FROM threads" . $limit;
+  } else {
+	$sql = "SELECT * FROM threads WHERE thread_id='" . $thread_from . "'";
+    $result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
+    $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
+    $thread_from = $row['id'];
+	$sql = "SELECT " . $threads_select . " FROM threads WHERE id" . ($threads_count > 0 ? "<=" : ">=") . $thread_from . " ORDER BY " . $order . " DESC LIMIT " . abs($threads_count);
+  }
   $result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
   return list_threads($link, $result, $include_reply, $reply_select);

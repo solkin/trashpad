@@ -5,7 +5,7 @@ include_once 'connect_db.php';
 include_once 'utils.php';
 
 $time = get_time_millis();
-$from = intval(encode($_GET['from']));
+$from = encode($_GET['from']);
 $count = intval(encode($_GET['count']));
 $rated = encode($_GET['rated']) === 'true';
 $reply = encode($_GET['reply']) === 'true';
