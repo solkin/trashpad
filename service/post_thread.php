@@ -29,6 +29,9 @@ if (mysqli_num_rows($result) > 0) {
   if($message_length > $thread_length) {
     mysqli_close($link);
     die('{"status": "failed", "reason": "message too long (' . $message_length . ') - maximum thread length is ' . $thread_length . ' chars"}');
+  } else if($message_length < $min_thread_length) {
+    mysqli_close($link);
+    die('{"status": "failed", "reason": "message too small (' . $message_length . ') - minimum thread length is ' . $min_thread_length . ' chars"}');
   } else {
     $sql = "INSERT INTO threads (time, name, feedback, ip, user_agent, thread_id, message, type) " .
             "VALUES ('$time', '$name', '$feedback', '$ip', '$user_agent', '$thread_id', '$message', '$type')";

@@ -15,6 +15,9 @@ $message_length = mb_strlen($_POST['message'], "UTF-8");
 if($message_length > $reply_length) {
   mysqli_close($link);
   die('{"status": "failed", "reason": "message too long (' . $message_length . ') - maximum reply length is ' . $reply_length . ' chars"}');
+} else if($message_length < $min_reply_length) {
+  mysqli_close($link);
+  die('{"status": "failed", "reason": "message too small (' . $message_length . ') - minimum reply length is ' . $min_reply_length . ' chars"}');
 } else {
   $sql = "INSERT INTO reply (reply_id, time, ip, user_agent, thread_id, message) " .
           "VALUES ('$reply_id', '$time', '$ip', '$user_agent', '$thread_id', '$message')";

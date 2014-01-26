@@ -18,4 +18,6 @@ $service = $ini_array['service'];
 $events_poll_time = $service['events_poll_time'];
 $fetch_events_timeout = $service['fetch_events_timeout'];
 $thread_length = $service['thread_length'];
+$min_thread_length = $service['min_thread_length'];
 $reply_length = $service['reply_length'];
+$min_reply_length = $service['min_reply_length'];
