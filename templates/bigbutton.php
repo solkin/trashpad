@@ -6,11 +6,11 @@
     <form class="form-inline" action="./random.php" method="post">
     <button class="btn btn-lg btn-info btn-block" type="submit" id="big_green_button"> <?= _("One more random") ?> </button>
     </form>
-  <? elseif ($thread_id || empty($threads_list)): ?>
+  <?php elseif ($thread_id || empty($threads_list)): ?>
     <form class="form-inline" action="./" method="post">
     <button class="btn btn-lg btn-success btn-block" type="submit" id="big_green_button"><?= _("To other threads") ?></button>
     </form>
-  <? endif; ?>
+  <?php endif; ?>
   </div>
   </div>
-<? endif; ?>
+<?php endif; ?>
