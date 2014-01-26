@@ -66,7 +66,7 @@ function get_thread_list($link, $include_reply, $threads_count = 0,
     $result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
     $thread_from = $row['id'];
-	$sql = "SELECT " . $threads_select . " FROM threads WHERE id" . ($threads_count > 0 ? "<=" : ">=") . $thread_from . " ORDER BY " . $order . " DESC LIMIT " . abs($threads_count);
+	$sql = "SELECT " . $threads_select . " FROM threads WHERE id" . ($threads_count > 0 ? "<" : ">") . $thread_from . " ORDER BY " . $order . " DESC LIMIT " . abs($threads_count);
   }
   $result = mysqli_query($link, $sql) or die('{"status": "failed", "reason": ' . json_encode(mysqli_error($link)) . '}');
 
