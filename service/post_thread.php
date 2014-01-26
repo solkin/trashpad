@@ -42,4 +42,4 @@ if (mysqli_num_rows($result) > 0) {
 
 mysqli_close($link);
 
-echo '{"status": "ok", "thread_id": "' . $thread_id . '", "user_agent": ' . json_encode($user_agent) . ', "time": "' . $time . '"}';
+echo '{"status": "ok", "name": ' . json_encode($name) . ', "feedback": ' . json_encode($feedback) . ', "message": ' . json_encode($message) . ', "type": "' . $type . '", "thread_id": "' . $thread_id . '", "user_agent": ' . json_encode($user_agent) . ', "time": "' . $time . '"}';

@@ -120,6 +120,7 @@
         url: './service/post_thread.php',
         data: {'name': name.value, 'feedback': feedback.value, 'message': message.value, 'type': type},
         success: function(data) {
+          console.log("data: " + JSON.stringify(data));
           var status = data['status'];
           if (status === 'ok') {
             var thread_id = data['thread_id'];
@@ -166,6 +167,7 @@
         url: './service/post_reply.php',
         data: {'thread_id': thread_id.value, 'message': message_text},
         success: function(data) {
+          console.log("data: " + JSON.stringify(data));
           var status = data['status'];
           if (status === 'ok') {
             display_reply(prepare_reply(data['thread_id'], data['reply_id'], message_text.escape()));
