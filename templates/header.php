@@ -9,10 +9,11 @@
     <meta name="description" content="TrashPad">
     <meta name="author" content="TomClaw Software">
     <meta name="application-name" content="TrashPad"/>
-    <meta name="msapplication-TileColor" content="#bababa"/>
+    <meta name="msapplication-TileColor" content="#a0a0a0"/>
     <meta name="msapplication-square70x70logo" content="tiny.png"/>
     <meta name="msapplication-square150x150logo" content="square.png"/>
     <meta name="msapplication-wide310x150logo" content="wide.png"/>
+    <meta name="msapplication-square310x310logo" content="large.png"/>
     <meta name="msapplication-notification" content="frequency=30;polling-uri=msfeeds.php?id=0;polling-uri2=msfeeds.php?id=1;polling-uri3=msfeeds.php?id=2;polling-uri4=msfeeds.php?id=3;polling-uri5=msfeeds.php?id=4; cycle=1"/>
     
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
