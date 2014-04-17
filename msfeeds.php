@@ -61,7 +61,7 @@
   echo "  <binding template=\"TileSquare150x150Text04\" branding=\"logo\" fallback=\"TileSquareImage\" contentId=\"" . $direct_link . "\">\n";
   echo "    <text id=\"1\">" . $message . "</text>\n";
   echo "  </binding>\n";
-  echo "  <binding template=\"TileWide310x150ImageAndText01\" branding=\"logo\" fallback=\"TileWideImage\" contentId=\"" . $direct_link . "\">\n";
+  echo "  <binding template=\"TileWide310x150Text04\" branding=\"logo\" fallback=\"TileWideImage\" contentId=\"" . $direct_link . "\">\n";
   echo "    <text id=\"1\">" . $message . "</text>\n";
   echo "  </binding>\n";
   echo "</visual>\n";
