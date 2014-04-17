@@ -1,7 +1,5 @@
 <?php
-  include_once 'settings.php';
-  include_once 'connect_db.php';
-  include_once 'utils.php';
+  require_once './include/initializer.php';
 
   // This will be first page.
   $page_id = 1;
