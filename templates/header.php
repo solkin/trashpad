@@ -9,7 +9,7 @@
     <meta name="description" content="TrashPad">
     <meta name="author" content="TomClaw Software">
     <meta name="application-name" content="TrashPad"/>
-    <meta name="msapplication-TileColor" content="#555555"/>
+    <meta name="msapplication-TileColor" content="#333333"/>
     <meta name="msapplication-square70x70logo" content="tiny.png"/>
     <meta name="msapplication-square150x150logo" content="square.png"/>
     <meta name="msapplication-wide310x150logo" content="wide.png"/>
