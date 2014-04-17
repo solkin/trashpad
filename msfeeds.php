@@ -55,4 +55,14 @@
   $os = get_os_by_ua($user_agent);
   $browser = get_browser_by_ua($user_agent);
 
-  include('./templates/msfeed.php');
+  echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
+  echo "<tile>\n";
+  echo "<visual lang=\"ru-RU\" version=\"2\">\n";
+  echo "  <binding template=\"TileSquare150x150Text04\" branding=\"logo\" fallback=\"TileSquareImage\" contentId=\"" . $direct_link . "\">\n";
+  echo "    <text id=\"1\">" . $message . "</text>\n";
+  echo "  </binding>\n";
+  echo "  <binding template=\"TileWide310x150ImageAndText01\" branding=\"logo\" fallback=\"TileWideImage\" contentId=\"" . $direct_link . "\">\n";
+  echo "    <text id=\"1\">" . $message . "</text>\n";
+  echo "  </binding>\n";
+  echo "</visual>\n";
+  echo "</tile>";
