@@ -1,2 +1,2 @@
 <?php
-  echo "<badge value=\"newMessage\"/>"
+  echo "<badge value=\"newMessage\"/>";
