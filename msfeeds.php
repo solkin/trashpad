@@ -57,4 +57,4 @@
   $os = get_os_by_ua($user_agent);
   $browser = get_browser_by_ua($user_agent);
 
-  include('../templates/msfeed.php');
+  include('./templates/msfeed.php');
