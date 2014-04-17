@@ -470,4 +470,6 @@
   }
 
   setTimeout("fetch_events(false)", 2000);
+  window.external.msSiteModeClearBadge();
+  window.external.msSiteModeRefreshBadge();
 </script>
