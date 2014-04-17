@@ -5,7 +5,7 @@
   $page_id = 1;
   
   // Thread index is id parameter from GET.
-  $index = $_GET['id'];
+  $index = encode($_GET['id']);
   
   $thread_from = ($page_id - 1) * $threads_per_page;
   $threads_list = get_thread_list($link, true, $threads_per_page, $thread_from, $rated);
